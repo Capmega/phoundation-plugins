@@ -82,8 +82,10 @@ class JavaScriptCopy extends Script
             }';
         }
 
+        self::$rendered = true;
+
         $this->content .= 'document.querySelector("' . $this->selector . '").addEventListener("' . $this->browser_event->name . '", function(event) {
-              copyTextToClipboard(document.querySelector("' . $this->target . '").textContent);
+             copyTextToClipboard(document.querySelector("' . $this->target . '").textContent);
             });';
 
         return parent::render();
