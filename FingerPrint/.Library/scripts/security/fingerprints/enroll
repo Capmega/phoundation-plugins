@@ -1,0 +1,51 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+use Phoundation\Accounts\Users\User;
+use Phoundation\Accounts\Users\Users;
+use Phoundation\Cli\Documentation;
+use Phoundation\Data\Validator\ArgvValidator;
+use Plugins\FingerPrint\FingerPrint;
+
+
+/**
+ * Script security/fingerprints/enroll
+ *
+ * This script will enroll a new fingerprint in the database.
+ *
+ * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
+ * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @package Phoundation\Scripts
+ */
+Documentation::usage('./pho security fingerprints enroll -u EMAIL');
+
+Documentation::help('This script will enroll a new fingerprint in the database. The user which will have his / her 
+fingerprints enrolled in the database must already exist
+
+
+ARGUMENTS
+
+
+-u / --user EMAIL                       The user who\'s fingerprints will be enrolled in the database');
+
+Documentation::autoComplete([
+    'arguments' => [
+        '-u,--user' => [
+            'word'   => function ($word) { return Users::new()->getMatchingKeys($word); },
+            'noword' => function ()      { return Users::new()->load(); },
+        ],
+    ]
+]);
+
+
+// Validate arguments
+$argv = ArgvValidator::new()
+    ->select('-u,--user', true)->isDbId()
+    ->validate();
+
+$user = User::get($argv['user'], 'id');
+
+FingerPrint::new()->enroll($user);
