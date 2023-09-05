@@ -2,7 +2,7 @@
 
 namespace Plugins\Statistics;
 
-use Phoundation\Cli\Script;
+use Phoundation\Cli\CliCommand;
 use Phoundation\Core\Arrays;
 use Phoundation\Core\Config;
 use Phoundation\Core\Exception\ConfigurationDoesNotExistsException;
@@ -324,7 +324,7 @@ class Statistics
                 }
 
                 $count++;
-                Script::dot(1, '');
+                CliCommand::dot(1, '');
 
             } catch (Throwable $e) {
                 $e = StatisticsException::new(tr('Failed to push entry ":id" to the statistics server', [
