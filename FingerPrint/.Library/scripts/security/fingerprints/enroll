@@ -31,21 +31,21 @@ ARGUMENTS
 
 -u / --user EMAIL                       The user who\'s fingerprints will be enrolled in the database');
 
-Documentation::autoComplete([
-    'arguments' => [
-        '-u,--user' => [
-            'word'   => function ($word) { return Users::new()->getMatchingKeys($word); },
-            'noword' => function ()      { return Users::new()->load(); },
-        ],
-    ]
-]);
+Documentation::autoComplete(User::getAutoComplete([
+    'positions' => [
+        0 => [
+            'word'   => 'SELECT `email` FROM `accounts_users` WHERE `email` LIKE :word AND `status` IS NULL',
+            'noword' => 'SELECT `email` FROM `accounts_users` WHERE `status` IS NULL'
+        ]
+    ],
+]));
 
 
 // Validate arguments
 $argv = ArgvValidator::new()
-    ->select('-u,--user', true)->isDbId()
+    ->select('-u,--user', true)->isEmail()
     ->validate();
 
-$user = User::get($argv['user'], 'id');
+$user = User::get($argv['user'], 'email');
 
 FingerPrint::new()->enroll($user);

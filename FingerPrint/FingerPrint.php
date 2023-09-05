@@ -63,19 +63,21 @@ class FingerPrint extends DataEntry
 
 
     /**
-     * Deletes finger prints for the specified user
+     * Deletes fingerprints for the specified user
      *
-     * @param UserInterface $user
-     * @return int The amount of removed fingerprints
+     * @param string|null $comments
+     * @return FingerPrint The amount of removed fingerprints
      */
-    public static function delete(UserInterface $user): int
+    public function delete(?string $comments = null): static
     {
-        return 0;
+        // TODO Remove the fingerprint from fprint
+
+        return parent::delete($comments);
     }
 
 
     /**
-     * Lists the available finger prints for the specified user
+     * Lists the available fingerprints for the specified user
      *
      * @param UserInterface $user
      * @return FingerPrintsInterface
