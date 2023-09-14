@@ -3,6 +3,7 @@
 namespace Plugins\Avatars;
 
 use Phoundation\Accounts\Interfaces\UserInterface;
+use Phoundation\Accounts\Users\Interfaces\UserInterface;
 use Phoundation\Content\Images\Image;
 use Phoundation\Content\Images\Interfaces\ImageInterface;
 use Phoundation\Core\Config;
