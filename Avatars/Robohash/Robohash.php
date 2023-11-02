@@ -5,7 +5,7 @@ namespace Plugins\Avatars\Robohash;
 use Phoundation\Accounts\Users\Interfaces\UserInterface;
 use Phoundation\Content\Images\Image;
 use Phoundation\Content\Images\Interfaces\ImageInterface;
-use Phoundation\Filesystem\Path;
+use Phoundation\Filesystem\Directory;
 use Phoundation\Filesystem\Restrictions;
 use Phoundation\Web\Http\File;
 
@@ -34,7 +34,7 @@ class Robohash
         $path         = PATH_DATA . 'content/cdn/en/img/profiles/' . $user->getLogId();
 
         $picture      = File::new($restrictions)->download('https://robohash.org/' . $user->getDisplayName(), function ($file) use ($restrictions, $user, $path) {
-            $path    = Path::new($path, $restrictions)->ensure();
+            $path    = Directory::new($path, $restrictions)->ensure();
             $picture = Image::new($path . 'profile.png');
 
             rename($file, $picture);
