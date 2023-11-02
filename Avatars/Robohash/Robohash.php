@@ -30,12 +30,12 @@ class Robohash
      */
     public static function generate(UserInterface $user): ImageInterface
     {
-        $restrictions = Restrictions::new(PATH_DATA, true);
-        $path         = PATH_DATA . 'content/cdn/en/img/profiles/' . $user->getLogId();
+        $restrictions = Restrictions::new(DIRECTORY_DATA, true);
+        $directory         = DIRECTORY_DATA . 'content/cdn/en/img/profiles/' . $user->getLogId();
 
-        $picture      = File::new($restrictions)->download('https://robohash.org/' . $user->getDisplayName(), function ($file) use ($restrictions, $user, $path) {
-            $path    = Directory::new($path, $restrictions)->ensure();
-            $picture = Image::new($path . 'profile.png');
+        $picture      = File::new($restrictions)->download('https://robohash.org/' . $user->getDisplayName(), function ($file) use ($restrictions, $user, $directory) {
+            $directory    = Directory::new($directory, $restrictions)->ensure();
+            $picture = Image::new($directory . 'profile.png');
 
             rename($file, $picture);
             $user->setPicture($picture);
