@@ -3,8 +3,8 @@
 namespace Plugins\Statistics;
 
 use Phoundation\Cli\CliCommand;
-use Phoundation\Core\Arrays;
-use Phoundation\Core\Config;
+use Phoundation\Utils\Arrays;
+use Phoundation\Utils\Config;
 use Phoundation\Core\Exception\ConfigurationDoesNotExistsException;
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\Validate;
@@ -128,100 +128,100 @@ class Statistics
     /**
      * Returns the path adjusted for project and environment so that these two are always separated
      *
-     * @param string $directory
+     * @param string $path
      * @return string
      */
-    protected function getPath(string $directory): string
+    protected function getPath(string $path): string
     {
-        return PROJECT . '.' . ENVIRONMENT . '.' . $directory;
+        return PROJECT . '.' . ENVIRONMENT . '.' . $path;
     }
 
 
     /**
      * Adds the specified value/path/timestamp for the specified server
      *
-     * @param string $directory The path that should have its value increased
-     * @param float|int|null $value The amount to increment the current value of $directory with
+     * @param float|int|null $value The amount to increment the current value of $path with
+     * @param string $path The path that should have its value increased
      * @param int|null $timestamp The timestamp to which this increase should be applied
      * @return static
      */
-    public function add(string $directory, float|int|null $value, ?int $timestamp = null): static
+    public function add(float|int|null $value, string $path, ?int $timestamp = null): static
     {
-        return $this->queue($directory, $value, $timestamp, 'value=value+' . $value);
+        return $this->queue($path, $value, $timestamp, 'value=value+' . $value);
     }
 
 
     /**
-     * Log to queue, decrease the value of the specified $directory by the specified $value
+     * Log to queue, decrease the value of the specified $path by the specified $value
      *
-     * @param string $directory
      * @param float|int|null $value
+     * @param string $path
      * @param int|null $timestamp
      * @return static
      */
-    public function substract(string $directory, float|int|null $value, ?int $timestamp = null): static
+    public function substract(float|int|null $value, string $path, ?int $timestamp = null): static
     {
-        return $this->queue($directory, -$value, $timestamp, 'value=value-' . $value);
+        return $this->queue($path, -$value, $timestamp, 'value=value-' . $value);
     }
 
 
     /**
      * Increases the specified path for the timestamp by 1
      *
-     * @param string $directory The path that should have its value increased
+     * @param string $path The path that should have its value increased
      * @param int|null $timestamp The timestamp to which this increase should be applied
      * @return static
      */
-    public function increase(string $directory, ?int $timestamp = null): static
+    public function increase(string $path, ?int $timestamp = null): static
     {
-        return $this->add($directory, 1, $timestamp);
+        return $this->add($path, 1, $timestamp);
     }
 
 
     /**
      * Decreases the specified path for the timestamp by 1
      *
-     * @param string $directory The path that should have its value increased
+     * @param string $path The path that should have its value increased
      * @param int|null $timestamp The timestamp to which this increase should be applied
      * @return static
      */
-    public function decrease(string $directory, ?int $timestamp = null): static
+    public function decrease(string $path, ?int $timestamp = null): static
     {
-        return $this->substract($directory, 1, $timestamp);
+        return $this->substract($path, 1, $timestamp);
     }
 
 
     /**
      * Set the value for the specified path to the specified value
      *
-     * @param string $directory
      * @param float|int|null $value
+     * @param string $path
      * @param int|null $timestamp
      * @param bool $flush
      * @return Statistics
      */
-    public function set(string $directory, float|int|null $value, ?int $timestamp = null, bool $flush = false): static
+    public function set(float|int|null $value, string $path, ?int $timestamp = null, bool $flush = false): static
     {
         if ($flush) {
-            return $this->push($directory, $value, $timestamp);
+            return $this->push($value, $path, $timestamp);
         }
 
-        return $this->queue($directory, $value, $timestamp, 'value=' . $value);
+        return $this->queue($value, $path, $timestamp, 'value=' . $value);
     }
 
 
     /**
      * Send statistics directly to statistics server, bypassing the queue
      *
-     * @param string $directory
      * @param float|int|null $value
+     * @param string $path
      * @param int|null $timestamp
      * @return Statistics
      */
-    protected function push(string $directory, float|int|null $value, ?int $timestamp = null): static
+    protected function push(float|int|null $value, string $path, int $timestamp = null): static
     {
         $this->connect();
-        fwrite(static::$socket[$this->server], str_replace(' ', '-', $directory) . " " . ($value ?? 0) . " " . $this->getTimestamp($timestamp) . "\n");
+        fwrite(static::$socket[$this->server], str_replace(' ', '-', $path) . " " . ($value ?? 0) . " " . $this->getTimestamp($timestamp) . "\n");
 
         return $this;
     }
@@ -230,18 +230,18 @@ class Statistics
     /**
      * Add data to the stats table
      *
-     * @param string $directory
      * @param float|int|null $value
+     * @param string $path
      * @param int|null $timestamp
      * @param array|string|null $update
      * @return static
      */
-    protected function queue(string $directory, float|int|null $value, ?int $timestamp = null, array|string|null $update = null): static
+    protected function queue(float|int|null $value, string $path, ?int $timestamp = null, array|string|null $update = null): static
     {
         sql()->insert('statistics_queue', [
             'server'    => $this->server,
             'timestamp' => $this->getTimestamp($timestamp),
-            'path'      => $this->getPath($directory),
+            'path'      => $this->getPath($path),
             'value'     => $value ?? 0,
         ], $update);
 
