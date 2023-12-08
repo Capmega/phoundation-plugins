@@ -5,9 +5,9 @@ namespace Plugins\JavaScriptCopy;
 use Phoundation\Data\Traits\DataBrowserEvent;
 use Phoundation\Data\Traits\DataSelector;
 use Phoundation\Data\Traits\DataTarget;
-use Phoundation\Web\Html\Components\Script;
-use Phoundation\Web\Html\Enums\BrowserEvent;
-use Phoundation\Web\Html\Traits\Rendered;
+use Phoundation\Web\Http\Html\Components\Script;
+use Phoundation\Web\Http\Html\Enums\BrowserEvent;
+use Phoundation\Web\Http\Html\Traits\Rendered;
 
 
 /**
