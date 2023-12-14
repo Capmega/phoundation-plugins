@@ -4,8 +4,7 @@
 declare(strict_types=1);
 
 use Phoundation\Accounts\Users\User;
-use Phoundation\Accounts\Users\Users;
-use Phoundation\Cli\Documentation;
+use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
 use Plugins\FingerPrint\FingerPrint;
 
@@ -20,9 +19,9 @@ use Plugins\FingerPrint\FingerPrint;
  * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Phoundation\Scripts
  */
-Documentation::usage('./pho security fingerprints enroll -u EMAIL');
+CliDocumentation::usage('./pho security fingerprints enroll -u EMAIL');
 
-Documentation::help('This script will enroll a new fingerprint in the database. The user which will have his / her 
+CliDocumentation::help('This script will enroll a new fingerprint in the database. The user which will have his / her 
 fingerprints enrolled in the database must already exist
 
 
@@ -31,9 +30,9 @@ ARGUMENTS
 
 -u / --user EMAIL                       The user who\'s fingerprints will be enrolled in the database');
 
-Documentation::autoComplete(User::getAutoComplete([
-    'positions' => [
-        0 => [
+CliDocumentation::autoComplete(User::getAutoComplete([
+    'arguments' => [
+        '-u,--user' => [
             'word'   => 'SELECT `email` FROM `accounts_users` WHERE `email` LIKE :word AND `status` IS NULL',
             'noword' => 'SELECT `email` FROM `accounts_users` WHERE `status` IS NULL'
         ]
@@ -46,6 +45,8 @@ $argv = ArgvValidator::new()
     ->select('-u,--user', true)->isEmail()
     ->validate();
 
+
+// Set fingerprint for this user
 $user = User::get($argv['user'], 'email');
 
 FingerPrint::new()->enroll($user);
