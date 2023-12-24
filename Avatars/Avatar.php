@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Avatars;
 
 use Phoundation\Accounts\Interfaces\UserInterface;

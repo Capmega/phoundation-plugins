@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Hardware\Devices;
 
 class Devices extends \Phoundation\Data\DataEntry\DataList

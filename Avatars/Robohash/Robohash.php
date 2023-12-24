@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Avatars\Robohash;
 
 use Phoundation\Accounts\Users\Interfaces\UserInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Hardware\Devices;
 
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\FingerPrint\Interfaces;
 
 use Phoundation\Data\DataEntry\DataList;

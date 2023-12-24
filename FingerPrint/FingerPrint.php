@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\FingerPrint;
 
 use Phoundation\Accounts\Users\Interfaces\UserInterface;
