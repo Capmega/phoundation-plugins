@@ -326,7 +326,7 @@ class Statistics
                 }
 
                 $count++;
-                CliCommand::dot(1, '');
+                Log::dot(1, '');
 
             } catch (Throwable $e) {
                 $e = StatisticsException::new(tr('Failed to push entry ":id" to the statistics server', [
