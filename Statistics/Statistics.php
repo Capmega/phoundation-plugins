@@ -7,7 +7,7 @@ namespace Plugins\Statistics;
 use Phoundation\Cli\CliCommand;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Config;
-use Phoundation\Core\Exception\ConfigurationDoesNotExistsException;
+use Phoundation\Core\Exception\ConfigPathDoesNotExistsException;
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\Validate;
 use Phoundation\Date\DateTime;
@@ -370,7 +370,7 @@ class Statistics
             if (empty(static::$config[$server])) {
                 try {
                     static::$config[$server] = Config::getArray('statistics.servers.' . $server);
-                } catch (ConfigurationDoesNotExistsException $e) {
+                } catch (ConfigPathDoesNotExistsException $e) {
                     // If default configuration ignore. Other configurations must exist
                     if ($server !== 'default') {
                         throw $e;
@@ -388,7 +388,7 @@ class Statistics
             Validate::new(static::$config[$server]['port'])->isPort();
             Validate::new(static::$config[$server]['engine'])->isInArray(['grafana']);
 
-        } catch (ConfigurationDoesNotExistsException $e) {
+        } catch (ConfigPathDoesNotExistsException $e) {
             throw new StatisticsException(tr('The specified statistics server ":server" has no configuration', [
                 ':server' => $server
             ]), $e);

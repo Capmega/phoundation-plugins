@@ -3,7 +3,7 @@
 
 declare(strict_types=1);
 
-use Phoundation\Cli\CliDocumentation;use Phoundation\Core\Exception\ConfigurationDoesNotExistsException;use Phoundation\Core\Log\Log;use Phoundation\Data\Validator\ArgvValidator;use Phoundation\Databases\Exception\ExportException;use Phoundation\Exception\UnderConstructionException;use Phoundation\Filesystem\Directory;use Phoundation\Filesystem\File;use Phoundation\Filesystem\Restrictions;use Phoundation\Os\Processes\Commands\Databases\MysqlDump;use Phoundation\Utils\Config;
+use Phoundation\Cli\CliDocumentation;use Phoundation\Core\Exception\ConfigPathDoesNotExistsException;use Phoundation\Core\Log\Log;use Phoundation\Data\Validator\ArgvValidator;use Phoundation\Databases\Exception\ExportException;use Phoundation\Exception\UnderConstructionException;use Phoundation\Filesystem\Directory;use Phoundation\Filesystem\File;use Phoundation\Filesystem\Restrictions;use Phoundation\Os\Processes\Commands\Databases\MysqlDump;use Phoundation\Utils\Config;
 
 
 /**
@@ -59,7 +59,7 @@ File::new($file, $restrictions)->checkWritable();
 try {
     $database = Config::getArray('databases.sql.instances.' . $argv['database']);
 
-} catch (ConfigurationDoesNotExistsException $e) {
+} catch (ConfigPathDoesNotExistsException $e) {
     // No configuration available for specified databse
     throw ExportException::new(tr('Specified database ":database" is not configured', [
         ':database' => $argv['database']
@@ -98,7 +98,7 @@ Log::success(tr('Finished exporting core database ":database" to dump file ":fil
         try {
             $database = Config::getArray('databases.sql.instances.' . $argv['database']);
 
-        } catch (ConfigurationDoesNotExistsException $e) {
+        } catch (ConfigPathDoesNotExistsException $e) {
             // No configuration available for specified databse
             throw ExportException::new(tr('Specified database ":database" is not configured', [
                 ':database' => $argv['database']
