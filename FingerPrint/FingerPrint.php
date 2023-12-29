@@ -68,7 +68,7 @@ class FingerPrint extends DataEntry
      * Deletes fingerprints for the specified user
      *
      * @param string|null $comments
-     * @return FingerPrint The amount of removed fingerprints
+     * @return FingerPrint The number of removed fingerprints
      */
     public function delete(?string $comments = null): static
     {

@@ -37,7 +37,7 @@ ARGUMENTS
 
 FILE                                    The file where to write the 
 
-[-p,--passes PASSED]                    The amount of passes to overwrite the key file before deleting it');
+[-p,--passes PASSED]                    The number of passes to overwrite the key file before deleting it');
 
 CliDocumentation::autoComplete([
     'positions' => [

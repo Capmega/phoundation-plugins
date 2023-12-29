@@ -42,7 +42,7 @@ ARGUMENTS
 
 DEVICE                                  The device file to be shredded
 
--p,--passes                             The amount of passes it should make over the disk to completely scramble it');
+-p,--passes                             The number of passes it should make over the disk to completely scramble it');
 
 CliDocumentation::autoComplete([
     'positions' => [
