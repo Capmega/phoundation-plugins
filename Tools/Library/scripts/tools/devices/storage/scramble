@@ -59,7 +59,7 @@ CliDocumentation::autoComplete([
 
 // Validate data
 $argv = ArgvValidator::new()
-    ->select('device')->hasMaxCharacters(64)->isFile('/dev/', new Restrictions('/dev', true))
+    ->select('device')->hasMaxCharacters(64)->isFile('/dev/', Restrictions::writable('/dev'))
     ->select('-p,--passes')->isOptional(3)->isNatural(false)->isBetween(1, 10)
     ->validate();
 

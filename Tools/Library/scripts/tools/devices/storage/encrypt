@@ -65,9 +65,9 @@ CliDocumentation::autoComplete([
 
 // Validate data
 $argv = ArgvValidator::new()
-    ->select('device')->hasMaxCharacters(64)->isFile('/dev/', new Restrictions('/dev', true))->sanitizeCallback(function(mixed $value, array $source) { return '/dev/' . $value; })
+    ->select('device')->hasMaxCharacters(64)->isFile('/dev/', Restrictions::writable('/dev', tr('encrypt script target file')))->sanitizeCallback(function(mixed $value, array $source) { return '/dev/' . $value; })
     ->select('-s,--scramble')->isOptional()->isBoolean()
-    ->select('--key-file', true)->isOptional()->isFile('/', '/')
+    ->select('--key-file', true)->isOptional()->isFile('/', Restrictions::readonly('/', tr('encrypt script key file')))
     ->validate();
 
 
