@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Plugins\FingerPrint;
+namespace Plugins\Backups\Library;
 
 
 /**
  * Updates class
  *
- * This is the Init class for the FingerPrint library
+ * This is the Init class for the Backups library
  *
  * @see \Phoundation\Core\Libraries\Updates
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2023 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Phoundation\Medinet
+ * @package Phoundation\Backups
  */
 class Updates extends \Phoundation\Core\Libraries\Updates
 {
@@ -25,7 +25,7 @@ class Updates extends \Phoundation\Core\Libraries\Updates
      */
     public function version(): string
     {
-        return '0.0.15';
+        return '0.0.14';
     }
 
 
@@ -36,7 +36,7 @@ class Updates extends \Phoundation\Core\Libraries\Updates
      */
     public function description(): string
     {
-        return tr('This library can manage hardware fingerprint readers and enroll and verify finger prints');
+        return tr('This plugin adds backup functionality to your Phoundation project. It can create, restore, copy and move backups');
     }
 
 
@@ -47,12 +47,12 @@ class Updates extends \Phoundation\Core\Libraries\Updates
      */
     public function updates(): void
     {
-        $this->addUpdate('0.0.15', function () {
+        $this->addUpdate('0.0.12', function () {
             // Drop the tables to be sure we have a clean slate
-            sql()->schema()->table('fingerprints')->drop();
+            sql()->schema()->table('plugin_backups')->drop();
 
-            // Create the fingerprints table.
-            sql()->schema()->table('fingerprints')->define()
+            // Create the backups table.
+            sql()->schema()->table('plugin_backups')->define()
                 ->setColumns('
                     `id` bigint NOT NULL AUTO_INCREMENT,
                     `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -60,19 +60,25 @@ class Updates extends \Phoundation\Core\Libraries\Updates
                     `meta_id` bigint NULL DEFAULT NULL,
                     `meta_state` varchar(16) CHARACTER SET latin1 DEFAULT NULL,
                     `status` varchar(16) CHARACTER SET latin1 DEFAULT NULL,
-                    `users_id` bigint DEFAULT NULL,
+                    `size` bigint DEFAULT NULL,
+                    `file` varchar(511) DEFAULT NULL,
+                    `system_files` tinyint(1) NOT NULL DEFAULT 0,
+                    `data_files` tinyint(1) NOT NULL DEFAULT 0,
+                    `database` tinyint(1) NOT NULL DEFAULT 0,
                     `comments` text DEFAULT NULL,
                 ')->setIndices('                
                     PRIMARY KEY (`id`),
-                    KEY `created_on` (`created_on`),
+                    UNIQUE `created_on` (`created_on`),
                     KEY `created_by` (`created_by`),
                     KEY `status` (`status`),
-                    KEY `meta_id` (`meta_id`),
-                    KEY `users_id` (`users_id`),
+                    KEY `size` (`size`),
+                    KEY `file` (`file`),
+                    KEY `system_files` (`system_files`),
+                    KEY `data_files` (`data_files`),
+                    KEY `database` (`database`),
                 ')->setForeignKeys('
-                    CONSTRAINT `fk_fingerprints_created_by` FOREIGN KEY (`created_by`) REFERENCES `accounts_users` (`id`) ON DELETE RESTRICT,
-                    CONSTRAINT `fk_fingerprints_meta_id` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`) ON DELETE CASCADE,
-                    CONSTRAINT `fk_fingerprints_users_id` FOREIGN KEY (`users_id`) REFERENCES `accounts_users` (`id`) ON DELETE RESTRICT,
+                    CONSTRAINT `fk_plugin_backups_created_by` FOREIGN KEY (`created_by`) REFERENCES `accounts_users` (`id`) ON DELETE RESTRICT,
+                    CONSTRAINT `fk_plugin_backups_meta_id` FOREIGN KEY (`meta_id`) REFERENCES `meta` (`id`) ON DELETE CASCADE,
                 ')->create();
         });
     }
