@@ -40,7 +40,7 @@ class FingerPrints extends DataList implements FingerPrintsInterface
     /**
      * @inheritDoc
      */
-    public static function getUniqueField(): ?string
+    public static function getUniqueColumn(): ?string
     {
         return 'users_id';
     }

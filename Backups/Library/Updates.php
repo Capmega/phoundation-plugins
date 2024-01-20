@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Backups;
+namespace Plugins\Backups\Library;
 
 
 /**
@@ -83,5 +83,3 @@ class Updates extends \Phoundation\Core\Libraries\Updates
         });
     }
 }
-
-

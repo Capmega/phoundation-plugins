@@ -34,7 +34,7 @@ class FingerPrint extends DataEntry
     }
 
 
-    public static function getUniqueField(): ?string
+    public static function getUniqueColumn(): ?string
     {
         return 'users_id';
     }

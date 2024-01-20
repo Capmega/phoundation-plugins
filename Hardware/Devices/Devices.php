@@ -26,7 +26,7 @@ class Devices extends \Phoundation\Data\DataEntry\DataList
     /**
      * @inheritDoc
      */
-    public static function getUniqueField(): ?string
+    public static function getUniqueColumn(): ?string
     {
         // TODO: Implement getUniqueField() method.
     }

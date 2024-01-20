@@ -49,7 +49,7 @@ class Backup extends DataEntry
      *
      * @return string|null
      */
-    public static function getUniqueField(): ?string
+    public static function getUniqueColumn(): ?string
     {
         // TODO: Implement getUniqueField() method.
     }
