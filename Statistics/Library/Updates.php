@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Statistics;
+namespace Plugins\Statistics\Library;
 
 
 /**
