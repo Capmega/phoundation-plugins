@@ -4,7 +4,21 @@ declare(strict_types=1);
 
 namespace Plugins\Hardware\Devices;
 
-class Devices extends \Phoundation\Data\DataEntry\DataList
+use Phoundation\Data\DataEntry\DataList;
+use Phoundation\Os\Processes\Commands\ScanImage;
+
+
+/**
+ * Class Devices
+ *
+ *
+ *
+ * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
+ * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @package Plugins\Hardware
+ */
+class Devices extends DataList
 {
 
     /**
@@ -12,7 +26,7 @@ class Devices extends \Phoundation\Data\DataEntry\DataList
      */
     public static function getTable(): string
     {
-        // TODO: Implement getTable() method.
+        return 'hardware_devices';
     }
 
     /**
@@ -20,7 +34,7 @@ class Devices extends \Phoundation\Data\DataEntry\DataList
      */
     public static function getEntryClass(): string
     {
-        // TODO: Implement getEntryClass() method.
+        return Device::class;
     }
 
     /**
@@ -28,6 +42,27 @@ class Devices extends \Phoundation\Data\DataEntry\DataList
      */
     public static function getUniqueColumn(): ?string
     {
-        // TODO: Implement getUniqueField() method.
+        return null;
+    }
+
+
+    /**
+     * Scans for known hardware devices and registers them in the database
+     *
+     * @return $this
+     */
+    public function search(): static
+    {
+        $devices = ScanImage::new()->listDevices();
+
+        foreach ($devices as $device) {
+            if (Device::notExists($device['device'], 'device')) {
+                $this->add(Device::fromSource($device)
+                    ->save()
+                    ->searchOptions());
+            }
+        }
+
+        return $this;
     }
 }
