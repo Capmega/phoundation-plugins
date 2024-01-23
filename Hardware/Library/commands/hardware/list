@@ -3,13 +3,9 @@
 
 declare(strict_types=1);
 
-<<<<<<< HEAD
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Utils\Arrays;
-=======
-use Phoundation\Cli\CliDocumentation;use Phoundation\Core\Exception\ConfigPathDoesNotExistsException;use Phoundation\Core\Log\Log;use Phoundation\Data\Validator\ArgvValidator;use Phoundation\Databases\Exception\ExportException;use Phoundation\Exception\UnderConstructionException;use Phoundation\Filesystem\Directory;use Phoundation\Filesystem\File;use Phoundation\Filesystem\Restrictions;use Phoundation\Os\Processes\Commands\Databases\MysqlDump;use Phoundation\Utils\Arrays;use Phoundation\Utils\Config;use Phoundation\Utils\Utils;
->>>>>>> 9a308cd4ff97bad9270a7a58cbde26a86e80ff63
 use Plugins\Hardware\Devices\Devices;
 
 
@@ -23,10 +19,7 @@ use Plugins\Hardware\Devices\Devices;
  * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Phoundation\Scripts
  */
-<<<<<<< HEAD
 
-=======
->>>>>>> 9a308cd4ff97bad9270a7a58cbde26a86e80ff63
 CliDocumentation::usage('./pho hardware search');
 
 CliDocumentation::help('This command will scan for available hardware devices and register them in the database
@@ -55,13 +48,9 @@ $argv = ArgvValidator::new()
 
 
 // List available devices
-<<<<<<< HEAD
 Devices::new()->load()->displayCliTable([
     'class' => tr('Device class'),
     'name'  => tr('Name'),
     'model' => tr('Model'),
     'url'   => tr('URL')
 ]);
-=======
-Devices::new()->load()->CliDisplayTable();
->>>>>>> 9a308cd4ff97bad9270a7a58cbde26a86e80ff63
