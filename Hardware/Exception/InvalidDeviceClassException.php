@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Plugins\Hardware\Exception;
 
-use Phoundation\Exception\Exception;
-
 
 /**
- * Class HardwareException
+ * Class InvalidDeviceClassException
  *
  *
  *
@@ -17,6 +15,6 @@ use Phoundation\Exception\Exception;
  * @copyright Copyright (c) 2023 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Plugins\Hardware
  */
-class HardwareException extends Exception
+class InvalidDeviceClassException extends HardwareException
 {
 }
