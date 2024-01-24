@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Plugins\Hardware\Devices;
 
+use Phoundation\Core\Log\Log;
 use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\DefinitionFactory;
@@ -25,7 +26,6 @@ use Phoundation\Servers\Traits\DataEntryServer;
 use Phoundation\Web\Html\Enums\InputType;
 use Phoundation\Web\Html\Enums\InputTypeExtended;
 use Plugins\Hardware\Devices\Interfaces\DeviceInterface;
-use Plugins\Hardware\Devices\Interfaces\OptionsInterface;
 use Plugins\Hardware\Devices\Interfaces\ProfilesInterface;
 use Stringable;
 
@@ -59,9 +59,9 @@ class Device extends DataEntry implements DeviceInterface
     /**
      * Device options
      *
-     * @var OptionsInterface $profiles
+     * @var ProfilesInterface $profiles
      */
-    protected OptionsInterface $profiles;
+    protected ProfilesInterface $profiles;
 
 
     /**
@@ -78,7 +78,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public static function getDataEntryName(): string
     {
-        tr('Hardware device');
+        return tr('Hardware device');
     }
 
 
@@ -87,7 +87,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public static function getUniqueColumn(): ?string
     {
-        return null;
+        return 'name';
     }
 
 
@@ -309,7 +309,7 @@ class Device extends DataEntry implements DeviceInterface
         Profile::find([
             'devices_id' => $this->getId(),
             'name'       => 'options'
-        ])?->erase();
+        ], exception: false)?->erase();
 
         // Create new default profile
         $profile = Profile::new()
@@ -317,14 +317,26 @@ class Device extends DataEntry implements DeviceInterface
             ->setName('options')
             ->save();
 
-        $options = ScanImage::new()->listOptions($this->getDevice());
+        Log::action(tr('Adding driver options for ":class" class device ":device"', [
+            ':class'  => $this->getClass(),
+            ':device' => $this->getDevice()
+        ]));
 
-        foreach ($options as $option) {
-            Option::fromSource($option)
+        $options = $profile->getOptions();
+        $found   = ScanImage::new()->listOptions($this->getDevice());
+
+        foreach ($found as $option) {
+            $options->add(Option::fromSource($option)
                 ->setDevicesId($this->getId())
                 ->setProfilesId($profile->getId())
-                ->save();
+                ->save());
         }
+
+        Log::success(tr('Added ":count" driver options for ":class" class device ":device"', [
+            ':count'  => $options->getCount(),
+            ':class'  => $this->getClass(),
+            ':device' => $this->getDevice()
+        ]));
 
         return $this;
     }
@@ -336,7 +348,7 @@ class Device extends DataEntry implements DeviceInterface
     public function getProfiles(): ProfilesInterface
     {
         if (empty($this->profiles)) {
-            $this->profiles = Options::new()->$this->setParent($this)->load();
+            $this->profiles = Profiles::new()->setParent($this)->load();
         }
 
         return $this->profiles;

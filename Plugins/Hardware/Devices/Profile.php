@@ -11,6 +11,9 @@ use Phoundation\Data\DataEntry\Traits\DataEntryDescription;
 use Phoundation\Data\DataEntry\Traits\DataEntryDeviceObject;
 use Phoundation\Data\DataEntry\Traits\DataEntryName;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
+use Phoundation\Exception\OutOfBoundsException;
+use Phoundation\Utils\Arrays;
+use Phoundation\Utils\Utils;
 use Phoundation\Web\Html\Enums\InputType;
 use Plugins\Hardware\Devices\Interfaces\OptionsInterface;
 use Plugins\Hardware\Devices\Interfaces\ProfileInterface;
@@ -65,7 +68,7 @@ class Profile extends DataEntry implements ProfileInterface
      */
     public static function getUniqueColumn(): ?string
     {
-        return null;
+        return 'name';
     }
 
 
@@ -100,7 +103,7 @@ class Profile extends DataEntry implements ProfileInterface
     public function getOptions(): OptionsInterface
     {
         if (empty($this->options)) {
-            $this->options = Options::new()->$this->setParent($this)->load();
+            $this->options = Options::new()->setParent($this)->load();
         }
 
         return $this->options;
@@ -120,6 +123,59 @@ class Profile extends DataEntry implements ProfileInterface
         ]);
 
         return parent::erase();
+    }
+
+
+    /**
+     * Copy this profile to the specified target name, taking the specified option keys with it
+     *
+     * @param string $target
+     * @param array|string $keys
+     * @param bool $force
+     * @return static
+     */
+    public function copy(string $target, array|string $keys, bool $force = false): static
+    {
+        // Delete the default profile
+        $profile = Profile::find([
+            'devices_id' => $this->getId(),
+            'name'       => $target
+        ], exception: false);
+
+        if ($profile) {
+            // $this profile already exists!
+            if (!$force) {
+                throw new OutOfBoundsException(tr('The specified target profile ":target" already exists', [
+                    ':target' => $target
+                ]));
+            }
+
+            $profile->erase();
+        }
+
+        // Ensure keys is an array and create new target profile
+        $keys    = Arrays::force($keys);
+        $profile = Profile::new()
+            ->setDevicesId($this->getDevicesId())
+            ->setName($target)
+            ->save();
+
+        // Copy the options to the new profile
+        $keys = Arrays::getMatches($this->getOptions()->getKeys(), $keys, Utils::MATCH_NO_CASE | Utils::MATCH_ANY | Utils::MATCH_END);
+
+        foreach ($this->getOptions() as $key => $option) {
+            if (in_array($key , $keys)) {
+                $option = clone($option);
+                $option
+                    ->setProfilesId($profile->getId())->save()
+                    ->save();
+
+                $profile->getOptions()->add($option);
+            }
+        }
+
+        // Return the new profile
+        return $profile;
     }
 
 

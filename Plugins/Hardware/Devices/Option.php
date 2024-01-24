@@ -4,10 +4,16 @@ namespace Plugins\Hardware\Devices;
 
 use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
+use Phoundation\Data\DataEntry\Definitions\DefinitionFactory;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
+use Phoundation\Data\DataEntry\Traits\DataEntryComments;
+use Phoundation\Data\DataEntry\Traits\DataEntryDescription;
 use Phoundation\Data\DataEntry\Traits\DataEntryDeviceObject;
 use Phoundation\Data\DataEntry\Traits\DataEntryProfileObject;
+use Phoundation\Data\DataEntry\Traits\DataEntryUnits;
+use Phoundation\Data\Validator\Exception\ValidationFailedException;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
+use Phoundation\Utils\Arrays;
 use Phoundation\Web\Html\Enums\InputType;
 
 
@@ -23,8 +29,38 @@ use Phoundation\Web\Html\Enums\InputType;
  */
 class Option extends DataEntry
 {
+    use DataEntryComments;
+    use DataEntryDescription;
+    use DataEntryUnits;
     use DataEntryDeviceObject;
     use DataEntryProfileObject;
+
+
+    /**
+     * @inheritDoc
+     */
+    public static function getTable(): string
+    {
+        return 'hardware_options';
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public static function getDataEntryName(): string
+    {
+        return tr('Device driver option');
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public static function getUniqueColumn(): ?string
+    {
+        return null;
+    }
 
 
     /**
@@ -64,12 +100,73 @@ class Option extends DataEntry
     /**
      * Sets the value for this option
      *
+     * The value must either be one of the values option, or fall within the range for this option
+     *
      * @param string|null $value
      * @return static
      */
     public function setValue(?string $value): static
     {
-        return $this->setSourceValue('value', $value);
+        if ($value) {
+            $this->checkRange($value)
+                 ->checkValues($value);
+        }
+
+        return $this->setSourceValue('value', get_null($value));
+    }
+
+
+    /**
+     * Checks if the value is valid for this option
+     *
+     * @param string|null $value
+     * @return $this
+     */
+    protected function checkValues(?string $value): static
+    {
+        $values = $this->getValues();
+
+        if ($values) {
+            $values = Arrays::force($values, ',');
+
+            if (!in_array($value, $values)) {
+                throw new ValidationFailedException(tr('Specified value ":value" for option ":option" is not one of required ":values"', [
+                    ':value'  => $value,
+                    ':values' => $values,
+                    ':option' => $this->getKey()
+                ]));
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * Checks if the value is valid for this option
+     *
+     * @param string|null $value
+     * @return static
+     */
+    protected function checkRange(?string $value): static
+    {
+        $range = $this->getRange();
+
+        if ($range) {
+            show($value);
+            showdie($range);
+            $range = Arrays::force($range, ',');
+
+            if (!in_range($value, $range[0], $range[1])) {
+                throw new ValidationFailedException(tr('Specified value ":value" for option ":option" is not within the required range of ":values"', [
+                    ':value'  => $value,
+                    ':values' => implode('...', $range),
+                    ':option' => $this->getKey()
+                ]));
+            }
+        }
+
+        return $this;
     }
 
 
@@ -139,33 +236,6 @@ class Option extends DataEntry
     public function setDefault(?string $default): static
     {
         return $this->setSourceValue('default', $default);
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public static function getTable(): string
-    {
-        return 'hardware_options';
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public static function getDataEntryName(): string
-    {
-        return tr('Device driver option');
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public static function getUniqueColumn(): ?string
-    {
-        return null;
     }
 
 
@@ -253,6 +323,15 @@ class Option extends DataEntry
                 ->setOptional(false)
                 ->setVisible(true)
                 ->setSize(4)
-                ->setMaxlength(255));
+                ->setMaxlength(255))
+            ->addDefinition(Definition::new($this, 'units')
+                ->setOptional(true)
+                ->setVisible(true)
+                ->setSize(4)
+                ->setMaxlength(16))
+            ->addDefinition(DefinitionFactory::getComments($this)
+                ->setMaxlength(255))
+            ->addDefinition(DefinitionFactory::getDescription($this)
+                ->setMaxlength(2048));
     }
 }

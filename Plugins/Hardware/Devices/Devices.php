@@ -7,7 +7,9 @@ namespace Plugins\Hardware\Devices;
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\DataEntry\DataList;
 use Phoundation\Os\Processes\Commands\ScanImage;
+use Phoundation\Seo\Seo;
 use Plugins\Hardware\Devices\Interfaces\DevicesInterface;
+use Plugins\Scanners\Exception\ScannersException;
 
 
 /**
@@ -43,7 +45,17 @@ class Devices extends DataList implements DevicesInterface
      */
     public static function getUniqueColumn(): ?string
     {
-        return null;
+        return 'name';
+    }
+
+
+    /**
+     * Devices class constructor
+     */
+    public function __construct()
+    {
+        $this->id_is_unique_column = true;
+        parent::__construct();
     }
 
 
@@ -60,7 +72,7 @@ class Devices extends DataList implements DevicesInterface
         foreach ($devices as $device) {
             if (Device::notExists($device['device'], 'device')) {
                 $device['class'] = 'scanner';
-                $device['name']  = $device['device'];
+                $device['name']  = Seo::string($device['device']);
                 $device['url']   = $device['device'];
 
                 Log::action(tr('Adding ":class" class device ":device"', [
@@ -71,7 +83,13 @@ class Devices extends DataList implements DevicesInterface
                 $device = Device::fromSource($device)->save();
 
                 if ($update_options) {
-                    $device->updateOptions();
+                    try {
+                        $device->updateOptions();
+
+                    } catch (ScannersException $e) {
+                        // This scanner failed to load options, continue with the next one
+                        Log::warning($e);
+                    }
                 }
 
                 $this->add($device);

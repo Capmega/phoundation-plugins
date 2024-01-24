@@ -42,7 +42,7 @@ CliDocumentation::autoComplete([
         '--clear'  => false,
         '-n,--no-options',
         '-c,--class'  => [
-            'word'   => function ($word) { return Arrays::getMatches(['scanner', 'printer' , 'webcam', 'biometric'], $word, Utils::MATCH_BEGIN| Utils::MATCH_NO_CASE); },
+            'word'   => function ($word) { return Arrays::getMatches(['scanner', 'printer' , 'webcam', 'biometric'], $word, Utils::MATCH_ALL | Utils::MATCH_BEGIN | Utils::MATCH_NO_CASE); },
             'noword' => function ()      { return ['scanner', 'printer' , 'webcam', 'biometric']; },
         ],
     ]

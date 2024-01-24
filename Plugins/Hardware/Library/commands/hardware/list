@@ -6,11 +6,12 @@ declare(strict_types=1);
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Utils\Arrays;
+use Phoundation\Utils\Utils;
 use Plugins\Hardware\Devices\Devices;
 
 
 /**
- * Script hardware/search
+ * Script hardware/list
  *
  * This command will scan for available hardware devices and register them
  *
@@ -20,9 +21,9 @@ use Plugins\Hardware\Devices\Devices;
  * @package Phoundation\Scripts
  */
 
-CliDocumentation::usage('./pho hardware search');
+CliDocumentation::usage('./pho hardware list');
 
-CliDocumentation::help('This command will scan for available hardware devices and register them in the database
+CliDocumentation::help('This command will list all hardware devices registered in the database
 
 
 ARGUMENTS
@@ -34,7 +35,7 @@ ARGUMENTS
 CliDocumentation::autoComplete([
     'arguments' => [
         '-c,--class'  => [
-            'word'   => function ($word) { return Arrays::getMatches(['scanner', 'printer' , 'webcam', 'biometric'], $word, Utils::MATCH_BEGIN| Utils::MATCH_NO_CASE); },
+            'word'   => function ($word) { return Arrays::getMatches(['scanner', 'printer' , 'webcam', 'biometric'], $word, Utils::MATCH_ALL | Utils::MATCH_BEGIN | Utils::MATCH_NO_CASE); },
             'noword' => function ()      { return ['scanner', 'printer' , 'webcam', 'biometric']; },
         ],
     ]

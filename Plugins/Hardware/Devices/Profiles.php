@@ -18,6 +18,15 @@ use Plugins\Hardware\Devices\Interfaces\ProfilesInterface;
  */
 class Profiles extends DataList implements ProfilesInterface
 {
+    /**
+     * Devices class constructor
+     */
+    public function __construct()
+    {
+        $this->id_is_unique_column = true;
+        parent::__construct();
+    }
+
 
     /**
      * @inheritDoc
@@ -42,6 +51,6 @@ class Profiles extends DataList implements ProfilesInterface
      */
     public static function getUniqueColumn(): ?string
     {
-        return tr('Hardware profile');
+        return 'name';
     }
 }

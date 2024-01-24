@@ -1,0 +1,56 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+use Phoundation\Cli\CliDocumentation;
+use Phoundation\Data\Validator\ArgvValidator;
+use Phoundation\Utils\Arrays;
+use Phoundation\Utils\Utils;
+use Plugins\Hardware\Devices\Devices;
+use Plugins\Hardware\Devices\Profile;
+use Plugins\Hardware\Devices\Profiles;
+
+
+/**
+ * Script hardware/profiles/show
+ *
+ * This command will scan for available hardware devices and register them
+ *
+ * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
+ * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @package Phoundation\Scripts
+ */
+
+CliDocumentation::usage('./pho hardware profiles show');
+
+CliDocumentation::help('This command will show all details of the specified profile
+
+
+ARGUMENTS
+
+
+PROFILE                                 The profile for which details should be shown');
+
+CliDocumentation::autoComplete([
+    'positions' => [
+        0 => [
+            'word'   => function ($word) { return Profiles::new()->load()->getMatchingKeys($word); },
+            'noword' => function ()      { return Profiles::new()->load(); },
+        ],
+    ]
+]);
+
+
+// Validate arguments
+$argv = ArgvValidator::new()
+    ->select('profile')->isVariable()
+    ->validate();
+
+
+// List available devices
+Profile::get($argv['profile'])
+    ->displayCliForm()
+    ->getOptions()
+        ->displayCliTable();
