@@ -109,7 +109,7 @@ class Scanner extends Device
      * @param bool $force
      * @return static|null
      */
-    public static function find(array $identifiers, bool $meta_enabled = false, bool $force = false): ?static
+    public static function find(array $identifiers, bool $meta_enabled = false, bool $force = false, bool $exception = true): ?static
     {
         $entry = parent::find($identifiers, $meta_enabled, $force);
 
