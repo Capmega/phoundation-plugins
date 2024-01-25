@@ -59,7 +59,7 @@ class Option extends DataEntry
      */
     public static function getUniqueColumn(): ?string
     {
-        return null;
+        return 'key';
     }
 
 

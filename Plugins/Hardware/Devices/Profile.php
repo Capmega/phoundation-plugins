@@ -6,12 +6,12 @@ use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\DefinitionFactory;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
+use Phoundation\Data\DataEntry\Exception\DataEntryAlreadyExistsException;
 use Phoundation\Data\DataEntry\Traits\DataEntryComments;
 use Phoundation\Data\DataEntry\Traits\DataEntryDescription;
 use Phoundation\Data\DataEntry\Traits\DataEntryDeviceObject;
 use Phoundation\Data\DataEntry\Traits\DataEntryName;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
-use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Utils;
 use Phoundation\Web\Html\Enums\InputType;
@@ -138,14 +138,14 @@ class Profile extends DataEntry implements ProfileInterface
     {
         // Delete the default profile
         $profile = Profile::find([
-            'devices_id' => $this->getId(),
+            'devices_id' => $this->getDevice()->getId(),
             'name'       => $target
         ], exception: false);
 
         if ($profile) {
             // $this profile already exists!
             if (!$force) {
-                throw new OutOfBoundsException(tr('The specified target profile ":target" already exists', [
+                throw new DataEntryAlreadyExistsException(tr('The specified target profile ":target" already exists', [
                     ':target' => $target
                 ]));
             }
@@ -164,11 +164,9 @@ class Profile extends DataEntry implements ProfileInterface
         $keys = Arrays::getMatches($this->getOptions()->getKeys(), $keys, Utils::MATCH_NO_CASE | Utils::MATCH_ANY | Utils::MATCH_END);
 
         foreach ($this->getOptions() as $key => $option) {
-            if (in_array($key , $keys)) {
+            if (in_array($key, $keys)) {
                 $option = clone($option);
-                $option
-                    ->setProfilesId($profile->getId())->save()
-                    ->save();
+                $option->setProfilesId($profile->getId())->save();
 
                 $profile->getOptions()->add($option);
             }

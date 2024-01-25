@@ -21,7 +21,7 @@ use Plugins\Hardware\Devices\Devices;
  */
 CliDocumentation::usage('./pho hardware show DEVICE');
 
-CliDocumentation::help('This command will scan for available hardware devices and register them in the database
+CliDocumentation::help('This command will show the details of the specified hardware device
 
 
 ARGUMENTS
@@ -45,9 +45,9 @@ $argv = ArgvValidator::new()
     ->validate();
 
 
-// List available devices
+// Show the specified device and its profiles
 Device::get($argv['device'])
     ->displayCliForm()
-    ->getOptions()
+    ->getProfiles()
         ->displayCliTable();
 

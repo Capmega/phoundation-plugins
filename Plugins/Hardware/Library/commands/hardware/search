@@ -23,7 +23,7 @@ use Plugins\Hardware\Devices\Devices;
  */
 CliDocumentation::usage('./pho hardware search');
 
-CliDocumentation::help('This command will scan for available hardware devices and register them in the database
+CliDocumentation::help('This command will search for available hardware devices and register them in the database
 
 
 ARGUMENTS

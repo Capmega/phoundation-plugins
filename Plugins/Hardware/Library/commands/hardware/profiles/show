@@ -5,39 +5,42 @@ declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
-use Phoundation\Utils\Arrays;
-use Phoundation\Utils\Utils;
+use Plugins\Hardware\Devices\Device;
 use Plugins\Hardware\Devices\Devices;
 use Plugins\Hardware\Devices\Profile;
-use Plugins\Hardware\Devices\Profiles;
 
 
 /**
  * Script hardware/profiles/show
  *
- * This command will scan for available hardware devices and register them
+ * This command will show the details for the specified hardware device profile
  *
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Phoundation\Scripts
  */
+CliDocumentation::usage('./pho hardware profiles show DEVICE PROFILE');
 
-CliDocumentation::usage('./pho hardware profiles show');
-
-CliDocumentation::help('This command will show all details of the specified profile
+CliDocumentation::help('This command will show the details of the specified hardware device
 
 
 ARGUMENTS
 
 
-PROFILE                                 The profile for which details should be shown');
+DEVICE                                  The device name for which to show the details
+
+PROFILE                                 The profile name for which to show the details');
 
 CliDocumentation::autoComplete([
     'positions' => [
         0 => [
-            'word'   => function ($word) { return Profiles::new()->load()->getMatchingKeys($word); },
-            'noword' => function ()      { return Profiles::new()->load(); },
+            'word'   => function ($word) { return Devices::new()->load()->getMatchingKeys($word); },
+            'noword' => function ()      { return Devices::new()->load(); },
+        ],
+        1 => [
+            'word'   => function ($word, $arguments) { return Device::get($arguments[0])->getProfiles()->getMatchingKeys($word); },
+            'noword' => function ($word, $arguments) { return Device::get($arguments[0])->getProfiles(); },
         ],
     ]
 ]);

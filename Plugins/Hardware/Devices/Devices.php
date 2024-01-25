@@ -25,6 +25,16 @@ use Plugins\Scanners\Exception\ScannersException;
 class Devices extends DataList implements DevicesInterface
 {
     /**
+     * Devices class constructor
+     */
+    public function __construct()
+    {
+        $this->id_is_unique_column = true;
+        parent::__construct();
+    }
+
+
+    /**
      * @inheritDoc
      */
     public static function getTable(): string
@@ -46,16 +56,6 @@ class Devices extends DataList implements DevicesInterface
     public static function getUniqueColumn(): ?string
     {
         return 'name';
-    }
-
-
-    /**
-     * Devices class constructor
-     */
-    public function __construct()
-    {
-        $this->id_is_unique_column = true;
-        parent::__construct();
     }
 
 
