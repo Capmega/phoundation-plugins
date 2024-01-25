@@ -5,8 +5,11 @@ declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
+use Phoundation\Filesystem\Directory;
+use Phoundation\Filesystem\Restrictions;
 use Plugins\Hardware\Devices\Device;
 use Plugins\Hardware\Devices\Devices;
+use Plugins\Scanners\Scanner;
 
 
 /**
@@ -19,21 +22,36 @@ use Plugins\Hardware\Devices\Devices;
  * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Phoundation\Scripts
  */
+$restrictions = Restrictions::writable(DIRECTORY_DATA);
+
 CliDocumentation::usage('./pho scanners scan DEVICE PROFILE PATH');
 
-CliDocumentation::help('This command will
+CliDocumentation::help('This command will scan documents from the specified device with the specified profile to
+the specified path
 
 
 ARGUMENTS
 
 
-DEVICE                                  The device for which to show the details');
+DEVICE                                  The device from which to scan
+
+PROFILE                                 The hardware device profile to use for this scan
+
+PATH                                    The path to which the scanned documents should be saved');
 
 CliDocumentation::autoComplete([
     'positions' => [
         0 => [
             'word'   => function ($word) { return Devices::new()->load()->getMatchingKeys($word); },
             'noword' => function ()      { return Devices::new()->load(); },
+        ],
+        1 => [
+            'word'   => function ($word, $arguments) { return Device::get($arguments[0])->getProfiles()->getMatchingKeys($word); },
+            'noword' => function ($word, $arguments) { return Device::get($arguments[0])->getProfiles()->getKeys(); },
+        ],
+        2 => [
+            'word'   => function ($word) use ($restrictions) { return Directory::new(DIRECTORY_DATA, $restrictions)->scan($word . '*') ; },
+            'noword' => function ()      use ($restrictions) { return Directory::new(DIRECTORY_DATA, $restrictions)->scan(); },
         ],
     ]
 ]);
@@ -42,12 +60,10 @@ CliDocumentation::autoComplete([
 // Validate arguments
 $argv = ArgvValidator::new()
     ->select('device')->isOptional()->isVariable()
+    ->select('profile')->isOptional()->isVariable()
+    ->select('path')->isOptional()->isDirectory(Directory::new(DIRECTORY_DATA, $restrictions))
     ->validate();
 
 
 // List available devices
-Device::get($argv['device'])
-    ->displayCliForm()
-    ->getOptions()
-        ->displayCliTable();
-
+Scanner::get()->scan();
