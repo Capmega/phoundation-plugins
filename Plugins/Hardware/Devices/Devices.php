@@ -103,11 +103,11 @@ class Devices extends DataList implements DevicesInterface
     /**
      * Will truncate the table associated with this list
      *
-     * @return $this
+     * @return static
      */
-    public function truncate(): static
+    public function eraseAll(): static
     {
-        Options::new()->truncate();
-        return parent::truncate();
+        Options::new()->eraseAll();
+        return parent::eraseAll();
     }
 }

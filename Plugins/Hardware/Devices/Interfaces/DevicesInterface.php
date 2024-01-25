@@ -24,11 +24,4 @@ interface DevicesInterface extends DataListInterface
      * @return $this
      */
     public function search(bool $update_options): static;
-
-    /**
-     * Will truncate the table associated with this list
-     *
-     * @return $this
-     */
-    public function truncate(): static;
 }

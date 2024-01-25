@@ -25,7 +25,6 @@ CliDocumentation::usage('./pho hardware search');
 
 CliDocumentation::help('This command will search for available hardware devices and register them in the database
 
-
 ARGUMENTS
 
 
@@ -59,7 +58,7 @@ $argv = ArgvValidator::new()
 
 // Clear hardware table?
 if ($argv['clear']) {
-    Devices::new()->truncate();
+    Devices::new()->eraseAll();
     Log::warning(tr('Cleared hardware devices table'));
 }
 
