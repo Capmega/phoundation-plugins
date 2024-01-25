@@ -317,9 +317,9 @@ class Device extends DataEntry implements DeviceInterface
             ->setName('options')
             ->save();
 
-        Log::action(tr('Adding driver options for ":class" class device ":device"', [
-            ':class'  => $this->getClass(),
-            ':device' => $this->getDevice()
+        Log::action(tr('Adding driver options for ":class" class device ":name"', [
+            ':class' => $this->getClass(),
+            ':name'  => $this->getName()
         ]));
 
         $options = $profile->getOptions();
