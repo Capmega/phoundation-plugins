@@ -1,0 +1,53 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+use Phoundation\Cli\CliDocumentation;
+use Phoundation\Data\Validator\ArgvValidator;
+use Plugins\Hardware\Devices\Device;
+use Plugins\Hardware\Devices\Devices;
+
+
+/**
+ * Script scanners/scan
+ *
+ * This command will scan on the specified device using the specified profile
+ *
+ * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
+ * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
+ * @package Phoundation\Scripts
+ */
+CliDocumentation::usage('./pho scanners scan DEVICE PROFILE PATH');
+
+CliDocumentation::help('This command will
+
+
+ARGUMENTS
+
+
+DEVICE                                  The device for which to show the details');
+
+CliDocumentation::autoComplete([
+    'positions' => [
+        0 => [
+            'word'   => function ($word) { return Devices::new()->load()->getMatchingKeys($word); },
+            'noword' => function ()      { return Devices::new()->load(); },
+        ],
+    ]
+]);
+
+
+// Validate arguments
+$argv = ArgvValidator::new()
+    ->select('device')->isOptional()->isVariable()
+    ->validate();
+
+
+// List available devices
+Device::get($argv['device'])
+    ->displayCliForm()
+    ->getOptions()
+        ->displayCliTable();
+
