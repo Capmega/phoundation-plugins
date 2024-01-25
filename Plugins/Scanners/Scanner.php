@@ -7,6 +7,7 @@ use Phoundation\Core\Sessions\Session;
 use Phoundation\Data\DataEntry\Exception\DataEntryDeletedException;
 use Phoundation\Data\DataEntry\Exception\DataEntryNotExistsException;
 use Phoundation\Data\DataEntry\Interfaces\DataEntryInterface;
+use Phoundation\Data\Traits\DataBatch;
 use Phoundation\Databases\Sql\Exception\SqlTableDoesNotExistException;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Os\Processes\Commands\ScanImage;
@@ -27,10 +28,21 @@ use Plugins\Hardware\Exception\InvalidDeviceClassException;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Plugins\Hardware
+ * @package Plugins\Scanner
  */
 class Scanner extends Device
 {
+    use DataBatch;
+
+
+    /**
+     * The number of scanned documents
+     *
+     * @var int|null $scan_count
+     */
+    protected ?int $scan_count;
+
+
     /**
      * DataEntry class constructor
      *
@@ -40,13 +52,18 @@ class Scanner extends Device
      */
     public function __construct(DataEntryInterface|string|int|null $identifier = null, ?string $column = null, ?bool $meta_enabled = null)
     {
-        parent::__construct();
+        parent::__construct($identifier, $column, $meta_enabled);
 
-        if ($this->getClass() !== 'scanner') {
-            throw new InvalidDeviceClassException(tr('The specified device ":column=:identifier" is not a "scanner" class device', [
-                ':column' => $column,
-                ':identifier' => $identifier
-            ]));
+        if ($this->isNew()) {
+            $this->setClass('scanner');
+
+        } else {
+            if ($this->getClass() !== 'scanner') {
+                throw new InvalidDeviceClassException(tr('The specified device ":column=:identifier" is not a "scanner" class device', [
+                    ':column'     => static::getColumn($identifier, $column),
+                    ':identifier' => $identifier
+                ]));
+            }
         }
     }
 
@@ -79,7 +96,7 @@ class Scanner extends Device
 
         if ($entry->getClass() !== 'scanner') {
             throw new InvalidDeviceClassException(tr('The specified device ":column=:identifier" is not a "scanner" class device', [
-                ':column' => $column,
+                ':column'     => static::getColumn($identifier, $column),
                 ':identifier' => $identifier
             ]));
         }
@@ -107,6 +124,7 @@ class Scanner extends Device
      * @param array $identifiers
      * @param bool $meta_enabled
      * @param bool $force
+     * @param bool $exception
      * @return static|null
      */
     public static function find(array $identifiers, bool $meta_enabled = false, bool $force = false, bool $exception = true): ?static
@@ -124,16 +142,41 @@ class Scanner extends Device
 
 
     /**
+     * Returns the amount of scanned documents, NULL if nothing has been scanned yet
+     *
+     * @return int|null
+     */
+    public function getScanCount(): ?int
+    {
+        return $this->scan_count;
+    }
+
+
+    /**
      * Scan using the specified profile
      *
      * @param ProfileInterface|string|int $profile
+     * @param string $path
      * @return $this
      */
-    public function scan(ProfileInterface|string|int $profile): static
+    public function scan(ProfileInterface|string|int $profile, string $path): static
     {
+        if (!$profile instanceof ProfileInterface) {
+            $profile = $this->getProfiles()->get($profile);
+
+            if ($profile->getDevice()->getId() !== $this->getId()) {
+                throw new OutOfBoundsException(tr('Cannot use specified profile ":profile" for device ":device" because its for device ":wrong"', [
+                    ':profile' => $profile->getLogId(),
+                    ':device'  => $this->getLogId(),
+                    ':wrong'   => $profile->getDevice()->getLogId(),
+                ]));
+            }
+        }
+
         ScanImage::new()
-            ->applyProfile(Profile::get($profile))
-            ->scan();
+            ->applyProfile($profile)
+            ->setBatch($this->batch)
+            ->scan($path);
 
         return $this;
     }

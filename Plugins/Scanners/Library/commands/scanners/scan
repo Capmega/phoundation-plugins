@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
+use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Filesystem\Directory;
 use Phoundation\Filesystem\Restrictions;
@@ -53,17 +54,29 @@ CliDocumentation::autoComplete([
             'word'   => function ($word) use ($restrictions) { return Directory::new(DIRECTORY_DATA, $restrictions)->scan($word . '*') ; },
             'noword' => function ()      use ($restrictions) { return Directory::new(DIRECTORY_DATA, $restrictions)->scan(); },
         ],
+    ],
+    'arguments' => [
+        '-b,--batch' => false
     ]
 ]);
 
 
 // Validate arguments
 $argv = ArgvValidator::new()
-    ->select('device')->isOptional()->isVariable()
-    ->select('profile')->isOptional()->isVariable()
-    ->select('path')->isOptional()->isDirectory(Directory::new(DIRECTORY_DATA, $restrictions))
+    ->select('device')->isVariableName()
+    ->select('profile')->isVariableName()
+    ->select('path')->isDirectory(Directory::new(DIRECTORY_DATA, $restrictions))
+    ->select('-b,--batch')->isOptional()->isBoolean()
     ->validate();
 
 
 // List available devices
-Scanner::get()->scan();
+$scanner = Scanner::get($argv['device'])
+    ->setBatch($argv['batch'])
+    ->scan($argv['profile'], $argv['path']);
+
+
+// Done!
+Log::success(tr('Successfully scanned ":count" documents to ":path"', [
+    ':count' => $scanner->getScanCount()
+]));
