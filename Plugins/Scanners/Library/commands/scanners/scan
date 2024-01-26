@@ -65,7 +65,7 @@ CliDocumentation::autoComplete([
 $argv = ArgvValidator::new()
     ->select('device')->isVariableName()
     ->select('profile')->isVariableName()
-    ->select('path')->isDirectory(Directory::new(DIRECTORY_DATA, $restrictions))
+    ->select('path')->isPath()
     ->select('-b,--batch')->isOptional()->isBoolean()
     ->validate();
 
