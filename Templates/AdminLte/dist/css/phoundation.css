@@ -76,3 +76,25 @@ textarea.readonly, textarea:read-only
 {
     background-color: #fff !important;
 }
+
+.nav-sidebar .nav-link > .right, .nav-sidebar .nav-link > p > .right
+{
+    right: auto;
+    left: 0rem;
+}
+
+.fa-angle-left::before
+{
+    content: "\f107" !important;
+}
+
+
+nav .nav li.nav-header
+{
+    font-size: larger;
+    font-weight: bold;
+    font-style: italic;
+    left: -15px;
+    position: relative;
+    color: #ffffff;
+}

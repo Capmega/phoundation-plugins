@@ -81,7 +81,6 @@ class Menu extends Renderer
                 $menu_label = '';
                 $html      .= '</li>';
             }
-
         }
 
         $html .= '</ul>' . PHP_EOL;
