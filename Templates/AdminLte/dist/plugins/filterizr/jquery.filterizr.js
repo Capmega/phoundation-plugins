@@ -1,0 +1,1 @@
+jquery.filterizr.min.js
