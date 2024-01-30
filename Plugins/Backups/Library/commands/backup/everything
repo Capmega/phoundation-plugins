@@ -6,12 +6,8 @@ declare(strict_types=1);
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\ArgvValidator;
-use Phoundation\Databases\Exception\ExportException;
-use Phoundation\Exception\UnderConstructionException;
 use Phoundation\Filesystem\Restrictions;
-use Phoundation\Os\Processes\Commands\Databases\MysqlDump;
-use Phoundation\Utils\Config;
-use Phoundation\Utils\Exception\ConfigPathDoesNotExistsException;
+use Plugins\Backups\Backup;
 
 
 /**
@@ -24,6 +20,16 @@ use Phoundation\Utils\Exception\ConfigPathDoesNotExistsException;
  * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Phoundation\Scripts
  */
+$restrictions = Restrictions::writable(DIRECTORY_DATA . 'backups/');
+
+CliDocumentation::autoComplete([
+    'arguments' => [
+        '-t,--target'  => [
+            'word'   => function ($word) use ($restrictions) { return Directory::new(DIRECTORY_DATA . 'backups/', $restrictions)->scan('*' . $word . '*', GLOB_MARK | GLOB_ONLYDIR); },
+            'noword' => function ()      use ($restrictions) { return Directory::new(DIRECTORY_DATA . 'backups/', $restrictions)->scan('*'              , GLOB_MARK | GLOB_ONLYDIR); },
+        ],
+    ]
+]);
 
 CliDocumentation::usage('./pho system backup everything');
 
@@ -35,15 +41,6 @@ ARGUMENTS
 
 -t / --target PATH                      The target path where to backup to');
 
-CliDocumentation::autoComplete([
-    'arguments' => [
-        '-t,--target'  => [
-            'word'   => function ($word) { return Directory::new('/', '/')->scan('*' . $word . '*', GLOB_MARK | GLOB_ONLYDIR); },
-            'noword' => function ()      { return Directory::new('/', '/')->scan('*'              , GLOB_MARK | GLOB_ONLYDIR); },
-        ],
-    ]
-]);
-
 
 // Validate arguments
 $argv = ArgvValidator::new()
@@ -51,92 +48,14 @@ $argv = ArgvValidator::new()
     ->validate();
 
 
-throw new UnderConstructionException();
-// Start backing up EVERYTHING
-// Backup core database
-Log::information(tr('Exporting core database ":database" to MySQL dump file ":file" this may take a while...', [
-    ':file'     => $argv['file'],
-    ':database' => $argv['database'],
-]));
+// Start backup
+Backup::new()
+    ->setTarget($argv['target'])
+    ->backupSystem()
+    ->backupPlugins()
+    ->backupAllDatabases()
+    ->backupDataFiles();
 
-$file         = DIRECTORY_DATA . 'sources/' . $argv['file'];
-$restrictions = Restrictions::new(DIRECTORY_DATA . 'sources/', true, 'Mysql exporter');
 
-// Start the export
-File::new($file, $restrictions)->checkWritable();
-
-try {
-    $database = Config::getArray('databases.sql.instances.' . $argv['database']);
-
-} catch (ConfigPathDoesNotExistsException $e) {
-    // No configuration available for specified databse
-    throw ExportException::new(tr('Specified database ":database" is not configured', [
-        ':database' => $argv['database']
-    ]))->makeWarning();
-}
-
-MysqlDump::new($restrictions)
-    ->setTimeout($argv['timeout'])
-    ->addArguments(['-h', $database['host'], '-u', $database['user'], '-p' . $database['pass'], '-B', $database['name']])
-    ->setTarget($file)
-    ->setDatabases($argv['database'])
-    ->dump();
-
-Log::success(tr('Finished exporting core database ":database" to dump file ":file"', [
-    ':file'     => $argv['file'],
-    ':database' => $argv['database'],
-]));
-
-// Backup core site
-
-// Backup site data
-
-// Backup additional databases
-    case 'mysql':
-        Log::information(tr('Exporting to MySQL dump file ":file" from database ":database", this may take a while...', [
-            ':file'     => $argv['file'],
-            ':database' => $argv['database'],
-        ]));
-
-        $file         = DIRECTORY_DATA . 'sources/' . $argv['file'];
-        $restrictions = Restrictions::new(DIRECTORY_DATA . 'sources/', true, 'Mysql exporter');
-
-        // Start the export
-        File::new($file, $restrictions)->checkWritable();
-
-        try {
-            $database = Config::getArray('databases.sql.instances.' . $argv['database']);
-
-        } catch (ConfigPathDoesNotExistsException $e) {
-            // No configuration available for specified databse
-            throw ExportException::new(tr('Specified database ":database" is not configured', [
-                ':database' => $argv['database']
-            ]))->makeWarning();
-        }
-
-        MysqlDump::new($restrictions)
-            ->setTimeout($argv['timeout'])
-            ->addArguments(['-h', $database['host'], '-u', $database['user'], '-p' . $database['pass'], '-B', $database['name']])
-            ->setTarget($file)
-            ->setDatabases($argv['database'])
-            ->dump();
-
-        Log::success(tr('Finished exporting MySQL dump file ":file" from database ":database"', [
-            ':file'     => $argv['file'],
-            ':database' => $argv['database'],
-        ]));
-
-        break;
-
-    case 'redis':
-        // no break
-    case 'mongo':
-        // no break
-    case 'mongodb':
-        // no break
-    case 'elastic':
-        // no break
-    case 'elasticsearch':
-        // no break
-        throw new UnderConstructionException();
-}
+// Done!
+Log::success(tr('Successfully backed up everything'));

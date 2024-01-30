@@ -4,14 +4,26 @@ declare(strict_types=1);
 
 namespace Plugins\Backups;
 
+use Phoundation\Core\Hooks\Hook;
+use Phoundation\Core\Log\Log;
+use Phoundation\Data\Traits\DataGzip;
+use Phoundation\Data\Traits\DataTimeout;
+use Phoundation\Databases\Connectors\Connector;
+use Phoundation\Databases\Connectors\Interfaces\ConnectorInterface;
+use Phoundation\Databases\Export;
+use Phoundation\Date\DateTime;
+use Phoundation\Filesystem\Directory;
 use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
-use Phoundation\Web\Http\Html\Enums\InputType;
-use Phoundation\Web\Http\Html\Enums\InputTypeExtended;
+use Phoundation\Data\Traits\DataTarget;
+use Phoundation\Exception\OutOfBoundsException;
+use Phoundation\Filesystem\Traits\DataRestrictions;
+use Phoundation\Utils\Config;
+
 
 /**
- * class Backup
+ * Class Backup
  *
  * This class manages a single backup. It can create a new backup, or restore an existing one
  *
@@ -23,6 +35,31 @@ use Phoundation\Web\Http\Html\Enums\InputTypeExtended;
 
 class Backup extends DataEntry
 {
+    use DataRestrictions;
+    use DataTarget {
+        setTarget as protected __setTarget;
+    }
+    use DataGzip;
+    use DataTimeout;
+
+
+    /**
+     * @var bool $init
+     */
+    protected bool $init = false;
+
+    /**
+     * @var string|null $path
+     */
+    protected ?string $path = null;
+
+    /**
+     * The system date-time when this backup began
+     *
+     * @var DateTime|null $date_time
+     */
+    protected ?DateTime $date_time = null;
+
 
     /**
      * Returns the table name used by this object
@@ -31,8 +68,9 @@ class Backup extends DataEntry
      */
     public static function getTable(): string
     {
-        // TODO: Implement getTable() method.
+        return 'backups';
     }
+
 
     /**
      * Returns the name of this DataEntry class
@@ -41,8 +79,9 @@ class Backup extends DataEntry
      */
     public static function getDataEntryName(): string
     {
-        // TODO: Implement getDataEntryName() method.
+        return tr('Syustem backup');
     }
+
 
     /**
      * Returns the field that is unique for this object
@@ -51,8 +90,175 @@ class Backup extends DataEntry
      */
     public static function getUniqueColumn(): ?string
     {
-        // TODO: Implement getUniqueField() method.
+        return null;
     }
+
+
+    /**
+     * Initializes the backup object
+     *
+     * @return $this
+     */
+    protected function init(): static
+    {
+        $this->path = Directory::new($this->target)
+            ->addDirectory(DateTime::new()->format('Ymd-his'))
+            ->ensure()
+            ->getPath();
+
+        $this->date_time = DateTime::new();
+
+        return $this;
+    }
+
+
+    /**
+     * Sets the target for the backups
+     *
+     * @param string|null $target
+     * @return $this
+     */
+    public function setTarget(?string $target): static
+    {
+        if ($this->init) {
+            throw new OutOfBoundsException(tr('Cannot set new target, the backup class has already been initialized for target ":target"', [
+                ':target' => $this->target
+            ]));
+        }
+
+        return $this->__setTarget($target);
+    }
+
+
+    /**
+     * Returns true if the backup class has been initialized
+     *
+     * @return bool
+     */
+    public function getInit(): bool
+    {
+        return $this->init;
+    }
+
+
+    /**
+     * Backs up system files
+     *
+     * @return $this
+     */
+    public function backupSystem(): static
+    {
+        $this->init();
+
+        return $this;
+    }
+
+
+    /**
+     * Backs up plugin files
+     *
+     * @return $this
+     */
+    public function backupPlugins(): static
+    {
+        $this->init();
+
+        return $this;
+    }
+
+
+    /**
+     * Backs up data files
+     *
+     * @return $this
+     */
+    public function backupDataFiles(): static
+    {
+        $this->init();
+
+        return $this;
+    }
+
+
+    /**
+     * Dumps all the connectors for this project
+     *
+     * @return static
+     */
+    public function backupAllDatabases(): static
+    {
+        $this->init();
+
+        Log::action(tr('Backing up all configured connectors for environment ":environment"', [
+            ':environment' => ENVIRONMENT,
+        ]));
+
+        $this->executeHook('pre-dump-all-databases');
+
+        // Get connectors to back up
+        $connectors = Config::getArray('databases.connectors');
+
+        // Backup all databases in all connectors
+        foreach ($connectors as $name => $connector) {
+            $connector = Connector::get($name);
+
+            if ($connector->getBackup()) {
+                if ($connector->getType() === 'memcached') {
+                    // Memcached is volatile, contains only temp data, and cannot (and should not) be dumped
+                    continue;
+                }
+
+                $this->backupConnectorDatabase($connector);
+            }
+        }
+
+        return $this->executeHook('post-backup-all-databases');
+    }
+
+
+    /**
+     * Backs up the specified connector
+     *
+     * @param ConnectorInterface $connector
+     * @return static
+     */
+    protected function backupConnectorDatabase(ConnectorInterface $connector): static
+    {
+        Log::action(tr('Backup up ":driver" database with connector ":connector"', [
+            ':driver'      => $connector->getDriver(),
+            ':connector'   => $connector->getDisplayName()
+        ]));
+
+        // Execute the dump on the specified server
+        $this->executeHook('pre-backup-database');
+
+        Export::new()
+            ->setConnector($connector)
+            ->setDatabase($connector->getDatabase())
+            ->setDriver($connector->getDriver())
+            ->setTimeout($this->timeout)
+            ->setGzip($this->gzip)
+            ->dump($this->getFile($connector));
+
+        return $this->executeHook('post-backup-database');
+    }
+
+
+    /**
+     * Returns the backup file to use
+     *
+     * @param ConnectorInterface|string $source
+     * @return string
+     */
+    protected function getFile(ConnectorInterface|string $source): string
+    {
+        if ($source instanceof ConnectorInterface){
+            return $this->path . $this->date_time->format('Ymd-his') . '-' . strtolower($source->getDriver()) . '-' . $source->getDatabase() . '.sql';
+        }
+
+        return $this->path . $this->date_time->format('Ymd-his') . '-' . $source;
+    }
+
 
     /**
      * Sets and returns the field definitions for the data fields in this DataEntry object
@@ -117,5 +323,21 @@ class Backup extends DataEntry
                 ->setInputType(InputTypeExtended::positiveInteger)
                 ->setMin(0)
             );
+    }
+
+
+    /**
+     * Execute the specified hook(s)
+     *
+     * @param array|string $hooks
+     * @return static
+     */
+    protected function executeHook(array|string $hooks): static
+    {
+        if (Config::get('backups.hooks.execute', true)) {
+            Hook::new('backups')->execute($hooks);
+        }
+
+        return $this;
     }
 }
