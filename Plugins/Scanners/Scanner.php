@@ -88,10 +88,10 @@ class Scanner extends Device
      * @param string|null $column
      * @param bool $meta_enabled
      * @param bool $force
-     * @param bool $exception
+     * @param bool $no_identifier_exception
      * @return static
      */
-    public static function get(DataEntryInterface|string|int|null $identifier, ?string $column = null, bool $meta_enabled = false, bool $force = false, bool $exception = true): static
+    public static function get(DataEntryInterface|string|int|null $identifier, ?string $column = null, bool $meta_enabled = false, bool $force = false, bool $no_identifier_exception = true): static
     {
         $entry = parent::get($identifier, $column, $meta_enabled, $force);
 
