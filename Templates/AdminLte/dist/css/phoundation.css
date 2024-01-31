@@ -88,7 +88,6 @@ textarea.readonly, textarea:read-only
     content: "\f107" !important;
 }
 
-
 nav .nav li.nav-header
 {
     font-size: larger;
@@ -97,4 +96,9 @@ nav .nav li.nav-header
     left: -15px;
     position: relative;
     color: #ffffff;
+}
+
+.form-control
+{
+    padding: 0.375rem 0.5rem;
 }
