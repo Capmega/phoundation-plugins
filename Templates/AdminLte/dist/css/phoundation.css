@@ -102,3 +102,7 @@ nav .nav li.nav-header
 {
     padding: 0.375rem 0.5rem;
 }
+
+.form-control:disabled {
+    background-color: #e9ecef !important;
+}
