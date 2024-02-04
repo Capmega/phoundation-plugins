@@ -79,7 +79,7 @@ class Profile extends DataEntry implements ProfileInterface
      */
     public function getDefault(): ?bool
     {
-        return $this->getSourceColumnValue('string', 'default');
+        return $this->getSourceValueTypesafe('string', 'default');
     }
 
 

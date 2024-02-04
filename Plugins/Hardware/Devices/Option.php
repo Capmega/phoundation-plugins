@@ -70,7 +70,7 @@ class Option extends DataEntry
      */
     public function getKey(): ?string
     {
-        return $this->getSourceColumnValue('string', 'key');
+        return $this->getSourceValueTypesafe('string', 'key');
     }
 
 
@@ -93,7 +93,7 @@ class Option extends DataEntry
      */
     public function getValue(): ?string
     {
-        return $this->getSourceColumnValue('string', 'value');
+        return $this->getSourceValueTypesafe('string', 'value');
     }
 
 
@@ -177,7 +177,7 @@ class Option extends DataEntry
      */
     public function getValues(): ?string
     {
-        return $this->getSourceColumnValue('string', 'values');
+        return $this->getSourceValueTypesafe('string', 'values');
     }
 
 
@@ -200,7 +200,7 @@ class Option extends DataEntry
      */
     public function getRange(): ?string
     {
-        return $this->getSourceColumnValue('string', 'range');
+        return $this->getSourceValueTypesafe('string', 'range');
     }
 
 
@@ -223,7 +223,7 @@ class Option extends DataEntry
      */
     public function getDefault(): ?string
     {
-        return $this->getSourceColumnValue('string', 'default');
+        return $this->getSourceValueTypesafe('string', 'default');
     }
 
 

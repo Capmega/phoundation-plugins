@@ -98,7 +98,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getVendorString(): ?string
     {
-        return $this->getSourceColumnValue('string', 'vendor_string');
+        return $this->getSourceValueTypesafe('string', 'vendor_string');
     }
 
 
@@ -121,7 +121,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getSeoVendorString(): ?string
     {
-        return $this->getSourceColumnValue('string', 'seo_vendor_string');
+        return $this->getSourceValueTypesafe('string', 'seo_vendor_string');
     }
 
 
@@ -144,7 +144,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getSeoProductString(): ?string
     {
-        return $this->getSourceColumnValue('string', 'seo_product_string');
+        return $this->getSourceValueTypesafe('string', 'seo_product_string');
     }
 
 
@@ -167,7 +167,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getProductString(): ?string
     {
-        return $this->getSourceColumnValue('string', 'product_string');
+        return $this->getSourceValueTypesafe('string', 'product_string');
     }
 
 
@@ -190,7 +190,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getString(): ?string
     {
-        return $this->getSourceColumnValue('string', 'string');
+        return $this->getSourceValueTypesafe('string', 'string');
     }
 
 
@@ -213,7 +213,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getSeoString(): ?string
     {
-        return $this->getSourceColumnValue('string', 'seo_string');
+        return $this->getSourceValueTypesafe('string', 'seo_string');
     }
 
 
@@ -236,7 +236,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getLibusb(): ?string
     {
-        return $this->getSourceColumnValue('string', 'libusb');
+        return $this->getSourceValueTypesafe('string', 'libusb');
     }
 
 
@@ -259,7 +259,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getBus(): ?string
     {
-        return $this->getSourceColumnValue('string', 'bus');
+        return $this->getSourceValueTypesafe('string', 'bus');
     }
 
 
@@ -282,7 +282,7 @@ class Device extends DataEntry implements DeviceInterface
      */
     public function getDefault(): ?bool
     {
-        return $this->getSourceColumnValue('bool', 'default');
+        return $this->getSourceValueTypesafe('bool', 'default');
     }
 
 
