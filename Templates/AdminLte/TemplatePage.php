@@ -105,7 +105,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function buildPageHeader(): ?string
     {
-        return '<body class="sidebar-mini" style="height: auto;">
+        return '<body class="sidebar-mini' . (Config::get('web.panels.sidebar.collapsed', false) ? ' sidebar-collapse' : '') . '" style="height: auto;">
                     <div class="wrapper">
                         ' . Page::getFlashMessages()->render() . '
                         ' . $this->buildTopPanel() . '
