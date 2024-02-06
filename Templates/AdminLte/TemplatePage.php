@@ -34,11 +34,12 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Once the output has been generated it should be returned.
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target): ?string
+    public function execute(string $target, bool $main_content_only = false): ?string
     {
-        return parent::execute($target);
+        return parent::execute($target, $main_content_only);
     }
 
 
