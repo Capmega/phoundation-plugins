@@ -2,21 +2,13 @@
 
 namespace Plugins\Scanners;
 
-use Phoundation\Core\Core;
-use Phoundation\Core\Sessions\Session;
-use Phoundation\Data\DataEntry\Exception\DataEntryDeletedException;
-use Phoundation\Data\DataEntry\Exception\DataEntryNotExistsException;
 use Phoundation\Data\DataEntry\Interfaces\DataEntryInterface;
 use Phoundation\Data\Traits\DataBatch;
-use Phoundation\Databases\Sql\Exception\SqlTableDoesNotExistException;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Os\Processes\Commands\ScanImage;
 use Phoundation\Utils\Arrays;
-use Phoundation\Utils\Config;
-use Phoundation\Utils\Strings;
 use Plugins\Hardware\Devices\Device;
 use Plugins\Hardware\Devices\Interfaces\ProfileInterface;
-use Plugins\Hardware\Devices\Profile;
 use Plugins\Hardware\Exception\InvalidDeviceClassException;
 
 
@@ -126,9 +118,10 @@ class Scanner extends Device
      * @param bool $meta_enabled
      * @param bool $force
      * @param bool $exception
+     * @param string $filter
      * @return static|null
      */
-    public static function find(array $identifiers, bool $meta_enabled = false, bool $force = false, bool $exception = true): ?static
+    public static function find(array $identifiers, bool $meta_enabled = false, bool $force = false, bool $exception = true, string $filter = 'AND'): ?static
     {
         $entry = parent::find($identifiers, $meta_enabled, $force);
 

@@ -183,7 +183,7 @@ class Profile extends DataEntry implements ProfileInterface
     protected function setDefinitions(DefinitionsInterface $definitions): void
     {
         $definitions
-            ->addDefinition(Definition::new($this, 'devices_id')
+            ->add(Definition::new($this, 'devices_id')
                 ->setVisible(true)
                 ->setOptional(true)
                 ->setSize(4)
@@ -191,7 +191,7 @@ class Profile extends DataEntry implements ProfileInterface
                     // Validate the programs id
                     $validator->orColumn('device')->isDbId()->isQueryResult('SELECT `id` FROM `hardware_devices` WHERE `id` = :id AND `status` IS NULL', [':id' => '$devices_id']);
                 }))
-            ->addDefinition(Definition::new($this, 'device')
+            ->add(Definition::new($this, 'device')
                 ->setOptional(true)
                 ->setVirtual(true)
                 ->setVisible(false)
@@ -203,14 +203,14 @@ class Profile extends DataEntry implements ProfileInterface
                 })
                 ->setLabel(tr('Device'))
                 ->setHelpText(tr('The device this driver option belongs')))
-            ->addDefinition(DefinitionFactory::getName($this))
-            ->addDefinition(DefinitionFactory::getSeoName($this))
-            ->addDefinition(Definition::new($this, 'default')
+            ->add(DefinitionFactory::getName($this))
+            ->add(DefinitionFactory::getSeoName($this))
+            ->add(Definition::new($this, 'default')
                 ->setVisible(true)
                 ->setOptional(true, false)
                 ->setInputType(InputType::checkbox)
                 ->setLabel(tr('Default profile'))
             )
-            ->addDefinition(DefinitionFactory::getComments($this));
+            ->add(DefinitionFactory::getComments($this));
     }
 }
