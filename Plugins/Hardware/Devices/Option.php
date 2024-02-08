@@ -14,7 +14,7 @@ use Phoundation\Data\DataEntry\Traits\DataEntryUnits;
 use Phoundation\Data\Validator\Exception\ValidationFailedException;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Utils\Arrays;
-use Phoundation\Web\Html\Enums\InputType;
+use Phoundation\Web\Html\Enums\EnumInputType;
 
 
 /**
@@ -260,7 +260,7 @@ class Option extends DataEntry
                 ->setVirtual(true)
                 ->setVisible(false)
                 ->setSize(4)
-                ->setInputType(InputType::select)
+                ->setInputType(EnumInputType::select)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
                     // Validate the device name
                     $validator->orColumn('devices_id')->isVariable()->setColumnFromQuery('programs_id', 'SELECT `id` FROM `hardware_devices` WHERE `name` = :name AND `status` IS NULL', [
@@ -287,7 +287,7 @@ class Option extends DataEntry
                 ->setVirtual(true)
                 ->setVisible(false)
                 ->setSize(4)
-                ->setInputType(InputType::select)
+                ->setInputType(EnumInputType::select)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
                     // Validate the profile name
                     $validator

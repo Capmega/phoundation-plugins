@@ -9,6 +9,8 @@ use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Components\Input\Interfaces\RenderInterface;
 use Phoundation\Web\Html\Components\Interfaces\DataEntryFormInterface;
 use Phoundation\Web\Html\Components\Interfaces\ElementsBlockInterface;
+use Templates\AdminLte\Html\Components\Interfaces\DataEntryFormColumnInterface;
+use Templates\AdminLte\Html\Components\Interfaces\DataEntryFormRowsInterface;
 
 
 /**
@@ -21,7 +23,7 @@ use Phoundation\Web\Html\Components\Interfaces\ElementsBlockInterface;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class DataEntryFormRows
+class DataEntryFormRows implements DataEntryFormRowsInterface
 {
     /**
      * A list of all the columns to render
@@ -107,18 +109,17 @@ class DataEntryFormRows
      */
     public function add(?DefinitionInterface $definition = null, RenderInterface|string|null $component = null): static
     {
-        $this->columns[] = DataEntryFormColumn::new($definition)->setComponent($component);
-        return $this;
+        return $this->addColumn(DataEntryFormColumn::new($definition)->setComponent($component));
     }
 
 
     /**
      * Adds the specified DataEntryFormColumn to this DataEntryFormRow
      *
-     * @param DataEntryFormColumn $column
+     * @param DataEntryFormColumnInterface $column
      * @return $this
      */
-    public function addColumn(DataEntryFormColumn $column): static
+    public function addColumn(DataEntryFormColumnInterface $column): static
     {
         $this->columns[] = $column;
         return $this;

@@ -6,11 +6,11 @@ namespace Templates\AdminLte\Html\Components;
 
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionInterface;
 use Phoundation\Data\Traits\DataDefinition;
-use Phoundation\Data\Traits\UsesNew;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Components\Input\Interfaces\RenderInterface;
 use Phoundation\Web\Html\Components\Tooltips\Tooltip;
 use Phoundation\Web\Html\Html;
+use Templates\AdminLte\Html\Components\Interfaces\DataEntryFormColumnInterface;
 
 
 /**
@@ -23,7 +23,7 @@ use Phoundation\Web\Html\Html;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class DataEntryFormColumn
+class DataEntryFormColumn implements DataEntryFormColumnInterface
 {
     use DataDefinition;
 

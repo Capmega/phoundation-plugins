@@ -20,10 +20,11 @@ use Phoundation\Web\Html\Components\Interfaces\ElementsBlockInterface;
 use Phoundation\Web\Html\Components\Tooltips\Tooltip;
 use Phoundation\Web\Html\Enums\DisplayMode;
 use Phoundation\Web\Html\Enums\InputElement;
-use Phoundation\Web\Html\Enums\InputType;
+use Phoundation\Web\Html\Enums\EnumInputType;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
 use Stringable;
+use Templates\AdminLte\Html\Components\Interfaces\DataEntryFormRowsInterface;
 
 
 /**
@@ -48,9 +49,9 @@ class DataEntryForm extends Renderer
     /**
      * The DataEntryForm rows renderer
      *
-     * @var DataEntryFormRows $rows
+     * @var DataEntryFormRowsInterface $rows
      */
-    protected DataEntryFormRows $rows;
+    protected DataEntryFormRowsInterface $rows;
 
 
     /**
@@ -306,7 +307,7 @@ class DataEntryForm extends Renderer
 
                         // Depending on input type we might need different code
                         switch ($definition->getInputType()) {
-                            case InputType::checkbox:
+                            case EnumInputType::checkbox:
                                 // Render the HTML for this element
                                 $component = $element_class::new()
                                     ->setDefinition($definition)
