@@ -6,10 +6,13 @@ declare(strict_types=1);
 namespace Templates\AdminLte\Html\Components;
 
 use Phoundation\Core\Sessions\Session;
+use Phoundation\Data\Interfaces\IteratorInterface;
+use Phoundation\Data\Iterator;
 use Phoundation\Web\Html\Enums\DisplayMode;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
 use Phoundation\Web\Http\UrlBuilder;
+use Templates\AdminLte\Exception\AdminLteException;
 
 
 /**
@@ -24,15 +27,6 @@ use Phoundation\Web\Http\UrlBuilder;
  */
 class TopPanel extends Renderer
 {
-    /**
-     * TopPanel class constructor
-     */
-    public function __construct(\Phoundation\Web\Html\Components\TopPanel $element)
-    {
-        parent::__construct($element);
-    }
-
-
     /**
      * Renders and returns the top panel
      *
@@ -60,7 +54,7 @@ class TopPanel extends Renderer
         }
 
         // Build the left menu
-        $left_menu    = ' <ul class="navbar-nav">
+        $left_menu = '    <ul class="navbar-nav">
                             <li class="nav-item">
                               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                             </li>';
@@ -77,62 +71,96 @@ class TopPanel extends Renderer
         $left_menu .=       isset_get($message) . '
                           </ul>';
 
-        // Build the panel
+        // Build the top panel with the left menu in it
         $this->render = ' <nav class="main-header navbar navbar-expand navbar-' . Html::safe($this->render_object->getMode()->value) . ' navbar-light">
                             <!-- Left navbar links -->
                             ' . $left_menu . '                    
                             <!-- Right navbar links -->
-                            <ul class="navbar-nav ml-auto">
-                              <!-- Navbar Search -->
-                              <li class="nav-item">
-                                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                                  <i class="fas fa-search"></i>
-                                </a>
-                                <div class="navbar-search-block">
-                                  <form class="form-inline">
-                                    <div class="input-group input-group-sm">
-                                      <input class="form-control form-control-navbar" type="search" placeholder="' . tr('Search everywhere') . '" aria-label="' . tr('Search everywhere') . '">
-                                      <div class="input-group-append">
-                                        <button class="btn btn-navbar" type="submit">
+                            <ul class="navbar-nav ml-auto">';
+
+        foreach ($this->render_object->getElementsObject() as $element) {
+            switch ($element) {
+                case 'search':
+                    $this->render .= '<!-- Navbar Search -->
+                                      <li class="nav-item">
+                                        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                                           <i class="fas fa-search"></i>
-                                        </button>
-                                        <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                          <i class="fas fa-times"></i>
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </form>
-                                </div>
-                              </li>
-                        
-                               
-                              <!-- Messages Dropdown Menu -->
-                              <li class="nav-item dropdown messages">
-                                ' . $this->render_object->getMessagesDropDown()?->render() . '
-                              </li>
-                              <!-- Notifications Dropdown Menu -->
-                              <li class="nav-item dropdown notifications">
-                                ' . $this->render_object->getNotificationsDropDown()?->render() . '
-                              </li>
-                              <li class="nav-item dropdown languages">                                  
-                                  ' . $this->render_object->getLanguagesDropDown()?->render() . '
-                              </li>
-                              <li class="nav-item">
-                                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                                  <i class="fas fa-expand-arrows-alt"></i>
-                                </a>
-                              </li>' .
-//                              <li class="nav-item">
-//                                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-//                                  <i class="fas fa-th-large"></i>
-//                                </a>
-//                              </li>
-                             '<li class="nav-item">
-                                <a class="nav-link" href="' . Html::safe(UrlBuilder::getWww('sign-out.html')) . '" role="button">
-                                  <i class="fas fa-sign-out-alt"></i>
-                                </a>
-                              </li>
-                            </ul>
+                                        </a>
+                                        <div class="navbar-search-block">
+                                          <form class="form-inline">
+                                            <div class="input-group input-group-sm">
+                                              <input class="form-control form-control-navbar" type="search" placeholder="' . tr('Search everywhere') . '" aria-label="' . tr('Search everywhere') . '">
+                                              <div class="input-group-append">
+                                                <button class="btn btn-navbar" type="submit">
+                                                  <i class="fas fa-search"></i>
+                                                </button>
+                                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                                  <i class="fas fa-times"></i>
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </li>';
+                    break;
+
+                case 'messages':
+                    $this->render .= '<!-- Messages Dropdown Menu -->
+                                      <li class="nav-item dropdown messages">
+                                        ' . $this->render_object->getMessagesDropDown()?->render() . '
+                                      </li>';
+                    break;
+
+                case 'notifications':
+                    $this->render .= '<!-- Notifications Dropdown Menu -->
+                                      <li class="nav-item dropdown notifications">
+                                        ' . $this->render_object->getNotificationsDropDown()?->render() . '
+                                      </li>';
+                    break;
+
+                case 'languages':
+                    $this->render .= '<li class="nav-item dropdown languages">                                  
+                                          ' . $this->render_object->getLanguagesDropDown()?->render() . '
+                                      </li>';
+                    break;
+
+                case 'full-screen':
+                    $this->render .= '<li class="nav-item">
+                                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                                          <i class="fas fa-expand-arrows-alt"></i>
+                                        </a>
+                                      </li>';
+                    break;
+
+                case 'control-sidebar':
+                    $this->render .= '<li class="nav-item">
+                                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                                          <i class="fas fa-th-large"></i>
+                                        </a>
+                                      </li>';
+                    break;
+
+                case 'sign-out':
+                    $this->render .= '<li class="nav-item">
+                                        <a class="nav-link" href="' . Html::safe(UrlBuilder::getWww('sign-out.html')) . '" role="button">
+                                          <i class="fas fa-sign-out-alt"></i>
+                                        </a>
+                                      </li>';
+                    break;
+
+                default:
+                    if (str_starts_with($element, 'custom_')) {
+                        // TODO Add support for custom top panel elements
+                        break;
+                    }
+
+                    throw new AdminLteException(tr('Unknown top panel element ":element" specified', [
+                        ':element' => $element
+                    ]));
+            }
+        }
+
+        $this->render .= '  </ul>
                           </nav>';
 
         return parent::render();
