@@ -109,11 +109,12 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Build the HTML body
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target): ?string
+    public function buildBody(string $target, bool $main_content_only = false): ?string
     {
-        return parent::buildBody($target);
+        return parent::buildBody($target, $main_content_only);
     }
 
 
@@ -151,9 +152,9 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     /**
      * Builds the body header
      *
-     * @return string
+     * @return string|null
      */
-    protected function buildBodyHeader(): string
+    protected function buildBodyHeader(): ?string
     {
         return '';
     }

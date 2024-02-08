@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte;
 
+use Phoundation\Core\Log\Log;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Components\Footer;
 use Phoundation\Web\Html\Components\Modals\SignInModal;
@@ -133,13 +134,15 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function buildHtmlFooter(): ?string
     {
+        $footers = Page::buildFooters();
+
         if (Page::getBuildBody()) {
-            return        Page::buildFooters() . '
+            return        $footers . '
                       </body>
                   </html>';
         }
 
-        return     Page::buildFooters() . '
+        return     $footers . '
                </html>';
     }
 
@@ -159,11 +162,16 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Build the HTML body
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target): ?string
+    public function buildBody(string $target, bool $main_content_only = false): ?string
     {
-        $body = parent::buildBody($target);
+        $body = parent::buildBody($target, $main_content_only);
+
+        if ($main_content_only) {
+            return $body;
+        }
 
         if (Page::getBuildBody()) {
             $body = '   <div class="' . Page::getClass('content-wrapper', 'content-wrapper') .  '" style="min-height: 1518.06px;">
@@ -247,27 +255,35 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     /**
      * Builds the body header
      *
-     * @return string
+     * @return string|null
      */
-    protected function buildBodyHeader(): string
+    protected function buildBodyHeader(): ?string
     {
-        $sub_title = Page::getHeaderSubTitle();
+        if (!Page::getBuildBodyHeader()) {
+            if (Page::getBuildBodyHeader() === false) {
+                return null;
+            }
 
-        $html = '   <section class="content-header">
-                      <div class="container-fluid">
-                        <div class="row mb-2">
-                          <div class="col-sm-6">
-                            <h1>
-                              ' . Page::getHeaderTitle() . '
-                              ' . ($sub_title ? '<small>' . Html::safe($sub_title) . '</small>' : '') . '
-                            </h1>
+            $html = '   <section class="content-header"></section>';
+        } else {
+            $sub_title = Page::getHeaderSubTitle();
+
+            $html = '   <section class="content-header">
+                          <div class="container-fluid">
+                            <div class="row mb-2">
+                              <div class="col-sm-6">
+                                <h1>
+                                  ' . Page::getHeaderTitle() . '
+                                  ' . ($sub_title ? '<small>' . Html::safe($sub_title) . '</small>' : '') . '
+                                </h1>
+                              </div>
+                              <div class="col-sm-6">
+                                ' . Page::getBreadCrumbs()?->render() .  '
+                              </div>
+                            </div>
                           </div>
-                          <div class="col-sm-6">
-                            ' . Page::getBreadCrumbs()?->render() .  '
-                          </div>
-                        </div>
-                      </div>
-                    </section>';
+                        </section>';
+        }
 
         return $html;
     }
