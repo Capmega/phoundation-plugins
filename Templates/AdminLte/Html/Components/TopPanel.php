@@ -8,7 +8,7 @@ namespace Templates\AdminLte\Html\Components;
 use Phoundation\Core\Sessions\Session;
 use Phoundation\Data\Interfaces\IteratorInterface;
 use Phoundation\Data\Iterator;
-use Phoundation\Web\Html\Enums\DisplayMode;
+use Phoundation\Web\Html\Enums\EnumDisplayMode;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
 use Phoundation\Web\Http\UrlBuilder;
@@ -39,11 +39,11 @@ class TopPanel extends Renderer
 
         // If impersonated, change top panel color and add impersonation message
         if (Session::isImpersonated()) {
-            $this->render_object->setMode(DisplayMode::danger);
+            $this->render_object->setMode(EnumDisplayMode::danger);
             $message = tr('(Impersonated by ":user")', [':user' => Session::getRealUser()->getDisplayName()]);
 
         } else {
-            $this->render_object->setMode(DisplayMode::white);
+            $this->render_object->setMode(EnumDisplayMode::white);
         }
 
         // Top level message?

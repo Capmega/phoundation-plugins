@@ -6,7 +6,7 @@ namespace Templates\None\Html\Components;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Components\Script;
-use Phoundation\Web\Html\Enums\JavascriptWrappers;
+use Phoundation\Web\Html\Enums\EnumJavascriptWrappers;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Layouts\GridRow;
 use Phoundation\Web\Html\Renderer;
@@ -73,7 +73,7 @@ class HtmlDataTable extends Renderer
                          '</div>';
 
         $this->render .= Script::new()
-            ->setJavascriptWrapper(JavascriptWrappers::dom_content)
+            ->setJavascriptWrapper(EnumJavascriptWrappers::dom_content)
             ->setContent('
                 $("#' . Html::safe($id) . '").DataTable({
                   "responsive": true, "lengthChange": false, "autoWidth": false,

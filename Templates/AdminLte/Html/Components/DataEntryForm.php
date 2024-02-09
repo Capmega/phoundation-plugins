@@ -18,8 +18,8 @@ use Phoundation\Web\Html\Components\Interfaces\DataEntryFormInterface;
 use Phoundation\Web\Html\Components\Interfaces\ElementInterface;
 use Phoundation\Web\Html\Components\Interfaces\ElementsBlockInterface;
 use Phoundation\Web\Html\Components\Tooltips\Tooltip;
-use Phoundation\Web\Html\Enums\DisplayMode;
-use Phoundation\Web\Html\Enums\InputElement;
+use Phoundation\Web\Html\Enums\EnumDisplayMode;
+use Phoundation\Web\Html\Enums\EnumInputElement;
 use Phoundation\Web\Html\Enums\EnumInputType;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
@@ -223,10 +223,10 @@ class DataEntryForm extends Renderer
                 if ($definition->getSource()) {
                     // Default element for form items with a source is "select"
                     // TODO CHECK THIS! WHAT IF SOURCE IS A SINGLE STRING?
-                    $definition->setElement(InputElement::select);
+                    $definition->setElement(EnumInputElement::select);
                 } else {
                     // Default element for form items "text input"
-                    $definition->setElement(InputElement::input);
+                    $definition->setElement(EnumInputElement::input);
                 }
             }
 
@@ -454,7 +454,7 @@ class DataEntryForm extends Renderer
                         $input         = $element_class::new()->setSource($definition->getSource());
 
                         $input->getButton()
-                            ->setMode(DisplayMode::from($definition->getMode()))
+                            ->setMode(EnumDisplayMode::from($definition->getMode()))
                             ->setContent($definition->getLabel());
 
                         $component = $input->getInput()

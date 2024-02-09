@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\AdminLte\Html\Modals;
 
 use Phoundation\Web\Html\Components\Script;
-use Phoundation\Web\Html\Enums\DisplaySize;
+use Phoundation\Web\Html\Enums\EnumDisplaySize;
 use Phoundation\Web\Html\Layouts\Grid;
 use Phoundation\Web\Html\Layouts\GridColumn;
 use Phoundation\Web\Html\Layouts\GridRow;
@@ -48,9 +48,9 @@ class SignInModal extends Renderer
         // Build the layout
         $layout = Grid::new()
             ->addRow(GridRow::new()
-                ->addColumn(GridColumn::new()->setSize(DisplaySize::three))
-                ->addColumn(GridColumn::new()->setSize(DisplaySize::six)->setContent($form))
-                ->addColumn(GridColumn::new()->setSize(DisplaySize::three))
+                ->addColumn(GridColumn::new()->setSize(EnumDisplaySize::three))
+                ->addColumn(GridColumn::new()->setSize(EnumDisplaySize::six)->setContent($form))
+                ->addColumn(GridColumn::new()->setSize(EnumDisplaySize::three))
             );
 
         // Set defaults
