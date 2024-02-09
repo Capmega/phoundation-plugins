@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Scanners;
 
 use Phoundation\Data\DataEntry\Interfaces\DataEntryInterface;

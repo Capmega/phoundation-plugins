@@ -21,6 +21,7 @@ use Phoundation\Web\Html\Components\Tooltips\Tooltip;
 use Phoundation\Web\Html\Enums\EnumDisplayMode;
 use Phoundation\Web\Html\Enums\EnumInputElement;
 use Phoundation\Web\Html\Enums\EnumInputType;
+use Phoundation\Web\Html\Enums\EnumInputTypeExtended;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
 use Stringable;
@@ -87,12 +88,12 @@ class DataEntryForm extends Renderer
 
         if ($prefix) {
             if (str_ends_with((string) $prefix, '[]')) {
-                // This is an array prefix with the closing tag attached, just remove the closing tag
+                // This is an array prefix with the closing tag attached, remove the closing tag
                 $prefix = substr($prefix, 0, -1);
             }
 
             if (str_contains($prefix, '[]')) {
-                // This prefix contains a [] to indicate a list item. Specify correct ID's
+                // This prefix contains a [] to indicate a list item. Specify the correct ID's
                 $prefix = str_replace('[]', '[' . static::$list_count . ']', $prefix);
             }
         }
@@ -288,7 +289,7 @@ class DataEntryForm extends Renderer
                                         $definition->setSource((string) $definition->getSource());
 
                                     } else {
-                                        // Only posibility left is instanceof PDOStatement
+                                        // Only possibility left is instanceof PDOStatement
                                         $definition->setSource(sql()->getColumn($definition->getSource(), $execute));
                                     }
                                 }
@@ -317,7 +318,7 @@ class DataEntryForm extends Renderer
                                     ->setChecked((bool) $source[$field]);
                                 break;
 
-                            case 'number':
+                            case EnumInputType::number:
                                 // Render the HTML for this element
                                 $component = $element_class::new()
                                     ->setDefinition($definition)
@@ -329,7 +330,7 @@ class DataEntryForm extends Renderer
                                     ->setValue($source[$field]);
                                 break;
 
-                            case 'date':
+                            case EnumInputType::date:
                                 // Render the HTML for this element
                                 $component = $element_class::new()
                                     ->setDefinition($definition)
@@ -340,7 +341,7 @@ class DataEntryForm extends Renderer
                                     ->setValue($source[$field]);
                                 break;
 
-                            case 'auto-suggest':
+                            case EnumInputTypeExtended::auto_suggest:
                                 // Render the HTML for this element
                                 $component = $element_class::new()
                                     ->setDefinition($definition)
@@ -354,9 +355,9 @@ class DataEntryForm extends Renderer
                                     ->setValue($source[$field]);
                                 break;
 
-                            case 'button':
+                            case EnumInputType::button:
                                 // no break
-                            case 'submit':
+                            case EnumInputType::submit:
                                 // Render the HTML for this element
                                 $component = $element_class::new()
                                     ->setDefinition($definition)
@@ -364,7 +365,7 @@ class DataEntryForm extends Renderer
                                     ->setValue($source[$field]);
                                 break;
 
-                            case 'select':
+                            case EnumInputType::select:
                                 // Render the HTML for this element
                                 $component = $element_class::new()
                                     ->setDefinition($definition)
