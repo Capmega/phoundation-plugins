@@ -187,24 +187,24 @@ class DataEntryForm extends Renderer
                 continue;
             }
 
+            // Either the component or the entire form being readonly or disabled will make the component the same
+            $definition->setReadonly($definition->getReadonly() or $render_object->getReadonly());
+            $definition->setDisabled($definition->getDisabled() or $render_object->getDisabled());
+
             if ($definition->getDisabled() or $definition->getReadonly()) {
                 // This is an unmutable field. Don't add a field names as users aren't supposed to submit this.
                 $field_name = '';
             }
 
-            // Either the component or the entire form being readonly or disabled will make the component the same
-            $definition->setReadonly($definition->getReadonly() or $render_object->getReadonly());
-            $definition->setDisabled($definition->getDisabled() or $render_object->getDisabled());
-
-            // Ensure password is never sent in the form
-            switch ($field) {
-                case 'password':
-                    $source[$field] = '';
-            }
-
             // Hidden objects have size 0
             if ($definition->getHidden()) {
                 $definition->setSize(0);
+            }
+
+            // Ensure security field values are never sent in the form
+            switch ($field) {
+                case 'password':
+                    $source[$field] = '';
             }
 
             $execute = $definition->getExecute();
