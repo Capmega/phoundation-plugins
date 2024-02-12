@@ -180,7 +180,7 @@ class DataEntryFormRows implements DataEntryFormRowsInterface
 
             if ($column_count == 0) {
                 // Close the row
-                $column_count = 12;
+                $column_count = $this->column_count;
                 $cols = [];
                 $render .= '</div>';
             }

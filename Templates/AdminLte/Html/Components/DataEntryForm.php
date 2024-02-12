@@ -221,7 +221,7 @@ class DataEntryForm extends Renderer
 
             // Select default element
             if (!$definition->getElement()) {
-                if ($definition->getSource()) {
+                if ($definition->getDataSource()) {
                     // Default element for form items with a source is "select"
                     // TODO CHECK THIS! WHAT IF SOURCE IS A SINGLE STRING?
                     $definition->setElement(EnumInputElement::select);
@@ -281,16 +281,16 @@ class DataEntryForm extends Renderer
                         }
 
                         // If we have a source query specified, then get the actual value from the query
-                        if ($definition->getSource()) {
-                            if (!is_array($definition->getSource())) {
-                                if (!is_string($definition->getSource())) {
-                                    if ($definition->getSource() instanceof Stringable) {
+                        if ($definition->getDataSource()) {
+                            if (!is_array($definition->getDataSource())) {
+                                if (!is_string($definition->getDataSource())) {
+                                    if ($definition->getDataSource() instanceof Stringable) {
                                         // This is a Stringable object
-                                        $definition->setSource((string) $definition->getSource());
+                                        $definition->setDataSource((string) $definition->getDataSource());
 
                                     } else {
                                         // Only possibility left is instanceof PDOStatement
-                                        $definition->setSource(sql()->getColumn($definition->getSource(), $execute));
+                                        $definition->setDataSource(sql()->getColumn($definition->getDataSource(), $execute));
                                     }
                                 }
                             }
@@ -300,11 +300,11 @@ class DataEntryForm extends Renderer
                         $type = match ($definition->getInputType()) {
                             'datetime-local' => 'DateTimeLocal',
                             'auto-suggest'   => 'AutoSuggest',
-                            default          => Strings::capitalize($definition->getInputType()->value),
+                            default          => str_replace(' ', '', Strings::camelCase(str_replace([' ', '-', '_'], ' ', $definition->getInputType()->value))),
                         };
 
                         // Get the class for this element and ensure the library file is loaded
-                        $element_class = Library::loadClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\Input' . $type);
+                        $element_class = Library::includeClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\Input' . $type);
 
                         // Depending on input type we might need different code
                         switch ($definition->getInputType()) {
@@ -350,7 +350,7 @@ class DataEntryForm extends Renderer
                                     ->setAutoComplete(false)
                                     ->setMinLength($definition->getMinLength())
                                     ->setMaxLength($definition->getMaxLength())
-                                    ->setSourceUrl($definition->getSource())
+                                    ->setSourceUrl($definition->getDataSource())
                                     ->setVariables($definition->getVariables())
                                     ->setValue($source[$field]);
                                 break;
@@ -394,12 +394,12 @@ class DataEntryForm extends Renderer
                         // no-break
                     case 'textarea':
                         // If we have a source query specified, then get the actual value from the query
-                        if ($definition->getSource()) {
-                            $source[$field] = sql()->getColumn($definition->getSource(), $execute);
+                        if ($definition->getDataSource()) {
+                            $source[$field] = sql()->getColumn($definition->getDataSource(), $execute);
                         }
 
                         // Get the class for this element and ensure the library file is loaded
-                        $element_class = Library::loadClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\InputTextArea');
+                        $element_class = Library::includeClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\InputTextArea');
                         $component     = $element_class::new()
                             ->setDefinition($definition)
                             ->setAutoComplete($definition->getAutoComplete())
@@ -418,12 +418,12 @@ class DataEntryForm extends Renderer
                         $element_class = Strings::capitalize($definition->getElement());
 
                         // If we have a source query specified, then get the actual value from the query
-                        if ($definition->getSource()) {
-                            $source[$field] = sql()->getColumn($definition->getSource(), $execute);
+                        if ($definition->getDataSource()) {
+                            $source[$field] = sql()->getColumn($definition->getDataSource(), $execute);
                         }
 
                         // Get the class for this element and ensure the library file is loaded
-                        $element_class = Library::loadClassFile('\\Phoundation\\Web\\Http\\Html\\Components\\' . $element_class);
+                        $element_class = Library::includeClassFile('\\Phoundation\\Web\\Http\\Html\\Components\\' . $element_class);
                         $component     = $element_class::new()
                             ->setDefinition($definition)
                             ->setContent(isset_get($source[$field]));
@@ -433,10 +433,10 @@ class DataEntryForm extends Renderer
 
                     case 'select':
                         // Get the class for this element and ensure the library file is loaded
-                        $element_class = Library::loadClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\InputSelect');
+                        $element_class = Library::includeClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\InputSelect');
                         $component     = $element_class::new()
                             ->setDefinition($definition)
-                            ->setSource($definition->getSource(), $execute)
+                            ->setSource($definition->getDataSource(), $execute)
                             ->setDisabled((bool) ($definition->getDisabled() or $definition->getReadonly()))
                             ->setReadOnly((bool) $definition->getReadonly())
                             ->setHidden($definition->getHidden())
@@ -451,8 +451,8 @@ class DataEntryForm extends Renderer
 
                     case 'inputmultibuttontext':
                         // Get the class for this element and ensure the library file is loaded
-                        $element_class = Library::loadClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\InputMultiButtonText');
-                        $input         = $element_class::new()->setSource($definition->getSource());
+                        $element_class = Library::includeClassFile('\\Phoundation\\Web\\Html\\Components\\Input\\InputMultiButtonText');
+                        $input         = $element_class::new()->setSource($definition->getDataSource());
 
                         $input->getButton()
                             ->setMode(EnumDisplayMode::from($definition->getMode()))
