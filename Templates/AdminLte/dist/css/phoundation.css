@@ -37,11 +37,12 @@ ul.ui-autocomplete li.ui-menu-item {
     list-style-type: none;
 }
 
-div.row {
-    overflow-x: auto;
+div.card-body div.row {
+    overflow-x: scroll;
 }
 
-div.card-body div.row {
+div.card-body div.row:has(div.dt-buttons),
+.overflow-visible {
     overflow-x: visible;
 }
 
