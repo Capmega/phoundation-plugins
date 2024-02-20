@@ -107,3 +107,7 @@ nav .nav li.nav-header
 .form-control:disabled {
     background-color: #e9ecef !important;
 }
+
+.tab-margin {
+    margin-top: 10px;
+}
