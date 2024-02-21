@@ -2,8 +2,7 @@
 
 declare(strict_types=1);
 
-
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Panels;
 
 use Phoundation\Core\Core;
 use Phoundation\Utils\Config;
@@ -13,7 +12,7 @@ use Phoundation\Web\Page;
 
 
 /**
- * AdminLte Plugin Footer class
+ * AdminLte Plugin BottomPanel class
  *
  *
  *
@@ -22,21 +21,19 @@ use Phoundation\Web\Page;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Footer extends Renderer
+class BottomPanel extends Renderer
 {
     /**
-     * Footer class constructor
+     * BottomPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Footer $element)
+    public function __construct(\Phoundation\Web\Html\Components\Panels\BottomPanel $element)
     {
         parent::__construct($element);
     }
 
 
     /**
-     * Renders and returns the HTML for the footer
-     *
-     * @return string|null
+     * @inheritDoc
      */
     public function render(): ?string
     {
@@ -54,7 +51,5 @@ class Footer extends Renderer
                     </div>
                     <strong>Copyright © ' . Config::getString('project.copyright', '2024') . ' <a href="' . Config::getString('project.owner.url', 'https://phoundation.org') . '" target="_blank">' . Config::getString('project.owner.name', 'Phoundation') . '</a>.</strong> All rights reserved. <br>
                   </footer>';
-//        <strong>Copyright © 2014-2021 <a href="https://adminlte.io" target="_blank">AdminLTE.io</a>.</strong> All rights reserved.
-//        <strong>Copyright © 2017-2024 <a href="https://phoundation.org" target="_blank">phoundation.org</a>.</strong> All rights reserved. <br>
     }
 }

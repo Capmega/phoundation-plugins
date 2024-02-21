@@ -23,7 +23,7 @@ class Footer extends Renderer
     /**
      * Footer class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Footer $element)
+    public function __construct(\Phoundation\Web\Html\Components\Panels\BottomPanel $element)
     {
         parent::__construct($element);
     }

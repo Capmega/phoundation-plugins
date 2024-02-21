@@ -27,7 +27,7 @@ class TopPanel extends Renderer
     /**
      * TopPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\TopPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Panels\TopPanel $element)
     {
         $element->getModals()->setRequired('sign-in');
         $element->getModals()->addModal('sign-in', SignInModal::new());

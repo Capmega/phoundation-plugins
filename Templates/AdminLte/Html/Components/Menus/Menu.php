@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Menus;
 
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
@@ -24,7 +24,7 @@ class Menu extends Renderer
     /**
      * Menu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Menu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Menus\Menu $element)
     {
         parent::__construct($element);
     }

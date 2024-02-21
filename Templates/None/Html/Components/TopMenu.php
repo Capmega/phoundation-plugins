@@ -25,7 +25,7 @@ class TopMenu extends Renderer
     /**
      * TopMenu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\TopMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Menus\TopMenu $element)
     {
         parent::__construct($element);
     }

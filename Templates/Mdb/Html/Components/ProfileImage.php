@@ -37,7 +37,7 @@ class ProfileImage extends Renderer
             // This is a guest user, make sure that the profile image shows the sign in modal
             $element->setModalSelector('#signinModal');
         } else {
-            $element->setMenu(Page::getMenus()->getPrimaryMenu());
+            $element->setMenu(Page::getMenusObject()->getPrimaryMenu());
         }
 
         parent::__construct($element);

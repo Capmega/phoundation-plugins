@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-
 namespace Templates\AdminLte;
 
-use Phoundation\Core\Log\Log;
+use Phoundation\Core\Plugins\Plugins;
 use Phoundation\Utils\Config;
-use Phoundation\Web\Html\Components\Footer;
-use Phoundation\Web\Html\Components\Modals\SignInModal;
-use Phoundation\Web\Html\Components\SidePanel;
-use Phoundation\Web\Html\Components\TopPanel;
+use Phoundation\Web\Html\Components\Panels\BottomPanel;
+use Phoundation\Web\Html\Components\Panels\HeaderPanel;
+use Phoundation\Web\Html\Components\Panels\Interfaces\PanelsInterface;
+use Phoundation\Web\Html\Components\Panels\Panels;
+use Phoundation\Web\Html\Components\Panels\SidePanel;
+use Phoundation\Web\Html\Components\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Http\UrlBuilder;
 use Phoundation\Web\Page;
 
 
@@ -29,10 +29,10 @@ use Phoundation\Web\Page;
 class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 {
     /**
-     * Execute, builds and returns the page output according to the template.
+     * Execute, builds and returns the page output, according to the template.
      *
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
-     * Once the output has been generated it should be returned.
+     * Once the output has been generated, it should be returned.
      *
      * @param string $target
      * @param bool $main_content_only
@@ -40,7 +40,56 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function execute(string $target, bool $main_content_only = false): ?string
     {
-        return parent::execute($target, $main_content_only);
+        if (!Page::getLevels()) {
+            Plugins::start();
+            Page::setPanelsObject($this->getAvailablePanelsObject());
+        }
+
+        $body = $this->buildBody($target, $main_content_only);
+
+        if ($main_content_only) {
+            return $body;
+        }
+
+        // Build HTML and minify the output
+        $output = $this->buildHtmlHeader();
+        Page::htmlHeadersSent(true);
+
+        if (Page::getBuildBodyWrapper()) {
+            $output .= ' <body class="sidebar-mini' . (Config::get('web.panels.sidebar.collapsed', false) ? ' sidebar-collapse' : '') . '" style="height: auto;">
+                            <div class="wrapper">' .
+                                Page::getFlashMessages()->render() .
+                                Page::getPanelsObject()->get('top', false)?->render() .
+                                Page::getPanelsObject()->get('left')->render() .
+                                $body .
+                                Page::getPanelsObject()->get('bottom', false)?->render() . '
+                            </div>';
+        } else {
+            // Page requested that no body parts be built
+            $output .= $body;
+        }
+
+        $output .= $this->buildHtmlFooters();
+        $output  = Html::minify($output);
+
+        // Build Template specific HTTP headers
+        $this->buildHttpHeaders($output);
+        return $output;
+    }
+
+
+    /**
+     * Returns a Panels object with the available panels for this Template
+     *
+     * @return PanelsInterface
+     */
+    public function getAvailablePanelsObject(): PanelsInterface
+    {
+        return Panels::new()
+            ->add(Config::getBoolean('web.panels.top.enabled'   , true) ? TopPanel::new()    : null, 'top')
+            ->add(Config::getBoolean('web.panels.left.enabled'  , true) ? SidePanel::new()   : null, 'left')
+            ->add(Config::getBoolean('web.panels.header.enabled', true) ? HeaderPanel::new() : null, 'header')
+            ->add(Config::getBoolean('web.panels.bottom.enabled', true) ? BottomPanel::new() : null, 'bottom');
     }
 
 
@@ -49,7 +98,6 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      *
      * @param string $output
      * @return void
-     *
      */
     public function buildHttpHeaders(string $output): void
     {
@@ -94,67 +142,9 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         ], null, true);
 
         // Set basic page details
-        Page::setPageTitle(Config::get('project.name', tr('Phoundation platform')) . ' (' . Page::getHeaderTitle() . ')');
+        Page::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Page::getHeaderTitle() . ')');
 
-        return Page::buildHeaders();
-    }
-
-
-    /**
-     * Build the page header
-     *
-     * @return string|null
-     */
-    public function buildPageHeader(): ?string
-    {
-        return '<body class="sidebar-mini' . (Config::get('web.panels.sidebar.collapsed', false) ? ' sidebar-collapse' : '') . '" style="height: auto;">
-                    <div class="wrapper">
-                        ' . Page::getFlashMessages()->render() . '
-                        ' . $this->buildTopPanel() . '
-                        ' . $this->buildSidePanel();
-    }
-
-
-    /**
-     * Build the page footer
-     *
-     * @return string|null
-     */
-    public function buildPageFooter(): ?string
-    {
-        return      Footer::new()->render() . '
-                </div>';
-    }
-
-
-    /**
-     * Build the HTML footer
-     *
-     * @return string|null
-     */
-    public function buildHtmlFooter(): ?string
-    {
-        $footers = Page::buildFooters();
-
-        if (Page::getBuildBody()) {
-            return        $footers . '
-                      </body>
-                  </html>';
-        }
-
-        return     $footers . '
-               </html>';
-    }
-
-
-    /**
-     * Build the HTML menu
-     *
-     * @return string|null
-     */
-    public function buildMenu(): ?string
-    {
-        return null;
+        return Page::buildHtmlHeadTag();
     }
 
 
@@ -173,9 +163,9 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             return $body;
         }
 
-        if (Page::getBuildBody()) {
+        if (Page::getBuildBodyWrapper()) {
             $body = '   <div class="' . Page::getClass('content-wrapper', 'content-wrapper') .  '" style="min-height: 1518.06px;">
-                           ' . $this->buildBodyHeader() . '
+                           ' . Page::getPanelsObject()->get('header', false)?->render() . '
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="row">
@@ -189,102 +179,5 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         }
 
         return $body;
-    }
-
-
-    /**
-     * @return string|null
-     */
-    public function buildProfileImage(): ?string
-    {
-        // TODO: Implement buildProfileImage() method.
-    }
-
-
-    /**
-     * Builds and returns the top panel HTML
-     *
-     * @return string|null
-     */
-    protected function buildTopPanel(): ?string
-    {
-        $panel = TopPanel::new();
-
-        $panel->getNotificationsDropDown()
-            ->setStatus('UNREAD')
-            ->setNotifications(null)
-            ->setNotificationsUrl('/notifications/notification-:ID.html')
-            ->setAllNotificationsUrl('/notifications/unread.html');
-
-        $panel->getMessagesDropDown()
-            ->setMessages(null)
-            ->setMessagesUrl('/messages/unread.html');
-
-        $panel->getLanguagesDropDown()
-            ->setLanguages(null)
-            ->setSettingsUrl('/settings.html');
-
-        return $panel->render();
-    }
-
-
-    /**
-     * Builds and returns the sidebar HTML
-     *
-     * @return string|null
-     */
-    protected function buildSidePanel(): ?string
-    {
-        $sign_in = new SignInModal();
-        $sign_in
-            ->useForm(true)
-            ->getForm()
-                ->setId('form-sign-in')
-                ->setMethod('post')
-                ->setAction(UrlBuilder::getAjax('sign-in'));
-
-        $panel = SidePanel::new();
-        $panel->setMenu(Page::getMenus()->getPrimaryMenu());
-        $panel->getModals()
-            ->addModal('sign-in', $sign_in);
-
-        return $panel->render();
-    }
-
-
-    /**
-     * Builds the body header
-     *
-     * @return string|null
-     */
-    protected function buildBodyHeader(): ?string
-    {
-        if (!Page::getBuildBodyHeader()) {
-            if (Page::getBuildBodyHeader() === false) {
-                return null;
-            }
-
-            $html = '   <section class="content-header"></section>';
-        } else {
-            $sub_title = Page::getHeaderSubTitle();
-
-            $html = '   <section class="content-header">
-                          <div class="container-fluid">
-                            <div class="row mb-2">
-                              <div class="col-sm-6">
-                                <h1>
-                                  ' . Page::getHeaderTitle() . '
-                                  ' . ($sub_title ? '<small>' . Html::safe($sub_title) . '</small>' : '') . '
-                                </h1>
-                              </div>
-                              <div class="col-sm-6">
-                                ' . Page::getBreadCrumbs()?->render() .  '
-                              </div>
-                            </div>
-                          </div>
-                        </section>';
-        }
-
-        return $html;
     }
 }

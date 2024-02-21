@@ -3,11 +3,9 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Panels;
 
 use Phoundation\Core\Sessions\Session;
-use Phoundation\Data\Interfaces\IteratorInterface;
-use Phoundation\Data\Iterator;
 use Phoundation\Web\Html\Enums\EnumDisplayMode;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
@@ -37,7 +35,7 @@ class TopPanel extends Renderer
         // TODO Change this hard coded menu below for a flexible one
 //        $left_menu = $this->element->getMenu()?->render();
 
-        // If impersonated, change top panel color and add impersonation message
+        // If impersonated, change top panel color and add an impersonation message
         if (Session::isImpersonated()) {
             $this->render_object->setMode(EnumDisplayMode::danger);
             $message = tr('(Impersonated by ":user")', [':user' => Session::getRealUser()->getDisplayName()]);

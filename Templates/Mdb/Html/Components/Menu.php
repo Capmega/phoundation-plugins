@@ -27,7 +27,7 @@ class Menu extends Renderer
     /**
      * Menu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Menu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Menus\Menu $element)
     {
         parent::__construct($element);
     }

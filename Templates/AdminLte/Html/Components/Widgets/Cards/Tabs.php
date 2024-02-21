@@ -58,7 +58,7 @@ class Tabs extends Renderer
 
                 // Render the change to tabs / contents
                 $this->render .= '  </ul>
-                                    <div class="tab-content" id="custom-content-below-tabContent">';
+                                    <div class="tab-content tab-margin" id="custom-content-below-tabContent">';
 
                 // Render the tab contents
                 $active = true;

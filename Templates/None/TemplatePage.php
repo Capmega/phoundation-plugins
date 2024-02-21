@@ -57,7 +57,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function buildHtmlHeader(): ?string
     {
-        return Page::buildHeaders();
+        return Page::buildHtmlHead();
     }
 
 
@@ -84,28 +84,6 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
 
     /**
-     * Build the HTML footer
-     *
-     * @return string|null
-     */
-    public function buildHtmlFooter(): ?string
-    {
-        return Page::buildFooters();
-    }
-
-
-    /**
-     * Build the HTML menu
-     *
-     * @return string|null
-     */
-    public function buildMenu(): ?string
-    {
-        return null;
-    }
-
-
-    /**
      * Build the HTML body
      *
      * @param string $target
@@ -119,20 +97,12 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
 
     /**
-     * @return string|null
-     */
-    public function buildProfileImage(): ?string
-    {
-        // TODO: Implement buildProfileImage() method.
-    }
-
-
-    /**
      * Builds and returns the top panel HTML
      *
+     * @param string $panel
      * @return string|null
      */
-    protected function buildTopPanel(): ?string
+    protected function buildTopPanel(string $panel): ?string
     {
         return '';
     }

@@ -8,9 +8,9 @@ namespace Templates\Mdb;
 use Phoundation\Core\Sessions\Session;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Components\BreadCrumbs;
-use Phoundation\Web\Html\Components\Footer;
+use Phoundation\Web\Html\Components\Panels\BottomPanel;
+use Phoundation\Web\Html\Components\Panels\TopPanel;
 use Phoundation\Web\Html\Components\ProfileImage;
-use Phoundation\Web\Html\Components\TopPanel;
 use Phoundation\Web\Http\UrlBuilder;
 use Phoundation\Web\Page;
 
@@ -89,7 +89,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         Page::setPageTitle(tr('Phoundation platform'));
         Page::setFavIcon('img/favicons/project.png');
 
-        return Page::buildHeaders();
+        return Page::buildHtmlHead();
     }
 
 
@@ -120,36 +120,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         return '            </div>
                                 </div>
                             </main>' .
-                            Footer::new()->render();
-    }
-
-
-    /**
-     * Build the HTML footer
-     *
-     * @return string|null
-     */
-    public function buildHtmlFooter(): ?string
-    {
-        if (Page::getBuildBody()) {
-            return          Page::buildFooters() . '
-                        </body>
-                    </html>';
-        }
-
-        return      Page::buildFooters() . '
-                </html>';
-    }
-
-
-    /**
-     * Build the HTML menu
-     *
-     * @return string|null
-     */
-    public function buildMenu(): ?string
-    {
-        return null;
+                            BottomPanel::new()->render();
     }
 
 
@@ -167,30 +138,21 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
 
     /**
-     * @return string|null
-     */
-    public function buildProfileImage(): ?string
-    {
-        // TODO: Implement buildProfileImage() method.
-    }
-
-
-    /**
      * Builds and returns a navigation bar
      *
      * @return string|null
      */
-    protected function buildTopPanel(): ?string
+    protected function buildPanel(string $panel): ?string
     {
         $image = ProfileImage::new()
             ->setImage(Session::getUser()->getPicture())
-            ->setMenu(Page::getMenus()->get('profile_image'))
+            ->setMenu(Page::getMenusObject()->get('profile_image'))
             ->setUrl(null);
 
         // Set up the navigation bar
         $navigation_bar = TopPanel::new();
         $navigation_bar
-            ->setMenu(Page::getMenus()->getPrimaryMenu())
+            ->setMenu(Page::getMenusObject()->getPrimaryMenu())
             ->setProfileImage($image)
             ->getModals()
                 ->get('sign-in')

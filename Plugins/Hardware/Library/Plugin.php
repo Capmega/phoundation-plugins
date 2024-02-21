@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Plugins\Hardware\Library;
 
-use Phoundation\Web\Html\Components\Menu;
-use Phoundation\Web\Page;
-use Plugins\Phoundation\Components\ProfileImageMenu;
-
 
 /**
  * Class Plugin

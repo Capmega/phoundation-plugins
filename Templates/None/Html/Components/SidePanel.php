@@ -12,7 +12,6 @@ use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Renderer;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
 
 
 /**
@@ -30,7 +29,7 @@ class SidePanel extends Renderer
     /**
      * SidePanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\SidePanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Panels\SidePanel $element)
     {
         parent::__construct($element);
     }
