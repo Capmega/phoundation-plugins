@@ -182,7 +182,7 @@ class DataEntryForm extends TemplateRenderer
                 $field_name = '';
             }
 
-            if (!$definition->getVisible()) {
+            if (!$definition->getRender()) {
                 // This element shouldn't be shown, continue
                 continue;
             }
