@@ -8,7 +8,7 @@ namespace Templates\None\Html\Components;
 use Phoundation\Core\Sessions\Session;
 use Phoundation\Web\Html\Enums\EnumDisplayMode;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -22,7 +22,7 @@ use Phoundation\Web\Http\UrlBuilder;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class TopPanel extends Renderer
+class TopPanel extends TemplateRenderer
 {
     /**
      * TopPanel class constructor

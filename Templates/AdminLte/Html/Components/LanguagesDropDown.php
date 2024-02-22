@@ -9,7 +9,7 @@ use Phoundation\Date\Date;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -22,7 +22,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class LanguagesDropDown extends Renderer
+class LanguagesDropDown extends TemplateRenderer
 {
     /**
      * LanguagesDropDown class constructor

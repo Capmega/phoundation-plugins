@@ -10,7 +10,7 @@ use Phoundation\Web\Html\Enums\EnumDisplaySize;
 use Phoundation\Web\Html\Layouts\Grid;
 use Phoundation\Web\Html\Layouts\GridColumn;
 use Phoundation\Web\Html\Layouts\GridRow;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -24,7 +24,7 @@ use Phoundation\Web\Http\UrlBuilder;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class SignInModal extends Renderer
+class SignInModal extends TemplateRenderer
 {
     /**
      * SignInModal class constructor

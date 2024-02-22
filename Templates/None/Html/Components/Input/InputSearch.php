@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\None\Html\Components\Input;
 
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -18,7 +18,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class InputSearch extends Renderer
+class InputSearch extends TemplateRenderer
 {
     /**
      * InputSearch class constructor

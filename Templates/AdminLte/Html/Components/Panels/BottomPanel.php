@@ -6,7 +6,7 @@ namespace Templates\AdminLte\Html\Components\Panels;
 
 use Phoundation\Core\Core;
 use Phoundation\Utils\Config;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 use Phoundation\Web\Page;
 
@@ -21,7 +21,7 @@ use Phoundation\Web\Page;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class BottomPanel extends Renderer
+class BottomPanel extends TemplateRenderer
 {
     /**
      * BottomPanel class constructor

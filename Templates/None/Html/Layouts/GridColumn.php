@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\None\Html\Layouts;
 
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -19,7 +19,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class GridColumn extends Renderer
+class GridColumn extends TemplateRenderer
 {
     /**
      * GridColumn class constructor

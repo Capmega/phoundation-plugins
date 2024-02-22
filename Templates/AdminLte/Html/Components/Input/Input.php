@@ -7,7 +7,7 @@ namespace Templates\AdminLte\Html\Components\Input;
 use Phoundation\Utils\Arrays;
 use Phoundation\Web\Html\Components\Input\Interfaces\InputInterface;
 use Phoundation\Web\Html\Components\Input\Interfaces\InputSelectInterface;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -20,7 +20,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Input extends Renderer
+class Input extends TemplateRenderer
 {
     /**
      * Input class constructor

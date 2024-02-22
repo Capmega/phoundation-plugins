@@ -6,9 +6,10 @@ declare(strict_types=1);
 namespace Templates\AdminLte\Html\Components\Panels;
 
 use Phoundation\Core\Sessions\Session;
+use Phoundation\Web\Html\Components\Input\Interfaces\RenderInterface;
 use Phoundation\Web\Html\Enums\EnumDisplayMode;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 use Templates\AdminLte\Exception\AdminLteException;
 
@@ -23,7 +24,7 @@ use Templates\AdminLte\Exception\AdminLteException;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class TopPanel extends Renderer
+class TopPanel extends TemplateRenderer
 {
     /**
      * Renders and returns the top panel
@@ -105,20 +106,20 @@ class TopPanel extends Renderer
                 case 'messages':
                     $this->render .= '<!-- Messages Dropdown Menu -->
                                       <li class="nav-item dropdown messages">
-                                        ' . $this->render_object->getMessagesDropDown()?->render() . '
+                                        ' . $this->render_object->getMessagesDropDown()->render() . '
                                       </li>';
                     break;
 
                 case 'notifications':
                     $this->render .= '<!-- Notifications Dropdown Menu -->
                                       <li class="nav-item dropdown notifications">
-                                        ' . $this->render_object->getNotificationsDropDown()?->render() . '
+                                        ' . $this->render_object->getNotificationsDropDown()->render() . '
                                       </li>';
                     break;
 
                 case 'languages':
                     $this->render .= '<li class="nav-item dropdown languages">                                  
-                                          ' . $this->render_object->getLanguagesDropDown()?->render() . '
+                                          ' . $this->render_object->getLanguagesDropDown()->render() . '
                                       </li>';
                     break;
 
@@ -147,14 +148,18 @@ class TopPanel extends Renderer
                     break;
 
                 default:
-                    if (str_starts_with($element, 'custom_')) {
-                        // TODO Add support for custom top panel elements
-                        break;
-                    }
+                    // This is a custom element. Must be either a render-able object, or a callback that returns HTML
+                    if ($element instanceof RenderInterface) {
+                        $this->render .= $element->render();
 
-                    throw new AdminLteException(tr('Unknown top panel element ":element" specified', [
-                        ':element' => $element
-                    ]));
+                    } elseif (is_callable($element)) {
+                        $this->render .= $element();
+
+                    } else {
+                        throw new AdminLteException(tr('Unknown top panel element ":element" specified', [
+                            ':element' => $element
+                        ]));
+                    }
             }
         }
 

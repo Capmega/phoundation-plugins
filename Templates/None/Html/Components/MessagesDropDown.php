@@ -7,7 +7,7 @@ namespace Templates\None\Html\Components;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -20,7 +20,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class MessagesDropDown extends Renderer
+class MessagesDropDown extends TemplateRenderer
 {
     /**
      * MessagesDropDown class constructor

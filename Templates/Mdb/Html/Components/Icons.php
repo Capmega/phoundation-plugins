@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components;
 
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -18,7 +18,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\Mdb
  */
-class Icons extends Renderer
+class Icons extends TemplateRenderer
 {
     /**
      * Icons class constructor

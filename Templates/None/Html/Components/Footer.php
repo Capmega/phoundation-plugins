@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\None\Html\Components;
 
 use Phoundation\Core\Core;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -19,7 +19,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class Footer extends Renderer
+class Footer extends TemplateRenderer
 {
     /**
      * Footer class constructor

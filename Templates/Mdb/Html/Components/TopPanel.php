@@ -8,7 +8,7 @@ namespace Templates\Mdb\Html\Components;
 use Phoundation\Web\Html\Components\Img;
 use Phoundation\Web\Html\Components\Modals\SignInModal;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -22,7 +22,7 @@ use Phoundation\Web\Http\UrlBuilder;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\Mdb
  */
-class TopPanel extends Renderer
+class TopPanel extends TemplateRenderer
 {
     /**
      * TopPanel class constructor

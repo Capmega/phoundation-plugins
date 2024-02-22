@@ -23,7 +23,7 @@ use Phoundation\Web\Html\Enums\EnumInputElement;
 use Phoundation\Web\Html\Enums\EnumInputType;
 use Phoundation\Web\Html\Enums\EnumInputTypeExtended;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Stringable;
 use Templates\AdminLte\Html\Components\Interfaces\DataEntryFormRowsInterface;
 
@@ -38,7 +38,7 @@ use Templates\AdminLte\Html\Components\Interfaces\DataEntryFormRowsInterface;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class DataEntryForm extends Renderer
+class DataEntryForm extends TemplateRenderer
 {
     /**
      * Counter for list forms

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Modals;
 
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -17,7 +17,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Modal extends Renderer
+class Modal extends TemplateRenderer
 {
     /**
      * Modal class constructor

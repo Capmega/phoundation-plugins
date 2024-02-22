@@ -6,7 +6,7 @@ namespace Templates\AdminLte\Html\Components\Widgets\Cards;
 
 use Phoundation\Exception\UnderConstructionException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -19,7 +19,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Tabs extends Renderer
+class Tabs extends TemplateRenderer
 {
     /**
      * Card class constructor

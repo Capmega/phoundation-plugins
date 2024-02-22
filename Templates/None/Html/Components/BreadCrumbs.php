@@ -7,7 +7,7 @@ namespace Templates\None\Html\Components;
 
 use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -21,7 +21,7 @@ use Phoundation\Web\Http\UrlBuilder;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class BreadCrumbs extends Renderer
+class BreadCrumbs extends TemplateRenderer
 {
     /**
      * BreadCrumbs class constructor

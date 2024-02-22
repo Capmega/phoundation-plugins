@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\None\Html\Components\Input;
 
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -18,7 +18,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2022 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class InputNumeric extends Renderer
+class InputNumeric extends TemplateRenderer
 {
     /**
      * InputNumeric class constructor

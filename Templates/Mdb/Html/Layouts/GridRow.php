@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Layouts;
 
 use Phoundation\Core\Log\Log;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 
 
 /**
@@ -19,7 +19,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\Mdb
  */
-class GridRow extends Renderer
+class GridRow extends TemplateRenderer
 {
     /**
      * GridRow class constructor

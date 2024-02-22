@@ -41,8 +41,8 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     public function execute(string $target, bool $main_content_only = false): ?string
     {
         if (!Page::getLevels()) {
-            Plugins::start();
             Page::setPanelsObject($this->getAvailablePanelsObject());
+            Plugins::start();
         }
 
         $body = $this->buildBody($target, $main_content_only);

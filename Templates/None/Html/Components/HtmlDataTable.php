@@ -9,7 +9,7 @@ use Phoundation\Web\Html\Components\Script;
 use Phoundation\Web\Html\Enums\EnumJavascriptWrappers;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Layouts\GridRow;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\TemplateRenderer;
 use Phoundation\Web\Page;
 
 
@@ -23,7 +23,7 @@ use Phoundation\Web\Page;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class HtmlDataTable extends Renderer
+class HtmlDataTable extends TemplateRenderer
 {
     /**
      * Table class constructor
