@@ -25,7 +25,7 @@ class Profiles extends DataList implements ProfilesInterface
      */
     public function __construct()
     {
-        $this->id_is_unique_column = true;
+        $this->keys_are_unique_column = true;
         parent::__construct();
     }
 
