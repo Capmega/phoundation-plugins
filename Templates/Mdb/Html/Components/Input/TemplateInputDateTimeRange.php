@@ -55,4 +55,6 @@ class TemplateInputDateTimeRange extends TemplateInput
 //          }
 //        })
 
-      
+        return parent::render();
+    }
+}

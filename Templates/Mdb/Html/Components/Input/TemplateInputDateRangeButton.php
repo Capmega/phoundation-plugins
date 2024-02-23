@@ -65,4 +65,8 @@ class TemplateInputDateRangeButton extends TemplateInput
 //          }
 //        );
 
-//        <script src="../../plugins/daterangepicker/daterangepicker.js"></sc
+//        <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
+
+        return parent::render();
+    }
+}

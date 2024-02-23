@@ -25,7 +25,7 @@ class InputTime extends TemplateRenderer
      */
     public function __construct(\Phoundation\Web\Html\Components\Input\InputTime $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('form-control');
         parent::__construct($element);
     }
 }

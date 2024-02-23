@@ -25,7 +25,7 @@ class InputRadio extends TemplateRenderer
      */
     public function __construct(\Phoundation\Web\Html\Components\Input\InputRadio $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('form-control');
         parent::__construct($element);
     }
 }

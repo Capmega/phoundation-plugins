@@ -60,4 +60,6 @@ class TemplateInputMultiButtonText extends TemplateInput
                                 ' . $this->render_object->getInput()->render() . '
                             </div>';
 
-      
+        return parent::render();
+    }
+}

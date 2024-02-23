@@ -24,5 +24,7 @@ class TemplateInputTime extends TemplateInput
      */
     public function __construct(InputTime $element)
     {
-        $element->addClass( 'form-control');
-        parent::__con
+        $element->addClass('form-control');
+        parent::__construct($element);
+    }
+}

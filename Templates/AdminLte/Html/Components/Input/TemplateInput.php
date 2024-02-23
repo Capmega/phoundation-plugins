@@ -27,7 +27,7 @@ class TemplateInput extends TemplateRenderer
      */
     public function __construct(InputInterface $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('form-control');
         parent::__construct($element);
     }
 

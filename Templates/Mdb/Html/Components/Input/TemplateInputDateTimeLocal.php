@@ -24,5 +24,7 @@ class TemplateInputDateTimeLocal extends TemplateInput
      */
     public function __construct(InputDateTimeLocal $element)
     {
-        $element->addClass( 'form-control');
-        pare
+        $element->addClass('form-control');
+        parent::__construct($element);
+    }
+}

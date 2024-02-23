@@ -53,4 +53,7 @@ class TemplateInputDateRange extends TemplateInput
                         ' . parent::render() . '
                     </div>';
 
-        // Add date range picker
+        // Add date range picker JS
+        return $html;
+    }
+}

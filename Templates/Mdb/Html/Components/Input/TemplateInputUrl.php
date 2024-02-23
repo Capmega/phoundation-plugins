@@ -23,5 +23,7 @@ class TemplateInputUrl extends TemplateInput
      */
     public function __construct(InputUrl $element)
     {
-        $element->addClass( 'form-control');
-        parent::__const
+        $element->addClass('form-control');
+        parent::__construct($element);
+    }
+}

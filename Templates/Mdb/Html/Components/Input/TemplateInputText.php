@@ -25,4 +25,6 @@ class TemplateInputText extends TemplateInput
     public function __construct(InputText $element)
     {
         $element->addClass('form-control');
-        parent::__con
+        parent::__construct($element);
+    }
+}

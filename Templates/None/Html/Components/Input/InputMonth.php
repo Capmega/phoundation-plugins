@@ -25,7 +25,7 @@ class InputMonth extends TemplateRenderer
      */
     public function __construct(\Phoundation\Web\Html\Components\Input\InputMonth $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('form-control');
         parent::__construct($element);
     }
 }

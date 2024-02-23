@@ -24,7 +24,7 @@ class TemplateInputReset extends TemplateInput
      */
     public function __construct(InputReset $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('form-control');
         parent::__construct($element);
     }
 }

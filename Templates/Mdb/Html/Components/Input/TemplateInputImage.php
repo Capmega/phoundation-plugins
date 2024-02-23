@@ -24,5 +24,7 @@ class TemplateInputImage extends TemplateInput
      */
     public function __construct(InputImage $element)
     {
-        $element->addClass( 'form-control');
-        parent::__co
+        $element->addClass('form-control');
+        parent::__construct($element);
+    }
+}

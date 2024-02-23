@@ -41,4 +41,6 @@ class TemplateInputCheckbox extends TemplateInput
         return '<div class="custom-control custom-checkbox">
                     ' . parent::render() . '
                     ' . ($object->getLabel() ? '<label for="' . $object->getName() . '" class="custom-control-label">' . $object->getLabel() . '</label>' : '') . '
-    
+                </div>';
+    }
+}

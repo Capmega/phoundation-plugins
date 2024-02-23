@@ -24,7 +24,7 @@ class TemplateInputMonth extends TemplateInput
      */
     public function __construct(InputMonth $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('form-control');
         parent::__construct($element);
     }
 }

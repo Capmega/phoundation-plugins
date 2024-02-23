@@ -24,5 +24,7 @@ class TemplateInputPassword extends TemplateInput
      */
     public function __construct(InputPassword $element)
     {
-        $element->addClass( 'form-control');
-        parent::_
+        $element->addClass('form-control');
+        parent::__construct($element);
+    }
+}
