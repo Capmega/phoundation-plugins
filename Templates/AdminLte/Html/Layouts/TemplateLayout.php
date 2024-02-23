@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Input;
+namespace Templates\AdminLte\Html\Layouts;
+
+use Phoundation\Web\Html\Layouts\Layout;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * Class TemplateInputSelect2
+ * Class TemplateLayout
  *
  *
  *
@@ -15,14 +18,13 @@ namespace Templates\AdminLte\Html\Components\Input;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class InputSelect2 extends TemplateInputSelect
+abstract class TemplateLayout extends TemplateRenderer
 {
     /**
-     * Select class constructor
+     * Layout class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputSelect $element)
+    public function __construct(Layout $element)
     {
-        $element->addClass( 'form-control');
         parent::__construct($element);
     }
 }

@@ -2,11 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Input;
+namespace Templates\AdminLte\Html\Components\Tables;
+
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * Class TemplateInputSelect2
+ * Class TemplateAdminLte TemplateHtmlTable
  *
  *
  *
@@ -15,14 +17,14 @@ namespace Templates\AdminLte\Html\Components\Input;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class InputSelect2 extends TemplateInputSelect
+class TemplateHtmlTable extends TemplateRenderer
 {
     /**
-     * Select class constructor
+     * Table class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputSelect $element)
+    public function __construct(\Phoundation\Web\Html\Components\Tables\HtmlTable $element)
     {
-        $element->addClass( 'form-control');
+        $element->addClass('table');
         parent::__construct($element);
     }
 }

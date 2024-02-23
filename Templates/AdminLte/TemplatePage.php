@@ -17,7 +17,7 @@ use Phoundation\Web\Page;
 
 
 /**
- * AdminLte template class
+ * Class TemplateAdminLte template
  *
  *
  *
@@ -117,7 +117,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         Page::setFavIcon();
         Page::setViewport('width=device-width, initial-scale=1');
 
-        // Load basic MDB and fonts CSS
+        // Load basic AdminLte and fonts CSS
         Page::loadCss([
             'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
             'adminlte/plugins/fontawesome-free-6.4.0-web/css/all',
@@ -132,7 +132,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         // Load configured CSS files
         Page::loadCss(Config::getArray('web.page.css', []));
 
-        // Load basic MDB amd jQuery javascript libraries
+        // Load basic AdminLte amd jQuery javascript libraries
         Page::loadJavascript([
             'adminlte/plugins/jquery/jquery',
             'adminlte/plugins/jquery-ui/jquery-ui',

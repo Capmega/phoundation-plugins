@@ -6,7 +6,7 @@ namespace Templates\AdminLte\Html\Components\Input;
 
 
 /**
- * Class TemplateInputSelect2
+ * Class TemplateSelect
  *
  *
  *
@@ -15,7 +15,7 @@ namespace Templates\AdminLte\Html\Components\Input;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class InputSelect2 extends TemplateInputSelect
+class TemplateInputSelect extends TemplateInput
 {
     /**
      * Select class constructor

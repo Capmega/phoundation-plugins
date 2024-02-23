@@ -6,7 +6,7 @@ namespace Templates\AdminLte\Html\Components\Input;
 
 
 /**
- * Class TemplateInputSelect2
+ * Class TemplateInputWeek
  *
  *
  *
@@ -15,12 +15,12 @@ namespace Templates\AdminLte\Html\Components\Input;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class InputSelect2 extends TemplateInputSelect
+class TemplateInputWeek extends TemplateInput
 {
     /**
-     * Select class constructor
+     * InputWeek class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputSelect $element)
+    public function __construct(\Phoundation\Web\Html\Components\Input\InputWeek $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\AdminLte;
 
 use Phoundation\Web\Html\Template\Template;
-use Templates\AdminLte\Html\Components\Widgets\Menus\Menu;
+use Templates\AdminLte\Html\Components\Widgets\Menus\TemplateMenu;
 
 
 /**
@@ -30,7 +30,7 @@ class AdminLte extends Template
     {
         $this->name        = 'AdminLte';
         $this->page_class  = TemplatePage::class;
-        $this->menus_class = Menu::class;
+        $this->menus_class = TemplateMenu::class;
 
         parent::__construct();
     }

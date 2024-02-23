@@ -6,7 +6,7 @@ namespace Templates\AdminLte\Html\Components\Input;
 
 
 /**
- * Class TemplateInputSelect2
+ * Class TemplateInputReset
  *
  *
  *
@@ -15,12 +15,12 @@ namespace Templates\AdminLte\Html\Components\Input;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class InputSelect2 extends TemplateInputSelect
+class TemplateInputReset extends TemplateInput
 {
     /**
-     * Select class constructor
+     * InputReset class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputSelect $element)
+    public function __construct(\Phoundation\Web\Html\Components\Input\InputReset $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);
