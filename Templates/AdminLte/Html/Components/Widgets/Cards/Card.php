@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Widgets\Cards;
 
+use Phoundation\Enums\EnumOrientation;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
@@ -36,7 +37,7 @@ class Card extends TemplateRenderer
     {
         $tabs = $this->render_object->getTabsObject(false);
 
-        if ($tabs and ($tabs->getOrientation() === 'top')) {
+        if ($tabs and ($tabs->getOrientation() === EnumOrientation::top)) {
             $this->render = '   <div' . ($this->render_object->getId() ? ' id="' . $this->render_object->getId() . '"' : '') . ' class="card ' . ($this->render_object->getClass() ? $this->render_object->getClass() . ' ' : null) . ($this->render_object->getGradient() ? 'gradient-' . Html::safe($this->render_object->getGradient()) : '') . ($this->render_object->getMode()->value ? 'card-' . Html::safe($this->render_object->getMode()->value) : '') . ($this->render_object->getOutline() ? ' card-outline' : '') . ($this->render_object->getBackground() ? 'bg-' . Html::safe($this->render_object->getBackground()) : '') . ' card-tabs">
                                     <div class="card-header p-0 p-1 border-bottom-0">
                                         <ul class="nav nav-tabs" id="" role="tablist">';

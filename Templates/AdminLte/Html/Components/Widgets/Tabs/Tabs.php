@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Templates\AdminLte\Html\Components\Widgets\Tabs;
 
 use Phoundation\Exception\UnderConstructionException;
+use Phoundation\Enums\EnumOrientation;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
@@ -39,7 +40,7 @@ class Tabs extends TemplateRenderer
         $tab_display_size     = 12 - $content_display_size;
 
         switch ($tabs->getOrientation()) {
-            case 'top':
+            case EnumOrientation::top:
                 $this->render .= '  <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">';
 
                 // Render the tabs
@@ -73,7 +74,7 @@ class Tabs extends TemplateRenderer
                 $this->render .= '  </div>';
                 break;
 
-            case 'left':
+            case EnumOrientation::left:
                 $this->render .= '  <div class="row">
                                         <div class="col-' . $tab_display_size . ' col-sm-' . $tab_display_size . '">
                                             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">';
@@ -110,7 +111,7 @@ class Tabs extends TemplateRenderer
                                     </div>';
                 break;
 
-            case 'right':
+            case EnumOrientation::right:
                 $this->render .= '  <div class="row">
                                         <div class="col-' . $content_display_size . ' col-sm-' . $content_display_size . '">
                                             <div class="tab-content" id="vert-tabs-tabContent">';
@@ -147,7 +148,7 @@ class Tabs extends TemplateRenderer
                                     </div>';
                 break;
 
-            case 'bottom':
+            case EnumOrientation::bottom:
                 throw new UnderConstructionException(tr('bottom orientation for tabs is still under construction!'));
         }
 
