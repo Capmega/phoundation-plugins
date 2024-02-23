@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Widgets\Cards;
+namespace Templates\AdminLte\Html\Components\Widgets\Tabs;
 
 use Phoundation\Exception\UnderConstructionException;
 use Phoundation\Web\Html\Template\TemplateRenderer;
@@ -23,7 +23,7 @@ class Tabs extends TemplateRenderer
     /**
      * Card class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Cards\Tabs $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Tabs\Tabs $element)
     {
         parent::__construct($element);
     }
