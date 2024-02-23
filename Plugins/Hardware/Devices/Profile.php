@@ -186,7 +186,7 @@ class Profile extends DataEntry implements ProfileInterface
     {
         $definitions
             ->add(Definition::new($this, 'devices_id')
-                ->setVisible(true)
+                ->setRender(true)
                 ->setOptional(true)
                 ->setSize(4)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
@@ -196,7 +196,7 @@ class Profile extends DataEntry implements ProfileInterface
             ->add(Definition::new($this, 'device')
                 ->setOptional(true)
                 ->setVirtual(true)
-                ->setVisible(false)
+                ->setRender(false)
                 ->setSize(4)
                 ->setInputType(EnumInputType::select)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
@@ -208,7 +208,7 @@ class Profile extends DataEntry implements ProfileInterface
             ->add(DefinitionFactory::getName($this))
             ->add(DefinitionFactory::getSeoName($this))
             ->add(Definition::new($this, 'default')
-                ->setVisible(true)
+                ->setRender(true)
                 ->setOptional(true, false)
                 ->setInputType(EnumInputType::checkbox)
                 ->setLabel(tr('Default profile'))
