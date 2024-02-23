@@ -7,10 +7,10 @@ namespace Templates\Mdb;
 
 use Phoundation\Core\Sessions\Session;
 use Phoundation\Utils\Config;
-use Phoundation\Web\Html\Components\BreadCrumbs;
-use Phoundation\Web\Html\Components\Panels\BottomPanel;
-use Phoundation\Web\Html\Components\Panels\TopPanel;
-use Phoundation\Web\Html\Components\ProfileImage;
+use Phoundation\Web\Html\Components\Widgets\BreadCrumbs;
+use Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
+use Phoundation\Web\Html\Components\Widgets\ProfileImage;
 use Phoundation\Web\Http\UrlBuilder;
 use Phoundation\Web\Page;
 

@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Layouts;
 
 use Phoundation\Core\Log\Log;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Panels;
+namespace Templates\AdminLte\Html\Components\Widgets\Panels;
 
 use Phoundation\Core\Core;
 use Phoundation\Core\Sessions\Session;
 use Phoundation\Utils\Config;
 use Phoundation\Utils\Strings;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -27,7 +27,7 @@ class SidePanel extends TemplateRenderer
     /**
      * SidePanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Panels\SidePanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\SidePanel $element)
     {
         parent::__construct($element);
     }

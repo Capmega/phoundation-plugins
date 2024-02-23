@@ -2,28 +2,26 @@
 
 declare(strict_types=1);
 
+namespace Templates\AdminLte\Html\Components\Forms;
 
-namespace Templates\Mdb\Html\Components;
-
-use Phoundation\Web\Html\Template\TemplateRenderer;
-
+use Templates\AdminLte\Html\Components\DataEntryForm;
 
 /**
- * MDB Plugin DropDownMenu class
+ * Class FilterForm
  *
  *
  *
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Templates\Mdb
+ * @package Templates\AdminLte
  */
-class DropDownMenu extends TemplateRenderer
+class FilterForm extends DataEntryForm
 {
     /**
-     * DropDownMenu class constructor
+     * FilterForm class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\DropDownMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Forms\FilterForm $element)
     {
         parent::__construct($element);
     }

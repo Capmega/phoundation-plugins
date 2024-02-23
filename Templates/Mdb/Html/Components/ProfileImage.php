@@ -8,7 +8,7 @@ namespace Templates\Mdb\Html\Components;
 use Phoundation\Core\Sessions\Session;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Page;
 
 
@@ -27,7 +27,7 @@ class ProfileImage extends TemplateRenderer
     /**
      * ProfileImage class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\ProfileImage $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ProfileImage $element)
     {
         // Set up the default image URL
 //        $this->element->setUrl('sign-in');

@@ -2,15 +2,14 @@
 
 declare(strict_types=1);
 
+namespace Templates\AdminLte\Html\Components\Tables;
 
-namespace Templates\AdminLte\Html\Layouts;
-
-use Phoundation\Web\Html\Html;
+use Phoundation\Web\Html\Layouts\GridRow;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * AdminLte Plugin Container class
+ * AdminLte Template HtmlDataTable class
  *
  *
  *
@@ -19,24 +18,25 @@ use Phoundation\Web\Html\Template\TemplateRenderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Container extends TemplateRenderer
+class HtmlDataTable extends TemplateRenderer
 {
     /**
-     * Container class constructor
+     * Table class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Layouts\Container $element)
+    public function __construct(\Phoundation\Web\Html\Components\Tables\HtmlTable $element)
     {
+        $element->addClass('table');
         parent::__construct($element);
     }
 
 
     /**
-     * Render the HTML for this container
+     * Renders and returns the HTML for this object
      *
      * @return string|null
      */
     public function render(): ?string
     {
-        return '<div class="container' . ($this->render_object->getTier()->value ? '-' . Html::safe($this->render_object->getTier()->value) : null) . '">' . Html::safe($this->render_object->getContent()) . '</div>';
+        return GridRow::new()->addColumn(parent::render())->render();
     }
 }

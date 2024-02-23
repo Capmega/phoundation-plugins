@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Icons;
 
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -24,7 +24,7 @@ class Icons extends TemplateRenderer
     /**
      * Icons class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Icons $element)
+    public function __construct(\Phoundation\Web\Html\Components\Icons\Icons $element)
     {
         parent::__construct($element);
     }

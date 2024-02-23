@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Modals;
+namespace Templates\AdminLte\Html\Components\Widgets\Modals;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -22,7 +22,7 @@ class Modal extends TemplateRenderer
     /**
      * Modal class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Modals\Modal $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Modals\Modal $element)
     {
         parent::__construct($element);
     }

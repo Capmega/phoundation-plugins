@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Forms;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * AdminLte Template HtmlTable class
+ * Class DataEntryForm
  *
  *
  *
@@ -17,14 +17,13 @@ use Phoundation\Web\Html\TemplateRenderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class HtmlTable extends TemplateRenderer
+class DataEntryForm extends TemplateRenderer
 {
     /**
-     * Table class constructor
+     * FilterForm class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\HtmlTable $element)
+    public function __construct(\Phoundation\Web\Html\Components\Forms\DataEntryForm $element)
     {
-        $element->addClass('table');
         parent::__construct($element);
     }
 }

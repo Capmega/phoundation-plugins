@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -23,7 +23,7 @@ class BreadCrumbs extends TemplateRenderer
     /**
      * BreadCrumbs class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\BreadCrumbs $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\BreadCrumbs $element)
     {
         parent::__construct($element);
     }

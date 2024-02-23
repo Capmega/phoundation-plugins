@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Widgets;
 
 use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -26,7 +26,7 @@ class BreadCrumbs extends TemplateRenderer
     /**
      * BreadCrumbs class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\BreadCrumbs $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\BreadCrumbs $element)
     {
         parent::__construct($element);
     }

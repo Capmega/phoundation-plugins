@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Widgets;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -25,7 +25,7 @@ class ImageMenu extends TemplateRenderer
     /**
      * ImageMenu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\ImageMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ImageMenu $element)
     {
         parent::__construct($element);
     }

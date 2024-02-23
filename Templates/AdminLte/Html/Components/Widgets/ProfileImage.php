@@ -3,27 +3,27 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Widgets;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * AdminLte Plugin Button class
+ * AdminLte Plugin ProfileImage class
  *
- *
+ * 
  *
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Button extends TemplateRenderer
+class ProfileImage extends TemplateRenderer
 {
     /**
-     * Button class constructor
+     * ProfileImage class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Button $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ProfileImage $element)
     {
         parent::__construct($element);
     }

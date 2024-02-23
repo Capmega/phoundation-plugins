@@ -6,12 +6,12 @@ namespace Templates\AdminLte;
 
 use Phoundation\Core\Plugins\Plugins;
 use Phoundation\Utils\Config;
-use Phoundation\Web\Html\Components\Panels\BottomPanel;
-use Phoundation\Web\Html\Components\Panels\HeaderPanel;
-use Phoundation\Web\Html\Components\Panels\Interfaces\PanelsInterface;
-use Phoundation\Web\Html\Components\Panels\Panels;
-use Phoundation\Web\Html\Components\Panels\SidePanel;
-use Phoundation\Web\Html\Components\Panels\TopPanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\HeaderPanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\Interfaces\PanelsInterface;
+use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
+use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Page;
 

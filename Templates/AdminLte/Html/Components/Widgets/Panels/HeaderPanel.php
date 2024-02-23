@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Panels;
+namespace Templates\AdminLte\Html\Components\Widgets\Panels;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Page;
 
 
@@ -25,7 +25,7 @@ class HeaderPanel extends TemplateRenderer
     /**
      * HeaderPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Panels\HeaderPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\HeaderPanel $element)
     {
         parent::__construct($element);
     }

@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components\Menus;
+namespace Templates\AdminLte\Html\Components\Widgets\Menus;
 
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -24,7 +24,7 @@ class Menu extends TemplateRenderer
     /**
      * Menu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Menus\Menu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\Menu $element)
     {
         parent::__construct($element);
     }

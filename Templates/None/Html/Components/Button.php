@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\None\Html\Components;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -23,7 +23,7 @@ class Button extends TemplateRenderer
     /**
      * Button class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Button $element)
+    public function __construct(\Phoundation\Web\Html\Components\Buttons\Button $element)
     {
         parent::__construct($element);
     }

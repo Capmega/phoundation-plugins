@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Modals;
+namespace Templates\AdminLte\Html\Components\Widgets\Modals;
 
 use Phoundation\Web\Html\Components\Script;
 use Phoundation\Web\Html\Enums\EnumDisplaySize;
 use Phoundation\Web\Html\Layouts\Grid;
 use Phoundation\Web\Html\Layouts\GridColumn;
 use Phoundation\Web\Html\Layouts\GridRow;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -28,7 +28,7 @@ class SignInModal extends TemplateRenderer
     /**
      * SignInModal class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Modals\SignInModal $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Modals\SignInModal $element)
     {
         parent::__construct($element);
     }

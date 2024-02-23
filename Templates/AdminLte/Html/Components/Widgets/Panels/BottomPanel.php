@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Panels;
+namespace Templates\AdminLte\Html\Components\Widgets\Panels;
 
 use Phoundation\Core\Core;
 use Phoundation\Utils\Config;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 use Phoundation\Web\Page;
 
@@ -26,7 +26,7 @@ class BottomPanel extends TemplateRenderer
     /**
      * BottomPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Panels\BottomPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel $element)
     {
         parent::__construct($element);
     }

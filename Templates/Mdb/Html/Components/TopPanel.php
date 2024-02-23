@@ -6,9 +6,9 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Components;
 
 use Phoundation\Web\Html\Components\Img;
-use Phoundation\Web\Html\Components\Modals\SignInModal;
+use Phoundation\Web\Html\Components\Widgets\Modals\SignInModal;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -27,7 +27,7 @@ class TopPanel extends TemplateRenderer
     /**
      * TopPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Panels\TopPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\TopPanel $element)
     {
         $element->getModals()->setRequired('sign-in');
         $element->getModals()->addModal('sign-in', SignInModal::new());

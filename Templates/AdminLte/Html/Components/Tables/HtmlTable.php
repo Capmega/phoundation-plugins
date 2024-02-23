@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Panels;
+namespace Templates\AdminLte\Html\Components\Tables;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * AdminLte Plugin Panel class
+ * AdminLte Template HtmlTable class
  *
  *
  *
@@ -17,13 +17,14 @@ use Phoundation\Web\Html\TemplateRenderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class Panel extends TemplateRenderer
+class HtmlTable extends TemplateRenderer
 {
     /**
-     * Panel class constructor
+     * Table class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Panels\Panel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Tables\HtmlTable $element)
     {
+        $element->addClass('table');
         parent::__construct($element);
     }
 }

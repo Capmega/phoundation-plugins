@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Components;
 
 use Phoundation\Web\Html\Components\Section;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -23,7 +23,7 @@ class HtmlTable extends TemplateRenderer
     /**
      * Table class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\HtmlTable $element)
+    public function __construct(\Phoundation\Web\Html\Components\Tables\HtmlTable $element)
     {
         $element->addClass('table');
         parent::__construct($element);

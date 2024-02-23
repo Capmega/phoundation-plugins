@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 
-namespace Templates\AdminLte\Html\Components;
+namespace Templates\AdminLte\Html\Components\Widgets;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -25,7 +25,7 @@ class MessagesDropDown extends TemplateRenderer
     /**
      * MessagesDropDown class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\MessagesDropDown $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\MessagesDropDown $element)
     {
         parent::__construct($element);
     }

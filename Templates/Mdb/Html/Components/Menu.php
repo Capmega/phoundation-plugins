@@ -8,7 +8,7 @@ namespace Templates\Mdb\Html\Components;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -27,7 +27,7 @@ class Menu extends TemplateRenderer
     /**
      * Menu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Menus\Menu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\Menu $element)
     {
         parent::__construct($element);
     }

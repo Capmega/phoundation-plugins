@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components;
 
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -23,7 +23,7 @@ class Icons extends TemplateRenderer
     /**
      * Icons class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Icons $element)
+    public function __construct(\Phoundation\Web\Html\Components\Icons\Icons $element)
     {
         parent::__construct($element);
     }

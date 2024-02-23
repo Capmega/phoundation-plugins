@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\AdminLte;
 
 use Phoundation\Web\Html\Template\Template;
-use Templates\AdminLte\Html\Components\Menus\Menu;
+use Templates\AdminLte\Html\Components\Widgets\Menus\Menu;
 
 
 /**

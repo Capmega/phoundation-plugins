@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\None\Html\Components;
 
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\TemplateRenderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -25,7 +25,7 @@ class TopMenu extends TemplateRenderer
     /**
      * TopMenu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Menus\TopMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\TopMenu $element)
     {
         parent::__construct($element);
     }
