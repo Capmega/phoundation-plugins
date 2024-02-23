@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Input;
+namespace Templates\Mdb\Html\Components\Input;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Components\Input\InputDateRange;
@@ -16,7 +16,7 @@ use Phoundation\Web\Html\Components\Input\InputDateRange;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Templates\AdminLte
+ * @package Templates\Mdb
  */
 class TemplateInputDateRange extends TemplateInput
 {
@@ -53,7 +53,4 @@ class TemplateInputDateRange extends TemplateInput
                         ' . parent::render() . '
                     </div>';
 
-        // Add date range picker JS
-        return $html;
-    }
-}
+        // Add date range picker

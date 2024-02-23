@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Input;
+namespace Templates\Mdb\Html\Components\Input;
 
 use Phoundation\Web\Html\Components\Input\InputDateRangeButton;
 
@@ -15,7 +15,7 @@ use Phoundation\Web\Html\Components\Input\InputDateRangeButton;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Templates\AdminLte
+ * @package Templates\Mdb
  */
 class TemplateInputDateRangeButton extends TemplateInput
 {
@@ -65,8 +65,4 @@ class TemplateInputDateRangeButton extends TemplateInput
 //          }
 //        );
 
-//        <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
-
-        return parent::render();
-    }
-}
+//        <script src="../../plugins/daterangepicker/daterangepicker.js"></sc
