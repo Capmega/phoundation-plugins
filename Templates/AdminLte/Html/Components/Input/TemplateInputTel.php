@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputTel;
+
 
 /**
  * Class TemplateInputTel
@@ -20,7 +22,7 @@ class TemplateInputTel extends TemplateInput
     /**
      * InputTel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputTel $element)
+    public function __construct(InputTel $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

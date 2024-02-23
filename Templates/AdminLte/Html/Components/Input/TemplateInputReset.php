@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputReset;
+
 
 /**
  * Class TemplateInputReset
@@ -20,7 +22,7 @@ class TemplateInputReset extends TemplateInput
     /**
      * InputReset class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputReset $element)
+    public function __construct(InputReset $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

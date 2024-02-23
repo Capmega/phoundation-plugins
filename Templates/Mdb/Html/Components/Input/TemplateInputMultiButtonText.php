@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Templates\Mdb\Html\Components\Input;
+namespace Templates\AdminLte\Html\Components\Input;
 
 use Phoundation\Web\Html\Html;
+use Phoundation\Web\Html\Components\Input\InputMultiButtonText;
 
 
 /**
@@ -15,14 +16,14 @@ use Phoundation\Web\Html\Html;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Templates\Mdb
+ * @package Templates\AdminLte
  */
 class TemplateInputMultiButtonText extends TemplateInput
 {
     /**
      * InputMultiButtonText class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputMultiButtonText $element)
+    public function __construct(InputMultiButtonText $element)
     {
         parent::__construct($element);
     }

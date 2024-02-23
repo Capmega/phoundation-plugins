@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputRadio;
+
 
 /**
  * Class TemplateInputRadio
@@ -20,7 +22,7 @@ class TemplateInputRadio extends TemplateInput
     /**
      * InputRadio class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputRadio $element)
+    public function __construct(InputRadio $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

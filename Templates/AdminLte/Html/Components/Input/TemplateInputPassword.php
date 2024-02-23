@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputPassword;
+
 
 /**
  * Class TemplateInputPassword
@@ -20,7 +22,7 @@ class TemplateInputPassword extends TemplateInput
     /**
      * InputPassword class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputPassword $element)
+    public function __construct(InputPassword $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

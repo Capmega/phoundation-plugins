@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputImage;
+
 
 /**
  * Class TemplateInputImage
@@ -20,7 +22,7 @@ class TemplateInputImage extends TemplateInput
     /**
      * InputImage class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputImage $element)
+    public function __construct(InputImage $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

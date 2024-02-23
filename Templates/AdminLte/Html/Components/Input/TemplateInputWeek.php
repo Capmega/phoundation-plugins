@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputWeek;
 
 /**
  * Class TemplateInputWeek
@@ -20,7 +21,7 @@ class TemplateInputWeek extends TemplateInput
     /**
      * InputWeek class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputWeek $element)
+    public function __construct(InputWeek $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

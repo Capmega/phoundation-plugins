@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputSearch;
+
 
 /**
  * Class TemplateInputSearch
@@ -20,7 +22,7 @@ class TemplateInputSearch extends TemplateInput
     /**
      * InputSearch class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputSearch $element)
+    public function __construct(InputSearch $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

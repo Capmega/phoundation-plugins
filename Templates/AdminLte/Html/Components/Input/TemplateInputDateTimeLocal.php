@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputDateTimeLocal;
+
 
 /**
  * Class TemplateInputDateTimeLocal
@@ -20,7 +22,7 @@ class TemplateInputDateTimeLocal extends TemplateInput
     /**
      * InputDateTimeLocal class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputDateTimeLocal $element)
+    public function __construct(InputDateTimeLocal $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

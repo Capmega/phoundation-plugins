@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputHidden;
+
 
 /**
  * Class TemplateInputHidden
@@ -20,7 +22,7 @@ class TemplateInputHidden extends TemplateInput
     /**
      * InputHidden class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputHidden $element)
+    public function __construct(InputHidden $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);
