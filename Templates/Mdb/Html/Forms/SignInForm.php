@@ -10,7 +10,7 @@ use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * MDB Plugin SignIn form class
+ * Mdb Plugin SignIn form class
  *
  *
  *
@@ -37,7 +37,7 @@ class SignInForm extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $this->render = '<!-- Email input -->
+        $this->render = ' <!-- Email input -->
                           <div class="form-outline mb-4">
                             <input type="email" id="email" name="email" class="form-control" />
                             <label class="form-label" for="email">' . tr('Email address') . '</label>

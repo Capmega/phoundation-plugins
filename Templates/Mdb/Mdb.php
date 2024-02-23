@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\Mdb;
 
 use Phoundation\Web\Html\Template\Template;
-use Templates\Mdb\Html\Components\Menu;
+use Templates\Mdb\Html\Components\Widgets\Menus\TemplateMenu;
 
 
 /**
@@ -30,7 +30,7 @@ class Mdb extends Template
     {
         $this->name        = 'Mdb';
         $this->page_class  = TemplatePage::class;
-        $this->menus_class = Menu::class;
+        $this->menus_class = TemplateMenu::class;
 
         parent::__construct();
     }
@@ -43,7 +43,7 @@ class Mdb extends Template
      */
     public function getDescription(): string
     {
-        return 'This is the default template for your website. You are free to add or build other templates';
+        return 'This is the Mdb template for your website. You are free to add or build other templates';
     }
 
 

@@ -10,7 +10,7 @@ use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * MDB Plugin Container class
+ * Mdb Plugin Container class
  *
  *
  *
@@ -37,6 +37,6 @@ class Container extends TemplateRenderer
      */
     public function render(): ?string
     {
-        return '<div class="container' . ($this->render_object->getTier()->value ? '-' . Html::safe($this->getTier()->value) : null) . '">' . $this->render_object->getContent() . '</div>';
+        return '<div class="container' . ($this->render_object->getTier()->value ? '-' . Html::safe($this->render_object->getTier()->value) : null) . '">' . Html::safe($this->render_object->getContent()) . '</div>';
     }
 }

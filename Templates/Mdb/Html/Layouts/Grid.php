@@ -9,7 +9,7 @@ use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * MDB Plugin Grid class
+ * Mdb Plugin Grid class
  *
  *
  *
@@ -36,12 +36,26 @@ class Grid extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $this->render = '';
+        $class        = $this->render_object->getClass();
+        $this->render = '<div class="container-fluid' . ($class ? ' ' . $class : '') . '">';
 
-        foreach ($this->render_object->getSource() as $row) {
-            $this->render .= $row->render();
+        if ($this->render_object->getForm()) {
+            // Return content rendered in a form
+            $render = '';
+
+            foreach ($this->render_object->getSource() as $row) {
+                $render .= $row->render();
+            }
+
+            $this->render .= $this->render_object->getForm()->setContent($render)->render();
+            $this->render_object->setForm(null);
+        } else {
+            foreach ($this->render_object->getSource() as $row) {
+                $this->render .= $row->render();
+            }
         }
 
+        $this->render .= '</div>';
         return parent::render();
     }
 }

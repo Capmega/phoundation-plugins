@@ -9,7 +9,7 @@ use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * MDB Plugin Layout class
+ * Mdb Plugin Layout class
  *
  *
  *

@@ -5,12 +5,11 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Layouts;
 
-use Phoundation\Core\Log\Log;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
- * MDB Plugin GridRow class
+ * Mdb Plugin GridRow class
  *
  *
  *
@@ -37,20 +36,26 @@ class GridRow extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $return = '<div class="row">';
-        $size   = 0;
+        $class        = $this->render_object->getClass();
+        $this->render = '<div class="row' . ($class ? ' ' . $class : '') . '">';
 
-        foreach ($this->render_object->getSource() as $column) {
-            $size   += $column->getSize()->value;
-            $return .= $column->render();
+        if ($this->render_object->getForm()) {
+            // Return content rendered in a form
+            $render = '';
+
+            foreach ($this->render_object->getSource() as $column) {
+                $render .= $column->render();
+            }
+
+            $this->render .= $this->render_object->getForm()->setContent($render)->render();
+            $this->render_object->setForm(null);
+        } else {
+            foreach ($this->render_object->getSource() as $column) {
+                $this->render .= $column->render();
+            }
         }
 
-        if ($size != 12) {
-            Log::warning(tr('GridRow found a row with size ":size" while each row should be exactly size 12', [
-                ':size' => $size
-            ]));
-        }
-
-        return $return . '</div>';
+        $this->render .= '</div>';
+        return parent::render();
     }
 }
