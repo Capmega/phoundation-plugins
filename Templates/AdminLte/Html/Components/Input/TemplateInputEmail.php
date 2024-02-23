@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputEmail;
+
 
 /**
  * Class TemplateInputEmail
@@ -20,7 +22,7 @@ class TemplateInputEmail extends TemplateInput
     /**
      * InputEmail class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputEmail $element)
+    public function __construct(InputEmail $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

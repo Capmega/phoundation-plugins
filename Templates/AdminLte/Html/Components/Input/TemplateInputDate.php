@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputDate;
+
 
 /**
  * Class TemplateInputDate
@@ -20,7 +22,7 @@ class TemplateInputDate extends TemplateInput
     /**
      * InputDate class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputDate $element)
+    public function __construct(InputDate $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

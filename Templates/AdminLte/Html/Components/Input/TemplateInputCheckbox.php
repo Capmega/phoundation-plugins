@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputCheckbox;
+
 
 /**
  * Class TemplateInputCheckbox
@@ -20,7 +22,7 @@ class TemplateInputCheckbox extends TemplateInput
     /**
      * InputCheckbox class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputCheckbox $element)
+    public function __construct(InputCheckbox $element)
     {
         parent::__construct($element);
         $element->getClasses()->delete('form-control')->add(true, 'form-check-input');

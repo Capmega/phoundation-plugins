@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
+use Phoundation\Web\Html\Components\Input\InputRange;
+
 
 /**
  * Class TemplateInputRange
@@ -20,7 +22,7 @@ class TemplateInputRange extends TemplateInput
     /**
      * InputRange class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Input\InputRange $element)
+    public function __construct(InputRange $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Input;
 
-use Phoundation\Web\Html\Components\Input\InputImage;
+use Phoundation\Web\Html\Components\Input\InputSelect;
 
 
 /**
- * Class TemplateInputImage
+ * Class TemplateInputSelect2
  *
  *
  *
@@ -17,12 +17,12 @@ use Phoundation\Web\Html\Components\Input\InputImage;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\AdminLte
  */
-class TemplateInputImage extends TemplateInput
+class TemplateInputSelect2 extends TemplateInputSelect
 {
     /**
-     * InputImage class constructor
+     * Select class constructor
      */
-    public function __construct(InputImage $element)
+    public function __construct(InputSelect $element)
     {
         $element->addClass( 'form-control');
         parent::__construct($element);
