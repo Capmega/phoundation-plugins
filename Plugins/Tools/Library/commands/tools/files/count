@@ -7,7 +7,7 @@ use Phoundation\Cli\CliCommand;
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Filesystem\Directory;
-use Phoundation\Filesystem\Filesystem;
+use Phoundation\Filesystem\Path;
 use Phoundation\Filesystem\Restrictions;
 
 
