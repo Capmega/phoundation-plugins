@@ -37,10 +37,6 @@ class TemplateBottomPanel extends TemplateRenderer
      */
     public function render(): ?string
     {
-        if (!Page::getBuildFooters()) {
-            return null;
-        }
-
         $phoudation = '<a href="https://phoundation.org/">Phoundation</a>';
         $adminlte   = tr('template :name', [':name' => '<a href="https://adminlte.io/">' . tr('AdminLte') . '</a>']);
         $project    = '<a href="' . UrlBuilder::getCurrentDomainRootUrl() . '">' . Config::getString('project.name', 'Phoundation') . '</a>';

@@ -37,17 +37,15 @@ class TemplateBottomPanel extends TemplateRenderer
      */
     public function render(): ?string
     {
-        if (!Page::getBuildFooters()) {
-            return null;
-        }
-
         $phoudation = '<a href="https://phoundation.org/">Phoundation</a>';
         $adminlte   = tr('template :name', [':name' => '<a href="https://adminlte.io/">' . tr('Mdb') . '</a>']);
         $project    = '<a href="' . UrlBuilder::getCurrentDomainRootUrl() . '">' . Config::getString('project.name', 'Phoundation') . '</a>';
 
-        return '  <footer class="main-footer">
-                    <div class="float-right d-none d-sm-block">
+        return '  <footer class="bg-body-tertiary">
+                    <div class="p-3" style="background-color: rgba(0, 0, 0, 0.05);">
                       <b>' . tr(':project using :phoundation (:adminlte)', [':project' => $project, ':phoundation' => $phoudation, ':adminlte' => $adminlte]) . '</b> ' . Core::FRAMEWORKCODEVERSION . '
+                      <span class="float-end"><strong>Copyright © ' . Config::getString('project.copyright', '2024') . ' <a href="' . Config::getString('project.owner.url', 'https://phoundation.org') . '" target="_blank">' . Config::getString('project.owner.name', 'Phoundation') . '</a>.</strong> All rights reserved. <br></span>
                     </div>
-                    <strong>Copyright © ' . Config::getString('project.copyright', '2024') . ' <a href="' . Config::getString('project.owner.url', 'https://phoundation.org') . '" target="_blank">' . Config::getString('project.owner.name', 'Phoundation') . '</a>.</strong> All rights reserved. <br>
-                  </fo
+                  </footer>';
+    }
+}
