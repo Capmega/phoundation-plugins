@@ -6,9 +6,9 @@ declare(strict_types=1);
 namespace Templates\None\Html\Components;
 
 use Phoundation\Core\Sessions\Session;
-use Phoundation\Web\Html\Enums\DisplayMode;
+use Phoundation\Web\Html\Enums\EnumDisplayMode;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -22,12 +22,12 @@ use Phoundation\Web\Http\UrlBuilder;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class TopPanel extends Renderer
+class TopPanel extends TemplateRenderer
 {
     /**
      * TopPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\TopPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\TopPanel $element)
     {
         parent::__construct($element);
     }
@@ -45,10 +45,10 @@ class TopPanel extends Renderer
 
         // If impersonated, change top panel color and add impersonation message
         if (Session::isImpersonated()) {
-            $this->render_object->setMode(DisplayMode::danger);
+            $this->render_object->setMode(EnumDisplayMode::danger);
             $message = tr('(Impersonated by ":user")', [':user' => Session::getRealUser()->getDisplayName()]);
         } else {
-            $this->render_object->setMode(DisplayMode::white);
+            $this->render_object->setMode(EnumDisplayMode::white);
         }
 
         // Top level message?

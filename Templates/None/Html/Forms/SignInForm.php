@@ -6,7 +6,7 @@ declare(strict_types=1);
 namespace Templates\None\Html\Forms;
 
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -19,7 +19,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class SignInForm extends Renderer
+class SignInForm extends TemplateRenderer
 {
     /**
      * SignInForm class constructor

@@ -7,7 +7,7 @@ namespace Templates\None\Html\Components;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -20,12 +20,12 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class ImageMenu extends Renderer
+class ImageMenu extends TemplateRenderer
 {
     /**
      * ImageMenu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\ImageMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ImageMenu $element)
     {
         parent::__construct($element);
     }

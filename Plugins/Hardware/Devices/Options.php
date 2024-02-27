@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Hardware\Devices;
 
 use Phoundation\Data\DataEntry\DataList;
@@ -24,7 +26,7 @@ class Options extends DataList implements OptionsInterface
      */
     public function __construct()
     {
-        $this->id_is_unique_column = true;
+        $this->keys_are_unique_column = true;
         parent::__construct();
     }
 

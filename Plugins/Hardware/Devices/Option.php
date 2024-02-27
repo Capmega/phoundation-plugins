@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Hardware\Devices;
 
 use Phoundation\Data\DataEntry\DataEntry;
@@ -14,7 +16,7 @@ use Phoundation\Data\DataEntry\Traits\DataEntryUnits;
 use Phoundation\Data\Validator\Exception\ValidationFailedException;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Utils\Arrays;
-use Phoundation\Web\Html\Enums\InputType;
+use Phoundation\Web\Html\Enums\EnumInputType;
 
 
 /**
@@ -245,8 +247,8 @@ class Option extends DataEntry
     protected function setDefinitions(DefinitionsInterface $definitions): void
     {
         $definitions
-            ->addDefinition(Definition::new($this, 'devices_id')
-                ->setVisible(true)
+            ->add(Definition::new($this, 'devices_id')
+                ->setRender(true)
                 ->setOptional(true)
                 ->setSize(4)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
@@ -255,12 +257,12 @@ class Option extends DataEntry
                         ':id' => '$devices_id'
                     ]);
                 }))
-            ->addDefinition(Definition::new($this, 'device')
+            ->add(Definition::new($this, 'device')
                 ->setOptional(true)
                 ->setVirtual(true)
-                ->setVisible(false)
+                ->setRender(false)
                 ->setSize(4)
-                ->setInputType(InputType::select)
+                ->setInputType(EnumInputType::select)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
                     // Validate the device name
                     $validator->orColumn('devices_id')->isVariable()->setColumnFromQuery('programs_id', 'SELECT `id` FROM `hardware_devices` WHERE `name` = :name AND `status` IS NULL', [
@@ -269,8 +271,8 @@ class Option extends DataEntry
                 })
                 ->setLabel(tr('Device'))
                 ->setHelpText(tr('The device this driver option belongs')))
-            ->addDefinition(Definition::new($this, 'profiles_id')
-                ->setVisible(true)
+            ->add(Definition::new($this, 'profiles_id')
+                ->setRender(true)
                 ->setOptional(true)
                 ->setSize(4)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
@@ -282,12 +284,12 @@ class Option extends DataEntry
                             ':id' => '$profiles_id'
                         ]);
                 }))
-            ->addDefinition(Definition::new($this, 'profile')
+            ->add(Definition::new($this, 'profile')
                 ->setOptional(true)
                 ->setVirtual(true)
-                ->setVisible(false)
+                ->setRender(false)
                 ->setSize(4)
-                ->setInputType(InputType::select)
+                ->setInputType(EnumInputType::select)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
                     // Validate the profile name
                     $validator
@@ -299,39 +301,39 @@ class Option extends DataEntry
                 })
                 ->setLabel(tr('Profile'))
                 ->setHelpText(tr('The profile this driver option belongs to')))
-            ->addDefinition(Definition::new($this, 'key')
+            ->add(Definition::new($this, 'key')
                 ->setOptional(false)
-                ->setVisible(true)
+                ->setRender(true)
                 ->setSize(4)
                 ->setMaxlength(32))
-            ->addDefinition(Definition::new($this, 'value')
+            ->add(Definition::new($this, 'value')
                 ->setOptional(false)
-                ->setVisible(true)
+                ->setRender(true)
                 ->setSize(4)
                 ->setMaxlength(255))
-            ->addDefinition(Definition::new($this, 'default')
+            ->add(Definition::new($this, 'default')
                 ->setOptional(false)
-                ->setVisible(true)
+                ->setRender(true)
                 ->setSize(4)
                 ->setMaxlength(255))
-            ->addDefinition(Definition::new($this, 'range')
+            ->add(Definition::new($this, 'range')
                 ->setOptional(false)
-                ->setVisible(true)
+                ->setRender(true)
                 ->setSize(4)
                 ->setMaxlength(64))
-            ->addDefinition(Definition::new($this, 'values')
+            ->add(Definition::new($this, 'values')
                 ->setOptional(false)
-                ->setVisible(true)
+                ->setRender(true)
                 ->setSize(4)
                 ->setMaxlength(255))
-            ->addDefinition(Definition::new($this, 'units')
+            ->add(Definition::new($this, 'units')
                 ->setOptional(true)
-                ->setVisible(true)
+                ->setRender(true)
                 ->setSize(4)
                 ->setMaxlength(16))
-            ->addDefinition(DefinitionFactory::getComments($this)
+            ->add(DefinitionFactory::getComments($this)
                 ->setMaxlength(255))
-            ->addDefinition(DefinitionFactory::getDescription($this)
+            ->add(DefinitionFactory::getDescription($this)
                 ->setMaxlength(2048));
     }
 }

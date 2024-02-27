@@ -10,9 +10,8 @@ use Phoundation\Core\Sessions\Session;
 use Phoundation\Utils\Config;
 use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
 
 
 /**
@@ -25,12 +24,12 @@ use Phoundation\Web\Page;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class SidePanel extends Renderer
+class SidePanel extends TemplateRenderer
 {
     /**
      * SidePanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\SidePanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\SidePanel $element)
     {
         parent::__construct($element);
     }

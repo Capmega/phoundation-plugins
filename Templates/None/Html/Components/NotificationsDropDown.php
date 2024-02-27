@@ -9,7 +9,7 @@ use Phoundation\Date\Date;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -22,12 +22,12 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class NotificationsDropDown extends Renderer
+class NotificationsDropDown extends TemplateRenderer
 {
     /**
      * NotificationsDropDown class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\NotificationsDropDown $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\NotificationsDropDown $element)
     {
         parent::__construct($element);
     }

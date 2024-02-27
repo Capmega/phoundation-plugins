@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\None\Html\Components;
 
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -18,12 +18,12 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class ProfileImage extends Renderer
+class ProfileImage extends TemplateRenderer
 {
     /**
      * ProfileImage class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\ProfileImage $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ProfileImage $element)
     {
         parent::__construct($element);
     }

@@ -27,11 +27,12 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Once the output has been generated it should be returned.
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target): ?string
+    public function execute(string $target, bool $main_content_only = false): ?string
     {
-        return parent::execute($target);
+        return parent::execute($target, $main_content_only);
     }
 
 
@@ -56,7 +57,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function buildHtmlHeader(): ?string
     {
-        return Page::buildHeaders();
+        return Page::buildHtmlHead();
     }
 
 
@@ -83,54 +84,25 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
 
     /**
-     * Build the HTML footer
-     *
-     * @return string|null
-     */
-    public function buildHtmlFooter(): ?string
-    {
-        return Page::buildFooters();
-    }
-
-
-    /**
-     * Build the HTML menu
-     *
-     * @return string|null
-     */
-    public function buildMenu(): ?string
-    {
-        return null;
-    }
-
-
-    /**
      * Build the HTML body
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target): ?string
+    public function buildBody(string $target, bool $main_content_only = false): ?string
     {
-        return parent::buildBody($target);
-    }
-
-
-    /**
-     * @return string|null
-     */
-    public function buildProfileImage(): ?string
-    {
-        // TODO: Implement buildProfileImage() method.
+        return parent::buildBody($target, $main_content_only);
     }
 
 
     /**
      * Builds and returns the top panel HTML
      *
+     * @param string $panel
      * @return string|null
      */
-    protected function buildTopPanel(): ?string
+    protected function buildTopPanel(string $panel): ?string
     {
         return '';
     }
@@ -150,9 +122,9 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     /**
      * Builds the body header
      *
-     * @return string
+     * @return string|null
      */
-    protected function buildBodyHeader(): string
+    protected function buildBodyHeader(): ?string
     {
         return '';
     }

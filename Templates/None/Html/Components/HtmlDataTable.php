@@ -6,10 +6,10 @@ namespace Templates\None\Html\Components;
 
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Components\Script;
-use Phoundation\Web\Html\Enums\JavascriptWrappers;
+use Phoundation\Web\Html\Enums\EnumJavascriptWrappers;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Layouts\GridRow;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Page;
 
 
@@ -23,12 +23,12 @@ use Phoundation\Web\Page;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class HtmlDataTable extends Renderer
+class HtmlDataTable extends TemplateRenderer
 {
     /**
      * Table class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\HtmlTable $element)
+    public function __construct(\Phoundation\Web\Html\Components\Tables\HtmlTable $element)
     {
         $element->addClass('table');
         parent::__construct($element);
@@ -73,7 +73,7 @@ class HtmlDataTable extends Renderer
                          '</div>';
 
         $this->render .= Script::new()
-            ->setJavascriptWrapper(JavascriptWrappers::dom_content)
+            ->setJavascriptWrapper(EnumJavascriptWrappers::dom_content)
             ->setContent('
                 $("#' . Html::safe($id) . '").DataTable({
                   "responsive": true, "lengthChange": false, "autoWidth": false,

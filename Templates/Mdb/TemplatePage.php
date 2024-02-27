@@ -2,21 +2,22 @@
 
 declare(strict_types=1);
 
-
 namespace Templates\Mdb;
 
-use Phoundation\Core\Sessions\Session;
+use Phoundation\Core\Plugins\Plugins;
 use Phoundation\Utils\Config;
-use Phoundation\Web\Html\Components\BreadCrumbs;
-use Phoundation\Web\Html\Components\Footer;
-use Phoundation\Web\Html\Components\ProfileImage;
-use Phoundation\Web\Html\Components\TopPanel;
-use Phoundation\Web\Http\UrlBuilder;
+use Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\HeaderPanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\Interfaces\PanelsInterface;
+use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
+use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
+use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
+use Phoundation\Web\Html\Html;
 use Phoundation\Web\Page;
 
 
 /**
- * Mdb template class
+ * Class TemplateMdb template
  *
  *
  *
@@ -28,20 +29,65 @@ use Phoundation\Web\Page;
 class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 {
     /**
-     * Execute, builds and returns the page output according to the template.
+     * Execute, builds and returns the page output, according to the template.
      *
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
-     * Once the output has been generated it should be returned.
+     * Once the output has been generated, it should be returned.
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target): ?string
+    public function execute(string $target, bool $main_content_only = false): ?string
     {
-        // Set the Page breadcrumbs
-        Page::setBreadCrumbs(new BreadCrumbs());
+        if (!Page::getLevels()) {
+            Page::setPanelsObject($this->getAvailablePanelsObject());
+            Plugins::start();
+        }
 
-        return parent::execute($target);
+        $body = $this->buildBody($target, $main_content_only);
+
+        if ($main_content_only) {
+            return $body;
+        }
+
+        // Build HTML and minify the output
+        $output = $this->buildHtmlHeader();
+        Page::htmlHeadersSent(true);
+
+        if (Page::getBuildBodyWrapper()) {
+            $output .=  '<body class="mdb-skin-custom" data-mdb-spy="scroll" data-mdb-target="#scrollspy" data-mdb-offset="250">' .
+                            Page::getFlashMessages()->render() .
+                            Page::getPanelsObject()->get('top', false)?->render() .
+                            Page::getPanelsObject()->get('left')->render() .
+                            $body .
+                            Page::getPanelsObject()->get('bottom', false)?->render();
+        } else {
+            // Page requested that no body parts be built
+            $output .= $body;
+        }
+
+        $output .= $this->buildHtmlFooters();
+        $output  = Html::minify($output);
+
+        // Build Template specific HTTP headers
+        $this->buildHttpHeaders($output);
+        return $output;
+    }
+
+
+    /**
+     * Returns a Panels object with the available panels for this Template
+     *
+     * @return PanelsInterface
+     */
+    public function getAvailablePanelsObject(): PanelsInterface
+    {
+        return Panels::new()
+            ->add(Config::getBoolean('web.panels.top.enabled'   , true) ? TopPanel::new()    : null, 'top')
+            ->add(Config::getBoolean('web.panels.left.enabled'  , true) ? SidePanel::new()   : null, 'left')
+            ->add(Config::getBoolean('web.panels.header.enabled', true) ? HeaderPanel::new() : null, 'header')
+            ->add(Config::getBoolean('web.panels.bottom.enabled', true) ? BottomPanel::new() : null, 'bottom');
     }
 
 
@@ -50,7 +96,6 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      *
      * @param string $output
      * @return void
-     *
      */
     public function buildHttpHeaders(string $output): void
     {
@@ -67,6 +112,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     public function buildHtmlHeader(): ?string
     {
         // Set head meta data
+        Page::setFavIcon();
         Page::setViewport('width=device-width, initial-scale=1');
 
         // Load basic MDB and fonts CSS
@@ -88,67 +134,10 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         Page::setPageTitle(tr('Phoundation platform'));
         Page::setFavIcon('img/favicons/project.png');
 
-        return Page::buildHeaders();
-    }
+        // Set basic page details
+        Page::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Page::getHeaderTitle() . ')');
 
-
-    /**
-     * Build the page header
-     *
-     * @return string|null
-     */
-    public function buildPageHeader(): ?string
-    {
-        return '<body class="mdb-skin-custom" data-mdb-spy="scroll" data-mdb-target="#scrollspy" data-mdb-offset="250">   
-                    <header>
-                        ' . $this->buildTopPanel() . '
-                    </header>
-                    <main class="pt-5 mdb-docs-layout">
-                        <div class="container mt-5  mt-5  px-lg-5">
-                            <div class="tab-content">';
-    }
-
-
-    /**
-     * Build the page footer
-     *
-     * @return string|null
-     */
-    public function buildPageFooter(): ?string
-    {
-        return '            </div>
-                                </div>
-                            </main>' .
-                            Footer::new()->render();
-    }
-
-
-    /**
-     * Build the HTML footer
-     *
-     * @return string|null
-     */
-    public function buildHtmlFooter(): ?string
-    {
-        if (Page::getBuildBody()) {
-            return          Page::buildFooters() . '
-                        </body>
-                    </html>';
-        }
-
-        return      Page::buildFooters() . '
-                </html>';
-    }
-
-
-    /**
-     * Build the HTML menu
-     *
-     * @return string|null
-     */
-    public function buildMenu(): ?string
-    {
-        return null;
+        return Page::buildHtmlHeadTag();
     }
 
 
@@ -156,47 +145,26 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Build the HTML body
      *
      * @param string $target
+     * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target): ?string
+    public function buildBody(string $target, bool $main_content_only = false): ?string
     {
-        return parent::buildBody($target);
-    }
+        $body = parent::buildBody($target, $main_content_only);
 
+        if ($main_content_only or !Page::getBuildBodyWrapper()) {
+            return $body;
+        }
 
-    /**
-     * @return string|null
-     */
-    public function buildProfileImage(): ?string
-    {
-        // TODO: Implement buildProfileImage() method.
-    }
-
-
-    /**
-     * Builds and returns a navigation bar
-     *
-     * @return string|null
-     */
-    protected function buildTopPanel(): ?string
-    {
-        $image = ProfileImage::new()
-            ->setImage(Session::getUser()->getPicture())
-            ->setMenu(Page::getMenus()->get('profile_image'))
-            ->setUrl(null);
-
-        // Set up the navigation bar
-        $navigation_bar = TopPanel::new();
-        $navigation_bar
-            ->setMenu(Page::getMenus()->getPrimaryMenu())
-            ->setProfileImage($image)
-            ->getModals()
-                ->get('sign-in')
-                    ->getForm()
-                        ->setId('form-sign-in')
-                        ->setMethod('post')
-                        ->setAction(UrlBuilder::getAjax('sign-in'));
-
-        return $navigation_bar->render();
+        return '    <header>
+                       ' . Page::getPanelsObject()->get('header', false)?->render() . '
+                    </header>
+                    <main class="pt-5 mdb-docs-layout">
+                        <div class="container mt-5  mt-5  px-lg-5">
+                            <div class="tab-content">
+                                ' . $body . '
+                            </div>
+                        </div>
+                    </main>';
     }
 }

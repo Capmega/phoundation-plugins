@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Plugins\Hardware\Devices;
 
 use Phoundation\Data\DataEntry\DataEntry;
@@ -14,7 +16,7 @@ use Phoundation\Data\DataEntry\Traits\DataEntryName;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Utils;
-use Phoundation\Web\Html\Enums\InputType;
+use Phoundation\Web\Html\Enums\EnumInputType;
 use Plugins\Hardware\Devices\Interfaces\OptionsInterface;
 use Plugins\Hardware\Devices\Interfaces\ProfileInterface;
 
@@ -183,34 +185,34 @@ class Profile extends DataEntry implements ProfileInterface
     protected function setDefinitions(DefinitionsInterface $definitions): void
     {
         $definitions
-            ->addDefinition(Definition::new($this, 'devices_id')
-                ->setVisible(true)
+            ->add(Definition::new($this, 'devices_id')
+                ->setRender(true)
                 ->setOptional(true)
                 ->setSize(4)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
                     // Validate the programs id
                     $validator->orColumn('device')->isDbId()->isQueryResult('SELECT `id` FROM `hardware_devices` WHERE `id` = :id AND `status` IS NULL', [':id' => '$devices_id']);
                 }))
-            ->addDefinition(Definition::new($this, 'device')
+            ->add(Definition::new($this, 'device')
                 ->setOptional(true)
                 ->setVirtual(true)
-                ->setVisible(false)
+                ->setRender(false)
                 ->setSize(4)
-                ->setInputType(InputType::select)
+                ->setInputType(EnumInputType::select)
                 ->addValidationFunction(function (ValidatorInterface $validator) {
                     // Validate the device name
                     $validator->orColumn('devices_id')->isVariable()->setColumnFromQuery('programs_id', 'SELECT `id` FROM `hardware_devices` WHERE `name` = :name AND `status` IS NULL', [':name' => '$device']);
                 })
                 ->setLabel(tr('Device'))
                 ->setHelpText(tr('The device this driver option belongs')))
-            ->addDefinition(DefinitionFactory::getName($this))
-            ->addDefinition(DefinitionFactory::getSeoName($this))
-            ->addDefinition(Definition::new($this, 'default')
-                ->setVisible(true)
+            ->add(DefinitionFactory::getName($this))
+            ->add(DefinitionFactory::getSeoName($this))
+            ->add(Definition::new($this, 'default')
+                ->setRender(true)
                 ->setOptional(true, false)
-                ->setInputType(InputType::checkbox)
+                ->setInputType(EnumInputType::checkbox)
                 ->setLabel(tr('Default profile'))
             )
-            ->addDefinition(DefinitionFactory::getComments($this));
+            ->add(DefinitionFactory::getComments($this));
     }
 }

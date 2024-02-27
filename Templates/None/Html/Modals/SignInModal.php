@@ -6,11 +6,11 @@ declare(strict_types=1);
 namespace Templates\None\Html\Modals;
 
 use Phoundation\Web\Html\Components\Script;
-use Phoundation\Web\Html\Enums\DisplaySize;
+use Phoundation\Web\Html\Enums\EnumDisplaySize;
 use Phoundation\Web\Html\Layouts\Grid;
 use Phoundation\Web\Html\Layouts\GridColumn;
 use Phoundation\Web\Html\Layouts\GridRow;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
 
 
@@ -24,12 +24,12 @@ use Phoundation\Web\Http\UrlBuilder;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class SignInModal extends Renderer
+class SignInModal extends TemplateRenderer
 {
     /**
      * SignInModal class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Modals\SignInModal $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Modals\SignInModal $element)
     {
         parent::__construct($element);
     }
@@ -48,9 +48,9 @@ class SignInModal extends Renderer
         // Build the layout
         $layout = Grid::new()
             ->addRow(GridRow::new()
-                ->addColumn(GridColumn::new()->setSize(DisplaySize::three))
-                ->addColumn(GridColumn::new()->setSize(DisplaySize::six)->setContent($form))
-                ->addColumn(GridColumn::new()->setSize(DisplaySize::three))
+                ->addColumn(GridColumn::new()->setSize(EnumDisplaySize::three))
+                ->addColumn(GridColumn::new()->setSize(EnumDisplaySize::six)->setContent($form))
+                ->addColumn(GridColumn::new()->setSize(EnumDisplaySize::three))
             );
 
         // Set defaults

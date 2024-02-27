@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace Templates\None\Html\Components\Widgets\Boxes;
 
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -18,7 +18,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class InfoBoxBg extends Renderer
+class InfoBoxBg extends TemplateRenderer
 {
     /**
      * InfoBoxBg class constructor

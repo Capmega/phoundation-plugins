@@ -14,8 +14,8 @@ use Phoundation\Web\Html\Components\Input\InputSelect;
 use Phoundation\Web\Html\Components\Input\InputTextArea;
 use Phoundation\Web\Html\Components\Interfaces\ElementInterface;
 use Phoundation\Web\Html\Components\Interfaces\ElementsBlockInterface;
-use Phoundation\Web\Html\Enums\DisplayMode;
-use Phoundation\Web\Html\Renderer;
+use Phoundation\Web\Html\Enums\EnumDisplayMode;
+use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
 /**
@@ -28,7 +28,7 @@ use Phoundation\Web\Html\Renderer;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\None
  */
-class DataEntryForm extends Renderer
+class DataEntryForm extends TemplateRenderer
 {
     /**
      * DataEntryForm class constructor
@@ -247,7 +247,7 @@ class DataEntryForm extends Renderer
                         ->setSource($data['source']);
 
                     $input->getButton()
-                        ->setMode(DisplayMode::from(isset_get($data['mode'])))
+                        ->setMode(EnumDisplayMode::from(isset_get($data['mode'])))
                         ->setContent(isset_get($data['label']));
 
                     $input->getInput()
