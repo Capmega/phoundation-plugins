@@ -106,11 +106,14 @@ class TemplateSignInPage extends TemplateRenderer
                                       </p>';
         }
 
-        $this->render .= '          <div class="login-footer text-center">
+        if (Session::supports('copyright')) {
+            $this->render .= '      <div class="login-footer text-center">
                                         ' . 'Copyright © ' . Config::getString('project.copyright', '2023') . ' <b><a href="' . Config::getString('project.owner.url', 'https://phoundation.org') . '" target="_blank">' . Config::getString('project.owner.name', 'Phoundation') . '</a></b><br>' . '
                                         ' . tr('All rights reserved') . '</div>
-                                    </div>
-                                    <!-- /.card-body -->
+                                    </div>';
+        }
+
+        $this->render .= '          <!-- /.card-body -->
                                   </div>
                                   <!-- /.card -->
                                 </div>
