@@ -35,7 +35,7 @@ class TemplateTabs extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $tabs                 = $this->render_object;
+        $tabs                 = $this->component;
         $content_display_size = $tabs->getContentDisplaySize()->value;
         $tab_display_size     = 12 - $content_display_size;
 

@@ -37,15 +37,15 @@ class TemplateGridColumn extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $class        = $this->render_object->getClass();
-        $this->render = '   <div class="col' . (Html::safe($this->render_object->getTier()->value) ? '-' . Html::safe($this->render_object->getTier()->value) : '') . '-' . Html::safe($this->render_object->getSize()->value) . ($class ? ' ' . $class : '') . '">';
+        $class        = $this->component->getClass();
+        $this->render = '   <div class="col' . (Html::safe($this->component->getTier()->value) ? '-' . Html::safe($this->component->getTier()->value) : '') . '-' . Html::safe($this->component->getSize()->value) . ($class ? ' ' . $class : '') . '">';
 
-        if ($this->render_object->getForm()) {
+        if ($this->component->getForm()) {
             // Return column content rendered in a form
-            $this->render .= $this->render_object->getForm()->setContent($this->render_object->getContent())->render();
-            $this->render_object->setForm(null);
+            $this->render .= $this->component->getForm()->setContent($this->component->getContent())->render();
+            $this->component->setForm(null);
         } else {
-            $this->render .= $this->render_object->getContent();
+            $this->render .= $this->component->getContent();
         }
 
         $this->render .= '</div>';

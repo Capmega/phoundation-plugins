@@ -37,11 +37,11 @@ class TemplateTopPanel extends TemplateRenderer
 
         // If impersonated, change top panel color and add an impersonation message
         if (Session::isImpersonated()) {
-            $this->render_object->setMode(EnumDisplayMode::danger);
+            $this->component->setMode(EnumDisplayMode::danger);
             $message = tr('(Impersonated by ":user")', [':user' => Session::getRealUser()->getDisplayName()]);
 
         } else {
-            $this->render_object->setMode(EnumDisplayMode::white);
+            $this->component->setMode(EnumDisplayMode::white);
         }
 
         // Top level message?
@@ -57,8 +57,8 @@ class TemplateTopPanel extends TemplateRenderer
                               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                             </li>';
 
-        if ($this->render_object->keyExists('menu')) {
-            foreach ($this->render_object->get('menu') as $label => $url) {
+        if ($this->component->keyExists('menu')) {
+            foreach ($this->component->get('menu') as $label => $url) {
                 $left_menu .= ' <li class="nav-item d-none d-sm-inline-block">
                                   <a href="' . Html::safe($url) . '" class="nav-link">' . Html::safe($label) . '</a>
                                 </li>';
@@ -70,13 +70,13 @@ class TemplateTopPanel extends TemplateRenderer
                           </ul>';
 
         // Build the top panel with the left menu in it
-        $this->render = ' <nav class="main-header navbar navbar-expand navbar-' . Html::safe($this->render_object->getMode()->value) . ' navbar-light">
+        $this->render = ' <nav class="main-header navbar navbar-expand navbar-' . Html::safe($this->component->getMode()->value) . ' navbar-light">
                             <!-- Left navbar links -->
                             ' . $left_menu . '                    
                             <!-- Right navbar links -->
                             <ul class="navbar-nav ml-auto">';
 
-        foreach ($this->render_object->getElementsObject() as $element) {
+        foreach ($this->component->getElementsObject() as $element) {
             switch ($element) {
                 case 'search':
                     $this->render .= '<!-- Navbar Search -->
@@ -105,20 +105,20 @@ class TemplateTopPanel extends TemplateRenderer
                 case 'messages':
                     $this->render .= '<!-- Messages Dropdown Menu -->
                                       <li class="nav-item dropdown messages">
-                                        ' . $this->render_object->getMessagesDropDown()->render() . '
+                                        ' . $this->component->getMessagesDropDown()->render() . '
                                       </li>';
                     break;
 
                 case 'notifications':
                     $this->render .= '<!-- Notifications Dropdown Menu -->
                                       <li class="nav-item dropdown notifications">
-                                        ' . $this->render_object->getNotificationsDropDown()->render() . '
+                                        ' . $this->component->getNotificationsDropDown()->render() . '
                                       </li>';
                     break;
 
                 case 'languages':
                     $this->render .= '<li class="nav-item dropdown languages">                                  
-                                          ' . $this->render_object->getLanguagesDropDown()->render() . '
+                                          ' . $this->component->getLanguagesDropDown()->render() . '
                                       </li>';
                     break;
 

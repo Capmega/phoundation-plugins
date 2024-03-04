@@ -36,7 +36,7 @@ class TemplateHeaderPanel extends TemplateRenderer
      */
     public function render(): ?string
     {
-        if ($this->render_object->getMini()) {
+        if ($this->component->getMini()) {
             return '<section class="content-header"></section>';
         }
 

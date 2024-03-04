@@ -45,8 +45,8 @@ class TemplateTopMenu extends TemplateRenderer
                             <a href="' . Html::safe(UrlBuilder::getCurrent()) . '" class="nav-link">' . tr('Home') . '</a>
                         </li>';
 
-        if ($this->render_object->getSource()) {
-            foreach ($this->render_object->getSource() as $label => $entry) {
+        if ($this->component->getSource()) {
+            foreach ($this->component->getSource() as $label => $entry) {
                 if (is_string($entry))  {
                     $entry = ['url' => $entry];
                 }

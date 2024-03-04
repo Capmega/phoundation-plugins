@@ -40,10 +40,10 @@ class TemplateBreadCrumbs extends TemplateRenderer
     {
         $this->render = ' <ol class="breadcrumb float-sm-right">';
 
-        if ($this->render_object->getSource()) {
-            $count = count($this->render_object->getSource());
+        if ($this->component->getSource()) {
+            $count = count($this->component->getSource());
 
-            foreach ($this->render_object->getSource() as $url => $label) {
+            foreach ($this->component->getSource() as $url => $label) {
                 $label = Strings::truncate($label, 48);
 
                 if (!--$count) {

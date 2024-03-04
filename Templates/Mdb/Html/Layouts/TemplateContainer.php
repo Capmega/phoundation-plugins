@@ -37,6 +37,6 @@ class TemplateContainer extends TemplateRenderer
      */
     public function render(): ?string
     {
-        return '<div class="container' . ($this->render_object->getTier()->value ? '-' . Html::safe($this->render_object->getTier()->value) : null) . '">' . Html::safe($this->render_object->getContent()) . '</div>';
+        return '<div class="container' . ($this->component->getTier()->value ? '-' . Html::safe($this->component->getTier()->value) : null) . '">' . Html::safe($this->component->getContent()) . '</div>';
     }
 }

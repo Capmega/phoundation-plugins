@@ -35,15 +35,15 @@ class TemplateCard extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $tabs = $this->render_object->getTabsObject(false);
+        $tabs = $this->component->getTabsObject(false);
 
         if ($tabs and ($tabs->getOrientation() === EnumOrientation::top)) {
-            $this->render = '   <div' . ($this->render_object->getId() ? ' id="' . $this->render_object->getId() . '"' : '') . ' class="card ' . ($this->render_object->getClass() ? $this->render_object->getClass() . ' ' : null) . ($this->render_object->getGradient() ? 'gradient-' . Html::safe($this->render_object->getGradient()) : '') . ($this->render_object->getMode()->value ? 'card-' . Html::safe($this->render_object->getMode()->value) : '') . ($this->render_object->getOutline() ? ' card-outline' : '') . ($this->render_object->getBackground() ? 'bg-' . Html::safe($this->render_object->getBackground()) : '') . ' card-tabs">
+            $this->render = '   <div' . ($this->component->getId() ? ' id="' . $this->component->getId() . '"' : '') . ' class="card ' . ($this->component->getClass() ? $this->component->getClass() . ' ' : null) . ($this->component->getGradient() ? 'gradient-' . Html::safe($this->component->getGradient()) : '') . ($this->component->getMode()->value ? 'card-' . Html::safe($this->component->getMode()->value) : '') . ($this->component->getOutline() ? ' card-outline' : '') . ($this->component->getBackground() ? 'bg-' . Html::safe($this->component->getBackground()) : '') . ' card-tabs">
                                     <div class="card-header p-0 p-1 border-bottom-0">
                                         <ul class="nav nav-tabs" id="" role="tablist">';
 
-            if ($this->render_object->getTitle()) {
-                $this->render .= '          <li class="pt-2 px-3"><h3 class="card-title">' . $this->render_object->getTitle() . '</h3></li>';
+            if ($this->component->getTitle()) {
+                $this->render .= '          <li class="pt-2 px-3"><h3 class="card-title">' . $this->component->getTitle() . '</h3></li>';
             }
 
             // Render tabs
@@ -78,39 +78,39 @@ class TemplateCard extends TemplateRenderer
                                 </div>';
 
         } else {
-            $this->render = '   <div' . ($this->render_object->getId() ? ' id="' . $this->render_object->getId() . '"' : '') . ' class="card ' . ($this->render_object->getClass() ? $this->render_object->getClass() . ' ' : null) . ($this->render_object->getGradient() ? 'gradient-' . Html::safe($this->render_object->getGradient()) : '') . ($this->render_object->getMode()->value ? 'card-' . Html::safe($this->render_object->getMode()->value) : '') . ($this->render_object->getOutline() ? ' card-outline' : '') . ($this->render_object->getBackground() ? 'bg-' . Html::safe($this->render_object->getBackground()) : '') . '">';
+            $this->render = '   <div' . ($this->component->getId() ? ' id="' . $this->component->getId() . '"' : '') . ' class="card ' . ($this->component->getClass() ? $this->component->getClass() . ' ' : null) . ($this->component->getGradient() ? 'gradient-' . Html::safe($this->component->getGradient()) : '') . ($this->component->getMode()->value ? 'card-' . Html::safe($this->component->getMode()->value) : '') . ($this->component->getOutline() ? ' card-outline' : '') . ($this->component->getBackground() ? 'bg-' . Html::safe($this->component->getBackground()) : '') . '">';
 
-            if ($this->render_object->getReloadSwitch() or $this->render_object->getMaximizeSwitch() or $this->render_object->getCollapseSwitch() or $this->render_object->getCloseSwitch() or $this->render_object->getTitle() or $this->render_object->getHeaderContent()) {
+            if ($this->component->getReloadSwitch() or $this->component->getMaximizeSwitch() or $this->component->getCollapseSwitch() or $this->component->getCloseSwitch() or $this->component->getTitle() or $this->component->getHeaderContent()) {
                 $this->render .= '  <div class="card-header">
-                                        <h3 class="card-title">' . $this->render_object->getTitle() . '</h3>
+                                        <h3 class="card-title">' . $this->component->getTitle() . '</h3>
                                         <div class="card-tools">
-                                            ' . $this->render_object->getHeaderContent() . '
-                                            ' . ($this->render_object->getReloadSwitch() ? '   <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="widgets.html" data-source-selector="#card-refresh-content" data-load-on-init="false">
+                                            ' . $this->component->getHeaderContent() . '
+                                            ' . ($this->component->getReloadSwitch() ? '   <button type="button" class="btn btn-tool" data-card-widget="card-refresh" data-source="widgets.html" data-source-selector="#card-refresh-content" data-load-on-init="false">
                                                                                                  <i class="fas fa-sync-alt"></i>
                                                                                                </button>' : '') . '
-                                            ' . ($this->render_object->getMaximizeSwitch() ? ' <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                            ' . ($this->component->getMaximizeSwitch() ? ' <button type="button" class="btn btn-tool" data-card-widget="maximize">
                                                                                                  <i class="fas fa-expand"></i>
                                                                                                </button>' : '') . '
-                                            ' . ($this->render_object->getCollapseSwitch() ? ' <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                                                                 <i class="fas fa-' . ($this->render_object->getCollapsed() ? 'plus' : 'minus') . '"></i>
+                                            ' . ($this->component->getCollapseSwitch() ? ' <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                                                                 <i class="fas fa-' . ($this->component->getCollapsed() ? 'plus' : 'minus') . '"></i>
                                                                                                </button>' : '') . '
-                                            ' . ($this->render_object->getCloseSwitch() ? '    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                            ' . ($this->component->getCloseSwitch() ? '    <button type="button" class="btn btn-tool" data-card-widget="remove">
                                                                                                  <i class="fas fa-times"></i>
                                                                                                </button>' : '') . '                              
                                         </div>
                                     </div>';
             }
 
-            $description   = $this->render_object->getDescription();
+            $description   = $this->component->getDescription();
             $this->render .= '      <!-- /.card-header -->
                                     <div class="card-body">
                                         ' . ($description ? '<p class="card-description">' . $description . '</p>' : null) . '                                    
-                                        ' . $this->render_object->getContent(). '
+                                        ' . $this->component->getContent(). '
                                     </div>';
 
-            if ($this->render_object->getButtons()) {
+            if ($this->component->getButtons()) {
                 $this->render .= '  <div class="card-footer">
-                                        ' . $this->render_object->getButtons()->render() . '           
+                                        ' . $this->component->getButtons()->render() . '           
                                     </div>';
             }
 

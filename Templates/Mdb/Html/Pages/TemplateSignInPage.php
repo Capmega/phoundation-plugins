@@ -74,7 +74,7 @@ class TemplateSignInPage extends TemplateRenderer
         }
 
         $signin .= '      <div class="form-outline mb-4" data-mdb-input-init>
-                            <input type="email" id="loginName" name="email" class="form-control"' . ($this->render_object->getEmail() ? 'value="' . $this->render_object->getEmail() . '"' : '') . ' />
+                            <input type="email" id="loginName" name="email" class="form-control"' . ($this->component->getEmail() ? 'value="' . $this->component->getEmail() . '"' : '') . ' />
                             <label class="form-label" for="loginName">' . tr('Email or username') . '</label>
                           </div>
 

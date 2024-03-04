@@ -39,7 +39,7 @@ class TemplateInputMultiButtonText extends TemplateInput
         $options = '';
 
         // Build the options list
-        foreach ($this->render_object->getSource() as $url => $label) {
+        foreach ($this->component->getSource() as $url => $label) {
             if (str_starts_with($label, '#')) {
                 // Any label starting with # is a divider
                 $options .= '<li class="dropdown-divider"></li>';
@@ -51,13 +51,13 @@ class TemplateInputMultiButtonText extends TemplateInput
         // Render the entire object
         $this->render = '   <div class="input-group input-group-lg mb-3">
                                 <div class="input-group-prepend">
-                                ' . $this->render_object->getButton()->render() . '                                
+                                ' . $this->component->getButton()->render() . '                                
                                 <ul class="dropdown-menu" style="">
                                     ' . $options . '
                                 </ul>
                                 </div>
                                 
-                                ' . $this->render_object->getInput()->render() . '
+                                ' . $this->component->getInput()->render() . '
                             </div>';
 
         return parent::render();

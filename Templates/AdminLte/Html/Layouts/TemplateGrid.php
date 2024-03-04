@@ -36,21 +36,21 @@ class TemplateGrid extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $class        = $this->render_object->getClass();
+        $class        = $this->component->getClass();
         $this->render = '<div class="container-fluid' . ($class ? ' ' . $class : '') . '">';
 
-        if ($this->render_object->getForm()) {
+        if ($this->component->getForm()) {
             // Return content rendered in a form
             $render = '';
 
-            foreach ($this->render_object->getSource() as $row) {
+            foreach ($this->component->getSource() as $row) {
                 $render .= $row->render();
             }
 
-            $this->render .= $this->render_object->getForm()->setContent($render)->render();
-            $this->render_object->setForm(null);
+            $this->render .= $this->component->getForm()->setContent($render)->render();
+            $this->component->setForm(null);
         } else {
-            foreach ($this->render_object->getSource() as $row) {
+            foreach ($this->component->getSource() as $row) {
                 $this->render .= $row->render();
             }
         }

@@ -43,7 +43,7 @@ class TemplateSignInModal extends TemplateRenderer
     public function render(): ?string
     {
         // Build the form
-        $form = $this->render_object->getForm()->render();
+        $form = $this->component->getForm()->render();
 
         // Build the layout
         $layout = Grid::new()
@@ -54,7 +54,7 @@ class TemplateSignInModal extends TemplateRenderer
             );
 
         // Set defaults
-        $this->render_object
+        $this->component
             ->setId('signinModal')
             ->setSize('lg')
             ->setTitle(tr('Sign in'))

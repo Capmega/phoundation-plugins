@@ -36,7 +36,7 @@ class TemplateModal extends TemplateRenderer
     public function render(): ?string
     {
         // Get the render object to use it directly
-        $object = $this->render_object;
+        $object = $this->component;
 
 //        $form   = $object->getForm()->render();
 //

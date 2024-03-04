@@ -37,15 +37,15 @@ class TemplateButtons extends TemplateRenderer
     {
         $this->render = '';
 
-        if ($this->render_object->getGroup()) {
+        if ($this->component->getGroup()) {
             $this->render .= '<div class="btn-group" role="group" aria-label="Button group">';
         }
 
-        foreach ($this->render_object->getSource() as $button) {
+        foreach ($this->component->getSource() as $button) {
             $this->render .= $button->render(). ' ';
         }
 
-        if ($this->render_object->getGroup()) {
+        if ($this->component->getGroup()) {
             $this->render .= '</div>';
         }
 

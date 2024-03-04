@@ -36,19 +36,19 @@ class TemplateSmallBox extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $this->render = '   <div class="small-box bg-' . Html::safe($this->render_object->getMode()->value) . ($this->shadow ? ' ' . Html::safe($this->shadow) : '') . '">
+        $this->render = '   <div class="small-box bg-' . Html::safe($this->component->getMode()->value) . ($this->shadow ? ' ' . Html::safe($this->shadow) : '') . '">
                               <div class="inner">
-                                <h3>' . Html::safe($this->render_object->getValue()) . '</h3>       
-                                <p>' . Html::safe($this->render_object->getTitle()) . '</p>
+                                <h3>' . Html::safe($this->component->getValue()) . '</h3>       
+                                <p>' . Html::safe($this->component->getTitle()) . '</p>
                               </div>
-                              ' . (($this->render_object->getProgress() !== null) ? '   <div class="progress">
-                                                                                    <div class="progress-bar" style="width: ' . $this->render_object->getProgress() . '%"></div>
+                              ' . (($this->component->getProgress() !== null) ? '   <div class="progress">
+                                                                                    <div class="progress-bar" style="width: ' . $this->component->getProgress() . '%"></div>
                                                                                   </div>' : '') . '
-                              ' . ($this->render_object->getDescription() ? '<p>' . Html::safe($this->render_object->getDescription()) . '</p>' : '') . '                        
-                              ' . ($this->render_object->getIcon() ? '  <div class="icon">
-                                                        <i class="fas ' . Html::safe($this->render_object->getIcon()) . '"></i>
+                              ' . ($this->component->getDescription() ? '<p>' . Html::safe($this->component->getDescription()) . '</p>' : '') . '                        
+                              ' . ($this->component->getIcon() ? '  <div class="icon">
+                                                        <i class="fas ' . Html::safe($this->component->getIcon()) . '"></i>
                                                     </div>' : '') . '
-                              ' . ($this->render_object->getUrl() ? ' <a href="' . Html::safe($this->render_object->getUrl()) . '" class="small-box-footer">
+                              ' . ($this->component->getUrl() ? ' <a href="' . Html::safe($this->component->getUrl()) . '" class="small-box-footer">
                                                     ' . tr('More info') . ' <i class="fas fa-arrow-circle-right"></i>
                                                   </a>' : '') . '                        
                             </div>';

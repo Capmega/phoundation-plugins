@@ -36,7 +36,7 @@ class TemplateInputCheckbox extends TemplateInput
      */
     public function render(): ?string
     {
-        $object = $this->getRenderobject();
+        $object = $this->getComponent();
 
         return '<div class="custom-control custom-checkbox">
                     ' . parent::render() . '

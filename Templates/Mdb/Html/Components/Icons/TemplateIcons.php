@@ -37,11 +37,11 @@ class TemplateIcons extends TemplateRenderer
      */
     public function render(): ?string
     {
-        if (preg_match('/[a-z0-9-_]*]/i', $this->render_object->getContent())) {
+        if (preg_match('/[a-z0-9-_]*]/i', $this->component->getContent())) {
             // icon names should only have letters, numbers and dashes and underscores
-            return $this->render_object->getContent();
+            return $this->component->getContent();
         }
 
-        return '<i class="fas fa-' . $this->render_object->getContent() . ($this->render_object->getTier()->value ? ' fa-' . Html::safe($this->render_object->getTier()->value) : '') .'"></i>';
+        return '<i class="fas fa-' . $this->component->getContent() . ($this->component->getTier()->value ? ' fa-' . Html::safe($this->component->getTier()->value) : '') .'"></i>';
     }
 }

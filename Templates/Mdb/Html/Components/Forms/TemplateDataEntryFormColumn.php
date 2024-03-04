@@ -35,8 +35,8 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
 
     public function render(): ?string
     {
-        $definition = $this->render_object->getDefinition();
-        $component  = $this->render_object->getComponent();
+        $definition = $this->component->getDefinition();
+        $component  = $this->component->getColumnComponent();
 
         if (!$definition) {
             throw new OutOfBoundsException(tr('Cannot render form component, no definition specified'));

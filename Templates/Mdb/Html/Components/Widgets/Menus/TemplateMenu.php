@@ -37,7 +37,7 @@ class TemplateMenu extends TemplateRenderer
      */
     public function render(): ?string
     {
-        return $this->renderMenu($this->render_object->getSource(), 0);
+        return $this->renderMenu($this->component->getSource(), 0);
     }
 
 

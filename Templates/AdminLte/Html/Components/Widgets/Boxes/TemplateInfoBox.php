@@ -37,13 +37,13 @@ class TemplateInfoBox extends TemplateRenderer
     public function render(): ?string
     {
         $this->render = '   <div class="info-box shadow-none">
-                              <span class="info-box-icon bg-' . Html::safe($this->render_object->getMode()->value) . '"><i class="far ' . Html::safe($this->render_object->getIcon()) . '"></i></span>
+                              <span class="info-box-icon bg-' . Html::safe($this->component->getMode()->value) . '"><i class="far ' . Html::safe($this->component->getIcon()) . '"></i></span>
                 
                               <div class="info-box-content">
-                                <span class="info-box-text">' . Html::safe($this->render_object->getTitle()) . '</span>
-                                <span class="info-box-number">' . Html::safe($this->render_object->getValue()) . '</span>
+                                <span class="info-box-text">' . Html::safe($this->component->getTitle()) . '</span>
+                                <span class="info-box-number">' . Html::safe($this->component->getValue()) . '</span>
                               </div>
-                              ' . Html::safe($this->render_object->getDescription()) . '
+                              ' . Html::safe($this->component->getDescription()) . '
                             </div>';
 
         return parent::render();

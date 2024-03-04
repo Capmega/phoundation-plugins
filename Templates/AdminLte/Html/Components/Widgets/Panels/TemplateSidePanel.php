@@ -82,14 +82,14 @@ class TemplateSidePanel extends TemplateRenderer
                         
                               <!-- Sidebar Menu -->
                               <nav>
-                                ' . $this->render_object->getMenu()?->render() . '                                
+                                ' . $this->component->getMenu()?->render() . '                                
                               </nav>
                               <!-- /.sidebar-menu -->
                             </div>
                             <!-- /.sidebar -->
                           </aside>';
 
-        $this->render .= $this->render_object->getModals()?->render() . PHP_EOL;
+        $this->render .= $this->component->getModals()?->render() . PHP_EOL;
 
         return parent::render();
     }

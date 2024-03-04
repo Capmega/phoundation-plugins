@@ -37,12 +37,12 @@ class TemplateInputDateRange extends TemplateInput
      */
     public function render(): ?string
     {
-        if (!$this->render_object->getName()) {
+        if (!$this->component->getName()) {
             throw new OutOfBoundsException(tr('Cannot render InputDateRange object, no HTML name attribute specified'));
         }
 
         // Ensure these two classes are always available
-        $this->render_object->addClasses(['form-control', 'float-right']);
+        $this->component->addClasses(['form-control', 'float-right']);
 
         $html = '   <div class="input-group">
                         <div class="input-group-prepend">

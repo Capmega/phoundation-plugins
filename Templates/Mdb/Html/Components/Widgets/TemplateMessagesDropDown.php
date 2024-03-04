@@ -37,12 +37,12 @@ class TemplateMessagesDropDown extends TemplateRenderer
      */
     public function render(): ?string
     {
-        if (!$this->render_object->getMessagesUrl()) {
+        if (!$this->component->getMessagesUrl()) {
             throw new OutOfBoundsException(tr('No messages page URL specified'));
         }
 
-        if ($this->render_object->getMessages()) {
-            $count = $this->render_object->getMessages()->count();
+        if ($this->component->getMessages()) {
+            $count = $this->component->getMessages()->count();
         } else {
             $count = 0;
         }
@@ -56,7 +56,7 @@ class TemplateMessagesDropDown extends TemplateRenderer
                                   <div class="dropdown-divider"></div>';
 
         if ($count) {
-            foreach ($this->render_object->getMessages() as $message) {
+            foreach ($this->component->getMessages() as $message) {
                 $this->render . -'<a href="' . Html::safe($message->getUrl()) . '" class="dropdown-item">
                                     <!-- Message Start -->
                                     <div class="media">
@@ -77,7 +77,7 @@ class TemplateMessagesDropDown extends TemplateRenderer
         }
 
         $this->render .= '
-                                  <a href="' . Html::safe($this->render_object->getMessagesUrl()) . '" class="dropdown-item dropdown-footer">' . tr('See All Messages') . '</a>
+                                  <a href="' . Html::safe($this->component->getMessagesUrl()) . '" class="dropdown-item dropdown-footer">' . tr('See All Messages') . '</a>
                                 </div>';
 
         return parent::render();

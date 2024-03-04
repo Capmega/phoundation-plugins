@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Templates\AdminLte\Html\Components\Widgets\Tabs;
+namespace Templates\AdminLte\Html\Components\Widgets\Cards;
 
 use Phoundation\Exception\UnderConstructionException;
-use Phoundation\Enums\EnumOrientation;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
@@ -24,7 +23,7 @@ class TemplateTabs extends TemplateRenderer
     /**
      * Card class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Tabs\Tabs $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Cards\Tabs $element)
     {
         parent::__construct($element);
     }
@@ -40,7 +39,7 @@ class TemplateTabs extends TemplateRenderer
         $tab_display_size     = 12 - $content_display_size;
 
         switch ($tabs->getOrientation()) {
-            case EnumOrientation::top:
+            case 'top':
                 $this->render .= '  <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">';
 
                 // Render the tabs
@@ -74,7 +73,7 @@ class TemplateTabs extends TemplateRenderer
                 $this->render .= '  </div>';
                 break;
 
-            case EnumOrientation::left:
+            case 'left':
                 $this->render .= '  <div class="row">
                                         <div class="col-' . $tab_display_size . ' col-sm-' . $tab_display_size . '">
                                             <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">';
@@ -111,7 +110,7 @@ class TemplateTabs extends TemplateRenderer
                                     </div>';
                 break;
 
-            case EnumOrientation::right:
+            case 'right':
                 $this->render .= '  <div class="row">
                                         <div class="col-' . $content_display_size . ' col-sm-' . $content_display_size . '">
                                             <div class="tab-content" id="vert-tabs-tabContent">';
@@ -148,7 +147,7 @@ class TemplateTabs extends TemplateRenderer
                                     </div>';
                 break;
 
-            case EnumOrientation::bottom:
+            case 'bottom':
                 throw new UnderConstructionException(tr('bottom orientation for tabs is still under construction!'));
         }
 

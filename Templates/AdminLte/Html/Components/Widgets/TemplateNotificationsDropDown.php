@@ -40,15 +40,15 @@ class TemplateNotificationsDropDown extends TemplateRenderer
      */
     public function render(): ?string
     {
-        if (!$this->render_object->getAllNotificationsUrl()) {
+        if (!$this->component->getAllNotificationsUrl()) {
             throw new OutOfBoundsException(tr('No all notifications page URL specified'));
         }
 
-        if (!$this->render_object->getNotificationsUrl()) {
+        if (!$this->component->getNotificationsUrl()) {
             throw new OutOfBoundsException(tr('No notifications page URL specified'));
         }
 
-        $notifications = $this->render_object->getNotifications();
+        $notifications = $this->component->getNotifications();
 
         if ($notifications) {
             $notifications->autoUpdate();
@@ -83,7 +83,7 @@ class TemplateNotificationsDropDown extends TemplateRenderer
                     break;
                 }
 
-                $this->render .= '<a href="' . Html::safe(str_replace(':ID', (string) $notification->getId(), (string) $this->render_object->getNotificationsUrl())) . '" class="dropdown-item notification open-modal" data-id="' . $notification->getId() . '">
+                $this->render .= '<a href="' . Html::safe(str_replace(':ID', (string) $notification->getId(), (string) $this->component->getNotificationsUrl())) . '" class="dropdown-item notification open-modal" data-id="' . $notification->getId() . '">
                                     ' . ($notification->getIcon() ? '<i class="text-' . Html::safe($notification->getMode()->value) . ' fas fa-' . Html::safe($notification->getIcon()) . ' mr-2"></i> ' : null) . Html::safe(Strings::truncate($notification->getTitle(), 24)) . '
                                     <span class="float-right text-muted text-sm"> ' . Html::safe(Date::getAge($notification->getCreatedOn())) . '</span>
                                   </a>
@@ -91,7 +91,7 @@ class TemplateNotificationsDropDown extends TemplateRenderer
             }
         }
 
-        $this->render .= '        <a href="' . Html::safe($this->render_object->getAllNotificationsUrl()) . '" class="dropdown-item dropdown-footer">' . tr('See all unread notifications') . '</a>
+        $this->render .= '        <a href="' . Html::safe($this->component->getAllNotificationsUrl()) . '" class="dropdown-item dropdown-footer">' . tr('See all unread notifications') . '</a>
                                 </div>';
 
         return parent::render() . NotificationModal::new()->render();

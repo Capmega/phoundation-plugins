@@ -41,14 +41,14 @@ class TemplateInput extends TemplateRenderer
     {
         // TODO Can non input elements render as hidden?
         // Hidden elements render as an <input hidden>
-        if ($this->render_object->getHidden()) {
+        if ($this->component->getHidden()) {
             // Select input have multiple values support
-            if ($this->render_object instanceof InputSelectInterface) {
+            if ($this->component instanceof InputSelectInterface) {
                 $return = null;
 
-                foreach (Arrays::force($this->render_object->getSelected()) as $key => $value) {
+                foreach (Arrays::force($this->component->getSelected()) as $key => $value) {
                     $return .= \Phoundation\Web\Html\Components\Input\InputHidden::new()
-                        ->setName($this->render_object->getName())
+                        ->setName($this->component->getName())
                         ->setValue($key)
                         ->render();
                 }
@@ -57,8 +57,8 @@ class TemplateInput extends TemplateRenderer
             }
 
             return \Phoundation\Web\Html\Components\Input\InputHidden::new()
-                ->setName($this->render_object->getName())
-                ->setValue($this->render_object->getValue())
+                ->setName($this->component->getName())
+                ->setValue($this->component->getValue())
                 ->render();
         }
 
