@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Forms;
 
+use Phoundation\Web\Html\Components\Forms\DataEntryForm;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
@@ -22,7 +23,7 @@ class TemplateDataEntryForm extends TemplateRenderer
     /**
      * FilterForm class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Forms\DataEntryForm $element)
+    public function __construct(DataEntryForm $element)
     {
         parent::__construct($element);
     }
