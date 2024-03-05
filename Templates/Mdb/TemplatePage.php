@@ -119,16 +119,16 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         Page::loadCss([
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
             'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap',
-            'css/mdb',
-            'css/mdb-fix',
-            'css/phoundation',
+            'mdb/css/mdb',
+            'mdb/css/mdb-fix',
+            'mdb/css/phoundation',
         ], true);
 
         // Load configured CSS files
         Page::loadCss(Config::getArray('web.page.css', []));
 
         // Load basic MDB amd jQuery javascript libraries
-        Page::loadJavascript('js/mdb,js/jquery/jquery');
+        Page::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd');
 
         // Set basic page details
         Page::setPageTitle(tr('Phoundation platform'));
@@ -156,9 +156,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             return $body;
         }
 
-        return '    <header>
-                       ' . Page::getPanelsObject()->get('header', false)?->render() . '
-                    </header>
+        return '    ' . Page::getPanelsObject()->get('header', false)?->render() . '
                     <main class="pt-5 mdb-docs-layout">
                         <div class="container mt-5  mt-5  px-lg-5">
                             <div class="tab-content">
