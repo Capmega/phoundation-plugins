@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components\Widgets\Menus;
 
+use Phoundation\Web\Html\Components\Widgets\Menus\Menu;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Template\TemplateRenderer;
+use Phoundation\Web\Http\UrlBuilder;
 
 
 /**
@@ -23,7 +25,7 @@ class TemplateMenu extends TemplateRenderer
     /**
      * Menu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\Menu $element)
+    public function __construct(Menu $element)
     {
         parent::__construct($element);
     }
@@ -46,44 +48,49 @@ class TemplateMenu extends TemplateRenderer
      *
      * @param array $source
      * @param int $sub_menu
-     * @return string
+     * @return string|null
      */
-    protected function renderMenu(array $source, int $sub_menu): string
+    protected function renderMenu(array $source, int $sub_menu): ?string
     {
-        $menu_label = '';
+        $li = true;
+
+        if (empty($source)) {
+            return null;
+        }
 
         if ($sub_menu) {
-            $html = '<ul class="nav nav-treeview sub-menu-' . Html::safe($sub_menu) . '">';
+            $render = '<ul class="sidenav-collapse">';
+
         } else {
-            $html = '<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">';
+            $render = '<ul id="scroll-container" class="sidenav-menu px-2 pb-5">';
         }
 
         foreach ($source as $label => $entry) {
             // Build menu entry
             if (empty($entry['url']) and empty($entry['menu'])) {
                 // Not a clickable menu element, just a label
-                $menu_label = '<li class="nav-header">
-                                   ' . (isset($entry['icon']) ? '<i class="nav-icon fas fa ' . Html::safe($entry['icon']) . '"></i>' : '') . '
-                                   ' . strtoupper(Html::safe($label)) . (isset($entry['badge']) ? '<span class="right badge badge-' . Html::safe($entry['badge']['type']) . '">' . Html::safe($entry['badge']['label']) . '</span>' : '') . '
-                               </li>';
+                $li      = false;
+                $render .= '<li class="sidenav-item pt-3">
+                               ' . (isset($entry['icon']) ? '<i class="me-3 ' . Html::safe($entry['icon']) . '"></i>' : '') .
+                               '<span class="sidenav-subheading text-muted">' . strtoupper(Html::safe($label)) . '</span>' . (isset($entry['badge']) ? '<span class="badge rounded-pill badge-notification bg-' . Html::safe($entry['badge']['type']) . '">' . Html::safe($entry['badge']['label']) . '</span>' : '');
             } else {
-                $html .= $menu_label . '<li class="nav-item">
-                                            <a href="' . Html::safe(isset_get($entry['url']) ?? '#') . '" class="nav-link">
-                                                ' . (isset($entry['icon']) ? '<i class="nav-icon fas fa ' . Html::safe($entry['icon']) . '"></i>' : '') . '
-                                                <p>' . Html::safe($label) . (isset($entry['menu']) ? '<i class="right fas fa-angle-left"></i>' : (isset($entry['badge']) ? '<span class="right badge badge-' . Html::safe($entry['badge']['type']) . '">' . Html::safe($entry['badge']['label']) . '</span>' : '')) . '</p>
-                                            </a>';
+                $render .= ($li ? ' <li class="sidenav-item">' : '') . '
+                                      <a href="' . Html::safe(isset_get($entry['url']) ?? '#') . '" class="sidenav-link">
+                                        ' . (isset($entry['icon']) ? '<i class="me-3 ' . Html::safe($entry['icon']) . '"></i>' . (isset($entry['badge']) ? '<span class="badge rounded-pill badge-notification bg-' . Html::safe($entry['badge']['type']) . '">' . Html::safe($entry['badge']['label']) . '</span>' : '') : '') . '
+                                        ' . $label . '
+                                      </a>';
 
                 if (isset($entry['menu'])) {
-                    $html .= $this->renderMenu($entry['menu'], ++$sub_menu);
+                    $render .= $this->renderMenu($entry['menu'], ++$sub_menu);
                 }
 
-                $menu_label = '';
-                $html      .= '</li>';
+                $li      = true;
+                $render .= '</li>';
             }
         }
 
-        $html .= '</ul>' . PHP_EOL;
+        $render .= '</ul>' . PHP_EOL;
 
-        return $html;
+        return $render;
     }
 }

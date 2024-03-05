@@ -46,11 +46,15 @@ class TemplateMenu extends TemplateRenderer
      *
      * @param array $source
      * @param int $sub_menu
-     * @return string
+     * @return string|null
      */
-    protected function renderMenu(array $source, int $sub_menu): string
+    protected function renderMenu(array $source, int $sub_menu): ?string
     {
         $menu_label = '';
+
+        if (empty($source)) {
+            return null;
+        }
 
         if ($sub_menu) {
             $html = '<ul class="nav nav-treeview sub-menu-' . Html::safe($sub_menu) . '">';

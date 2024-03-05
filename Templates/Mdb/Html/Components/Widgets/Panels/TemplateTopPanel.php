@@ -255,6 +255,14 @@ class TemplateTopPanel extends TemplateRenderer
 
                     break;
 
+                case 'sidebar-button':
+                    $delete[] = $element_id;
+
+                    $contents .= '<button data-mdb-ripple-init data-mdb-toggle="sidenav" data-mdb-target="#sidenav-9" class="btn btn-primary" aria-controls="#sidenav-9" aria-haspopup="true">
+                                  <i class="fas fa-bars"></i>
+                                </button>';
+                    break;
+
                 case 'search':
                     $delete[] = $element_id;
 
