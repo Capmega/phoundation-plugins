@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components\Widgets;
 
-use Phoundation\Date\Date;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Notifications\Html\Components\Modals\NotificationModal;
 use Phoundation\Utils\Strings;
+use Phoundation\Web\Html\Components\Widgets\NotificationsDropDown;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
@@ -27,7 +27,7 @@ class TemplateNotificationsDropDown extends TemplateRenderer
     /**
      * NotificationsDropDown class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\NotificationsDropDown $element)
+    public function __construct(NotificationsDropDown $element)
     {
         parent::__construct($element);
     }
@@ -67,13 +67,17 @@ class TemplateNotificationsDropDown extends TemplateRenderer
             $count = 0;
         }
 
-        $this->render = '   <a class="nav-link" data-toggle="dropdown" href="#">
-                              <i class="far fa-bell"></i>
-                              ' . ($count ? '<span class="badge badge-' . Html::safe($mode) . ' navbar-badge">' . Html::safe($count) . '</span>' : null) . '                              
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                                  <span class="dropdown-item dropdown-header">' . tr(':count Notifications', [':count' => ($count > 99 ? '99+' : $count)]) . '</span>
-                                  <div class="dropdown-divider"></div>';
+        $this->render = '   <span data-mdb-dropdown-init class="nav-link dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" role="button" aria-expanded="false">
+                              <i class="fas fa-bell fa-lg"></i>
+                              ' . ($count ? '<span class="badge rounded-pill badge-notification bg-' . Html::safe($mode) . '">' . Html::safe($count) . '</span>' : null) . '
+                            </span>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                              <li>
+                                <span class="dropdown-item">' . ($count ? tr(':count Notifications', [':count' => ($count > 99 ? '99+' : $count)]) : tr('No notifications available')) . '</span>
+                              </li>
+                              <li>
+                                <hr class="dropdown-divider" />
+                              </li>';
 
         if ($count) {
             $current = 0;
@@ -83,16 +87,25 @@ class TemplateNotificationsDropDown extends TemplateRenderer
                     break;
                 }
 
-                $this->render .= '<a href="' . Html::safe(str_replace(':ID', (string) $notification->getId(), (string) $this->component->getNotificationsUrl())) . '" class="dropdown-item notification open-modal" data-id="' . $notification->getId() . '">
-                                    ' . ($notification->getIcon() ? '<i class="text-' . Html::safe($notification->getMode()->value) . ' fas fa-' . Html::safe($notification->getIcon()) . ' mr-2"></i> ' : null) . Html::safe(Strings::truncate($notification->getTitle(), 24)) . '
-                                    <span class="float-right text-muted text-sm"> ' . Html::safe(Date::getAge($notification->getCreatedOn())) . '</span>
-                                  </a>
-                                  <div class="dropdown-divider"></div>';
+                $this->render .= '<li>
+                                    <a class="dropdown-item" href="' . Html::safe(str_replace(':ID', (string)$notification->getId(), (string)$this->component->getNotificationsUrl())) . '">
+                                        ' . $notification->getIcon()?->render() . Html::safe(Strings::truncate($notification->getTitle(), 24)) . '
+                                    </a>
+                                  </li>';
+
+
+//                $this->render .= '<a href="" class="dropdown-item notification open-modal" data-id="' . $notification->getId() . '">
+//                                    ' . ($notification->getIcon()?->render() . Html::safe(Strings::truncate($notification->getTitle(), 24)) . '
+//                                    <span class="float-right text-muted text-sm"> ' . Html::safe(Date::getAge($notification->getCreatedOn())) . '</span>
+//                                  </a>';
             }
+
         }
 
-        $this->render .= '        <a href="' . Html::safe($this->component->getAllNotificationsUrl()) . '" class="dropdown-item dropdown-footer">' . tr('See all unread notifications') . '</a>
-                                </div>';
+        $this->render .= '        <li>
+                                    <a href="' . Html::safe($this->component->getAllNotificationsUrl()) . '" class="dropdown-item dropdown-footer">' . tr('See all unread notifications') . '</a>
+                                  </li>
+                                </ul>';
 
         return parent::render() . NotificationModal::new()->render();
     }
