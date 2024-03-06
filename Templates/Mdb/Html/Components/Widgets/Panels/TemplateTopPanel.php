@@ -228,9 +228,9 @@ class TemplateTopPanel extends TemplateRenderer
                 case 'logo':
                     $delete[]  = $element_id;
                     $logo      = Logo::new();
-                    $contents .= '      <a class="navbar-brand mt-2 mt-lg-0" href="' . $logo->getAnchor()->getHref() . '">
-                                          <img src="' . $logo->getSrc() . '" height="15" alt="' . $logo->getAlt() . '" loading="lazy"/>
-                                        </a>';
+                    $contents .= '<a class="navbar-brand mt-2 mt-lg-0" href="' . $logo->getAnchor()->getHref() . '">
+                                    <img src="' . $logo->getSrc() . '" height="15" alt="' . $logo->getAlt() . '" loading="lazy"/>
+                                  </a>';
                     break;
 
                 case 'menu':
@@ -258,20 +258,20 @@ class TemplateTopPanel extends TemplateRenderer
                 case 'sidebar-button':
                     $delete[] = $element_id;
 
-                    $contents .= '<button data-mdb-ripple-init data-mdb-toggle="sidenav" data-mdb-target="#sidenav-9" class="btn btn-primary" aria-controls="#sidenav-9" aria-haspopup="true">
-                                  <i class="fas fa-bars"></i>
-                                </button>';
+                    $contents .= '<button data-mdb-ripple-init data-mdb-toggle="sidenav" data-mdb-target="#sidenav-9" class="btn btn-primary me-2 d-flex align-items-center" aria-controls="#sidenav-9" aria-haspopup="true">
+                                    <i class="fas fa-bars"></i>
+                                  </button>';
                     break;
 
                 case 'search':
                     $delete[] = $element_id;
 
-                    $contents .= '      <form class="d-flex input-group w-auto">
-                                          <input type="search" class="form-control rounded" placeholder="' . tr('Search') . '" aria-label="' . tr('Search') . '" aria-describedby="search-addon" />
-                                            <span class="input-group-text border-0" id="search-addon">
-                                              <i class="fas fa-search"></i>
-                                            </span>
-                                        </form>';
+                    $contents .= '<form class="d-flex input-group w-auto">
+                                    <input type="search" class="form-control rounded" placeholder="' . tr('Search') . '" aria-label="' . tr('Search') . '" aria-describedby="search-addon" />
+                                      <span class="input-group-text border-0" id="search-addon">
+                                        <i class="fas fa-search"></i>
+                                      </span>
+                                  </form>';
                     break;
 
             }
@@ -280,9 +280,13 @@ class TemplateTopPanel extends TemplateRenderer
         if ($contents) {
             $this->component->getElementsObject()->delete($delete);
 
-            $this->render .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">
+            $this->render .= '<div class="d-flex">
                                 ' . $contents . ' 
                               </div>';
+
+//            $this->render .= '<div class="collapse navbar-collapse" id="navbarSupportedContent">
+//                                ' . $contents . '
+//                              </div>';
         }
 
         // Build the rest
@@ -303,7 +307,9 @@ class TemplateTopPanel extends TemplateRenderer
                     break;
 
                 case 'languages':
-                    $content = $this->component->getLanguagesDropDown()->render();
+                    $content = '  <li class="nav-item me-3 me-lg-1 dropdown">
+                                    <span>' . $this->component->getLanguagesDropDown()->render() . '</span>
+                                  </li>';
                     break;
 
                 case 'breadcrumbs':
