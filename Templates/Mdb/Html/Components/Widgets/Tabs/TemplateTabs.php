@@ -6,6 +6,7 @@ namespace Templates\Mdb\Html\Components\Widgets\Tabs;
 
 use Phoundation\Exception\UnderConstructionException;
 use Phoundation\Enums\EnumOrientation;
+use Phoundation\Web\Html\Components\Widgets\Tabs\Tabs;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
 
@@ -24,7 +25,7 @@ class TemplateTabs extends TemplateRenderer
     /**
      * Card class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Tabs\Tabs $element)
+    public function __construct(Tabs $element)
     {
         parent::__construct($element);
     }
@@ -41,16 +42,16 @@ class TemplateTabs extends TemplateRenderer
 
         switch ($tabs->getOrientation()) {
             case EnumOrientation::top:
-                $this->render .= '  <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">';
+                $this->render .= '  <ul class="nav nav-tabs mb-3" role="tablist">';
 
                 // Render the tabs
                 $active = true;
 
                 foreach ($tabs as $tab) {
-                    $this->render .= '          <li class="nav-item">
-                                                    <a class="nav-link' . ($active ? ' active' : '') . '" id="' . $tab->getId() . '-tab" data-toggle="pill" href="#' . $tab->getId() . '" role="tab" aria-controls="' . $tab->getId() . '" aria-selected="false">
-                                                        ' . $tab->getLabel() . '
-                                                    </a>
+                    $this->render .= '          <li class="nav-item" role="presentation">
+                                                  <a data-mdb-tab-init class="nav-link ' . ($active ? ' active' : '') . '" id="' . $tab->getId() . '-tab" href="#' . $tab->getId() . '" role="tab" aria-controls="' . $tab->getId() . '" aria-selected="' . ($active ? 'true' : 'false') . '">
+                                                    ' . $tab->getLabel() . '
+                                                  </a>
                                                 </li>';
 
                     $active = false;
@@ -58,7 +59,7 @@ class TemplateTabs extends TemplateRenderer
 
                 // Render the change to tabs / contents
                 $this->render .= '  </ul>
-                                    <div class="tab-content tab-margin" id="custom-content-below-tabContent">';
+                                    <div class="tab-content" id="ex-with-icons-content">';
 
                 // Render the tab contents
                 $active = true;
@@ -75,15 +76,15 @@ class TemplateTabs extends TemplateRenderer
                 break;
 
             case EnumOrientation::left:
-                $this->render .= '  <div class="row">
+                $this->render .= '  <div class="row w-100">
                                         <div class="col-' . $tab_display_size . ' col-sm-' . $tab_display_size . '">
-                                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">';
+                                            <div class="nav flex-column nav-tabs text-center" id="v-tabs-tab" role="tablist" aria-orientation="vertical">';
 
                 // Render the tabs
                 $active = true;
 
                 foreach ($tabs as $tab) {
-                    $this->render .= '          <a class="nav-link' . ($active ? ' active' : '') . '" id="' . $tab->getId() . '-tab" data-toggle="pill" href="#' . $tab->getId() . '" role="tab" aria-controls="' . $tab->getId() . '" aria-selected="' . ($active ? 'true' : 'false') . '">
+                    $this->render .= '          <a data-mdb-tab-init class="nav-link' . ($active ? ' active' : '') . '" id="' . $tab->getId() . '-tab" href="#' . $tab->getId() . '" role="tab" aria-controls="' . $tab->getId() . '" aria-selected="' . ($active ? 'true' : 'false') . '">
                                                     ' . $tab->getLabel() . '
                                                 </a>';
                     $active = false;
@@ -93,14 +94,14 @@ class TemplateTabs extends TemplateRenderer
                 $this->render .= '          </div>
                                         </div>
                                         <div class="col-' . $content_display_size . ' col-sm-' . $content_display_size . '">
-                                            <div class="tab-content" id="vert-tabs-tabContent">';
+                                            <div class="tab-content" id="v-tabs-tabContent">';
 
                 // Render the tab contents
                 $active = true;
 
                 foreach ($tabs as $tab) {
-                    $this->render .= '          <div class="tab-pane text-left fade' . ($active ? ' active show' : '') . '" id="' . $tab->getId() . '" role="tabpanel" aria-labelledby="' . $tab->getId() . '-tab">
-                                                    ' . $tab->getContent() . '
+                    $this->render .= '          <div class="tab-pane fade' . ($active ? ' active show' : '') . '" id="' . $tab->getId() . '" role="tabpanel" aria-labelledby="' . $tab->getId() . '-tab">
+                                                  ' . $tab->getContent() . '
                                                 </div>';
 
                     $active = false;

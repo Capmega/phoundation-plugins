@@ -156,9 +156,14 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             return $body;
         }
 
+        $horizontal_padding = 1;
+        $vertical_padding   = 1;
+        $horizontal_margin  = 1;
+        $vertical_margin    = 1;
+
         return '    ' . Page::getPanelsObject()->get('header', false)?->render() . '
-                    <main class="pt-5 mdb-docs-layout">
-                        <div class="container mt-5  mt-5  px-lg-5">
+                    <main class="pt-' . $horizontal_padding . ' mdb-docs-layout">
+                        <div class="container mt-' . $vertical_padding . ' mt-' . $horizontal_padding . ' px-lg-' . $horizontal_margin . '">
                             <div class="tab-content">
                                 ' . $body . '
                             </div>

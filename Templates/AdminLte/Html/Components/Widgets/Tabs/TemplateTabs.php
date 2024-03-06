@@ -48,7 +48,7 @@ class TemplateTabs extends TemplateRenderer
 
                 foreach ($tabs as $tab) {
                     $this->render .= '          <li class="nav-item">
-                                                    <a class="nav-link' . ($active ? ' active' : '') . '" id="' . $tab->getId() . '-tab" data-toggle="pill" href="#' . $tab->getId() . '" role="tab" aria-controls="' . $tab->getId() . '" aria-selected="false">
+                                                    <a class="nav-link' . ($active ? ' active' : '') . '" id="' . $tab->getId() . '-tab" data-toggle="pill" href="#' . $tab->getId() . '" role="tab" aria-controls="' . $tab->getId() . '" aria-selected="' . ($active ? 'true' : 'false') . '">
                                                         ' . $tab->getLabel() . '
                                                     </a>
                                                 </li>';
