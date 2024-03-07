@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Components\Widgets;
 
 use Phoundation\Exception\OutOfBoundsException;
+use Phoundation\Web\Html\Components\Widgets\MessagesDropDown;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
@@ -24,7 +25,7 @@ class TemplateMessagesDropDown extends TemplateRenderer
     /**
      * MessagesDropDown class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\MessagesDropDown $element)
+    public function __construct(MessagesDropDown $element)
     {
         parent::__construct($element);
     }
@@ -57,7 +58,7 @@ class TemplateMessagesDropDown extends TemplateRenderer
 
         if ($count) {
             foreach ($this->component->getMessages() as $message) {
-                $this->render . -'<a href="' . Html::safe($message->getUrl()) . '" class="dropdown-item">
+                $this->render .= '<a href="' . Html::safe($message->getUrl()) . '" class="dropdown-item">
                                     <!-- Message Start -->
                                     <div class="media">
                                       <img src="' . Html::safe($message->getAvatar()) . '" alt="' . tr('Avatar for :user', [':user' => Html::safe($message->getDisplayName())]) . '" class="img-size-50 mr-3 img-circle">

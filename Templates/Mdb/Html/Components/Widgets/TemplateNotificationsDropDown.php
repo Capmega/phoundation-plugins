@@ -71,7 +71,7 @@ class TemplateNotificationsDropDown extends TemplateRenderer
                               <i class="fas fa-bell fa-lg"></i>
                               ' . ($count ? '<span class="badge rounded-pill badge-notification bg-' . Html::safe($mode) . '">' . Html::safe($count) . '</span>' : null) . '
                             </span>
-                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <ul class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="navbarDropdownMenuLink">
                               <li>
                                 <span class="dropdown-item">' . ($count ? tr(':count Notifications', [':count' => ($count > 99 ? '99+' : $count)]) : tr('No notifications available')) . '</span>
                               </li>

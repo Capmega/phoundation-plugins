@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Templates\Mdb;
 
+use Phoundation\Core\Log\Log;
 use Phoundation\Core\Plugins\Plugins;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Components\Forms\DataEntryFormRows;
@@ -39,9 +40,10 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target, bool $main_content_only = false): ?string
+    public function execute(string $target, bool $main_content_only): ?string
     {
-        if (!Page::getLevels()) {
+        if (Page::isExecutedDirectly()) {
+            // Generate panels used by the plugins, then start all plugins
             Page::setPanelsObject($this->getAvailablePanelsObject());
             Plugins::start();
         }
@@ -60,7 +62,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             $output .=  '<body class="mdb-skin-custom" data-mdb-spy="scroll" data-mdb-target="#scrollspy" data-mdb-offset="250">' .
                             Page::getFlashMessages()->render() .
                             Page::getPanelsObject()->get('top', false)?->render() .
-                            Page::getPanelsObject()->get('left')->render() .
+                            Page::getPanelsObject()->get('left')?->render() .
                             $body .
                             Page::getPanelsObject()->get('bottom', false)?->render();
         } else {
@@ -149,7 +151,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target, bool $main_content_only = false): ?string
+    public function buildBody(string $target, bool $main_content_only): ?string
     {
         DataEntryFormRows::setForceRows(true);
 

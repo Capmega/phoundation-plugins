@@ -38,7 +38,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target, bool $main_content_only = false): ?string
+    public function execute(string $target, bool $main_content_only): ?string
     {
         if (!Page::getLevels()) {
             Page::setPanelsObject($this->getAvailablePanelsObject());
@@ -60,7 +60,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
                             <div class="wrapper">' .
                                 Page::getFlashMessages()->render() .
                                 Page::getPanelsObject()->get('top', false)?->render() .
-                                Page::getPanelsObject()->get('left')->render() .
+                                Page::getPanelsObject()->get('left')?->render() .
                                 $body .
                                 Page::getPanelsObject()->get('bottom', false)?->render() . '
                             </div>';
@@ -155,7 +155,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target, bool $main_content_only = false): ?string
+    public function buildBody(string $target, bool $main_content_only): ?string
     {
         $body = parent::buildBody($target, $main_content_only);
 

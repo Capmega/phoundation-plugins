@@ -64,10 +64,10 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
 
             case 'select':
                 $this->render .= '<div class="' . static::getBottomMarginString() . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">'.
-                                    $component . '
-                                    <label class="form-label select-label" for="' . Html::safe($definition->getColumn()) . '">
-                                        ' . Html::safe($definition->getLabel()) . '
-                                    </label>
+                                    $component .
+                                   ($definition->getLabel() ? ' <label class="form-label select-label" for="' . Html::safe($definition->getColumn()) . '">
+                                                                  ' . Html::safe($definition->getLabel()) . '
+                                                                </label>' : '') . '
                                 </div>';
                 return parent::render();
 
@@ -113,6 +113,8 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
 
 
     /**
+     * Returns the string required for the bottom margin
+     *
      * @return string|null
      */
     protected static function getBottomMarginString(): ?string
