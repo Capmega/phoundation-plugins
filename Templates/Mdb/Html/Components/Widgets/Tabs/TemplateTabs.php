@@ -113,6 +113,7 @@ class TemplateTabs extends TemplateRenderer
                 break;
 
             case EnumOrientation::right:
+                throw new UnderConstructionException(tr('right orientation for tabs with MDB template is still under construction!'));
                 $this->render .= '  <div class="row">
                                         <div class="col-' . $content_display_size . ' col-sm-' . $content_display_size . '">
                                             <div class="tab-content" id="vert-tabs-tabContent">';

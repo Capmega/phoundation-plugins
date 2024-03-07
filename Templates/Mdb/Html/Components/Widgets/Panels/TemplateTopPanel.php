@@ -348,14 +348,6 @@ class TemplateTopPanel extends TemplateRenderer
                                   </li>';
                     break;
 
-                case 'control-sidebar':
-                    $content = '    <li class="nav-item">
-                                      <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                                        <i class="fas fa-th-large"></i>
-                                      </a>
-                                    </li>';
-                    break;
-
                 default:
                     // This is a custom element. Must be either a render-able object, or a callback that returns HTML
                     if ($element instanceof RenderInterface) {

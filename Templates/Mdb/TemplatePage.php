@@ -6,6 +6,7 @@ namespace Templates\Mdb;
 
 use Phoundation\Core\Plugins\Plugins;
 use Phoundation\Utils\Config;
+use Phoundation\Web\Html\Components\Forms\DataEntryFormRows;
 use Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\HeaderPanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\Interfaces\PanelsInterface;
@@ -150,6 +151,8 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function buildBody(string $target, bool $main_content_only = false): ?string
     {
+        DataEntryFormRows::setForceRows(true);
+
         $body = parent::buildBody($target, $main_content_only);
 
         if ($main_content_only or !Page::getBuildBodyWrapper()) {

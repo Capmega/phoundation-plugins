@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Templates\AdminLte\Html\Components\Widgets\Panels;
 
 use Phoundation\Core\Sessions\Session;
+use Phoundation\Utils\Strings;
 use Phoundation\Web\Html\Components\Icons\FullScreen;
 use Phoundation\Web\Html\Components\Input\Interfaces\RenderInterface;
 use Phoundation\Web\Html\Enums\EnumDisplayMode;
@@ -33,9 +34,6 @@ class TemplateTopPanel extends TemplateRenderer
      */
     public function render(): ?string
     {
-        // TODO Change this hard coded menu below for a flexible one
-//        $left_menu = $this->element->getMenu()?->render();
-
         // If impersonated, change top panel color and add an impersonation message
         if (Session::isImpersonated()) {
             $this->component->setMode(EnumDisplayMode::danger);
@@ -78,6 +76,8 @@ class TemplateTopPanel extends TemplateRenderer
                             <ul class="navbar-nav ml-auto">';
 
         foreach ($this->component->getElementsObject() as $element) {
+            $element_type = Strings::until($element, '-');
+
             switch ($element) {
                 case 'search':
                     $this->render .= '<!-- Navbar Search -->
@@ -123,19 +123,15 @@ class TemplateTopPanel extends TemplateRenderer
                                       </li>';
                     break;
 
-                case 'full-screen':
-                    $this->render .= '<li class="nav-item">
-                                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                                          <i class="fas fa-expand-arrows-alt"></i>
-                                        </a>
-                                      </li>';
+                case 'icon':
+                    $this->render .= '  <li class="nav-item">
+                                          ' . $this->component->getIcons()->get($element_type)->render() . '
+                                        </li>';
                     break;
 
-                case 'control-sidebar':
+                case 'full-screen':
                     $this->render .= '<li class="nav-item">
-                                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                                          <i class="fas fa-th-large"></i>
-                                        </a>
+                                        <span class="nav-link">' . FullScreen::new()->render() . '</span>
                                       </li>';
                     break;
 
@@ -143,6 +139,14 @@ class TemplateTopPanel extends TemplateRenderer
                     $this->render .= '<li class="nav-item">
                                         <a class="nav-link" href="' . Html::safe(UrlBuilder::getWww('sign-out.html')) . '" role="button">
                                           <i class="fas fa-sign-out-alt"></i>
+                                        </a>
+                                      </li>';
+                    break;
+
+                case 'sidebar-button':
+                    $this->render .= '<li class="nav-item">
+                                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                                          <i class="fas fa-th-large"></i>
                                         </a>
                                       </li>';
                     break;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Components\Input;
 
 use Phoundation\Utils\Arrays;
+use Phoundation\Web\Html\Components\Input\InputHidden;
 use Phoundation\Web\Html\Components\Input\Interfaces\InputInterface;
 use Phoundation\Web\Html\Components\Input\Interfaces\InputSelectInterface;
 use Phoundation\Web\Html\Template\TemplateRenderer;
@@ -47,7 +48,7 @@ class TemplateInput extends TemplateRenderer
                 $return = null;
 
                 foreach (Arrays::force($this->component->getSelected()) as $key => $value) {
-                    $return .= \Phoundation\Web\Html\Components\Input\InputHidden::new()
+                    $return .= InputHidden::new()
                         ->setName($this->component->getName())
                         ->setValue($key)
                         ->render();
@@ -56,12 +57,26 @@ class TemplateInput extends TemplateRenderer
                 return $return;
             }
 
-            return \Phoundation\Web\Html\Components\Input\InputHidden::new()
+            return InputHidden::new()
                 ->setName($this->component->getName())
                 ->setValue($this->component->getValue())
                 ->render();
         }
 
-        return parent::render();
+        $return = parent::render();
+        $icon   = $this->component->getIcon();
+
+        if ($icon) {
+            // Add an icon
+            $return = $icon->render() . ' ' . $return;
+        }
+
+        if ($this->component->getClearButton()) {
+            // Add a clear button
+            $return .= '<span class="trailing pe-auto clear d-none" tabindex="0">✕</span>';
+        }
+
+
+        return $return;
     }
 }

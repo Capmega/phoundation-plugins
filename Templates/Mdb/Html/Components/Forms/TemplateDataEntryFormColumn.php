@@ -6,6 +6,7 @@ namespace Templates\Mdb\Html\Components\Forms;
 
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionInterface;
 use Phoundation\Exception\OutOfBoundsException;
+use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Components\Forms\Interfaces\DataEntryFormColumnInterface;
 use Phoundation\Web\Html\Components\Widgets\Tooltips\Tooltip;
 use Phoundation\Web\Html\Html;
@@ -55,11 +56,33 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
             return $component;
         }
 
+        switch ($definition->getElement()) {
+            case 'input':
+                $label    = null;
+                $mdb_init = ' data-mdb-input-init=""';
+                break;
+
+            case 'select':
+                $this->render .= '<div class="' . static::getBottomMarginString() . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">'.
+                                    $component . '
+                                    <label class="form-label select-label" for="' . Html::safe($definition->getColumn()) . '">
+                                        ' . Html::safe($definition->getLabel()) . '
+                                    </label>
+                                </div>';
+                return parent::render();
+
+            default:
+                $label    = null;
+                $mdb_init = '';
+        }
+
         $this->render .= match ($definition->getInputType()?->value) {
-            default    => '  <div class="' . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">
-                                 <div data-mdb-input-init class="form-outline">
+            default    => '  <div class="' . static::getBottomMarginString() . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">
+                                 <div' . $mdb_init . ' class="form-outline">
                                      ' . $component . '
-                                     <label class="form-label" for="' . Html::safe($definition->getColumn()) . '">' . Html::safe($definition->getLabel()) . '</label>
+                                     <label class="form-label' . $label . '" for="' . Html::safe($definition->getColumn()) . '">
+                                       ' . Html::safe($definition->getLabel()) . '
+                                     </label>
                                  </div>
                              </div>',
 //            ' . $this->renderTooltip($definition) . '
@@ -86,5 +109,27 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
         }
 
         return null;
+    }
+
+
+    /**
+     * @return string|null
+     */
+    protected static function getBottomMarginString(): ?string
+    {
+        static $return = null;
+
+        if ($return === null) {
+            $margin = Config::getInteger('web.page.templates.mdb.forms.margins.bottom', 4);
+
+            if ($margin) {
+                $return = ' mb-' . $margin . ' ';
+
+            } else {
+                $return = '';
+            }
+        }
+
+        return $return;
     }
 }
