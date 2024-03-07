@@ -126,7 +126,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         ], true);
 
         // Load configured CSS files
-        Page::loadCss(Config::getArray('web.page.css', []));
+        Page::loadCss(Config::getArray('templates.adminlte.css', []));
 
         // Load basic MDB amd jQuery javascript libraries
         Page::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd');

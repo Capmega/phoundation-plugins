@@ -120,7 +120,7 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
         static $return = null;
 
         if ($return === null) {
-            $margin = Config::getInteger('web.page.templates.mdb.forms.margins.bottom', 4);
+            $margin = Config::getInteger('templates.mdb.forms.margins.bottom', 4);
 
             if ($margin) {
                 $return = ' mb-' . $margin . ' ';
