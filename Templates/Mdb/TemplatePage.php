@@ -49,14 +49,14 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             Plugins::start();
         }
 
-        $body = $this->buildBody($target, $data, $main_content_only);
+        $body = $this->renderBody($target, $data, $main_content_only);
 
         if ($main_content_only) {
             return $body;
         }
 
         // Build HTML and minify the output
-        $output = $this->buildHtmlHeader();
+        $output = $this->renderHtmlHeadTag();
         Page::htmlHeadersSent(true);
 
         if (Page::getBuildBodyWrapper()) {
@@ -71,11 +71,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             $output .= $body;
         }
 
-        $output .= $this->buildHtmlFooters();
+        $output .= $this->renderHtmlFooters();
         $output  = Html::minify($output);
 
         // Build Template specific HTTP headers
-        $this->buildHttpHeaders($output);
+        $this->renderHttpHeaders($output);
         return $output;
     }
 
@@ -101,7 +101,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param string $output
      * @return void
      */
-    public function buildHttpHeaders(string $output): void
+    public function renderHttpHeaders(string $output): void
     {
         Page::setContentType('text/html');
         Page::setDoctype('html');
@@ -113,7 +113,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      *
      * @return string|null
      */
-    public function buildHtmlHeader(): ?string
+    public function renderHtmlHeadTag(): ?string
     {
         // Set head meta data
         Page::setFavIcon();
@@ -141,7 +141,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         // Set basic page details
         Page::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Page::getHeaderTitle() . ')');
 
-        return Page::buildHtmlHeadTag();
+        return Page::renderHtmlHeadTag();
     }
 
 
@@ -152,11 +152,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target, ?array $data, bool $main_content_only): ?string
+    public function renderBody(string $target, ?array $data, bool $main_content_only): ?string
     {
         DataEntryFormRows::setForceRows(true);
 
-        $body = parent::buildBody($target, $data, $main_content_only);
+        $body = parent::renderBody($target, $data, $main_content_only);
 
         if ($main_content_only or !Page::getBuildBodyWrapper()) {
             return $body;

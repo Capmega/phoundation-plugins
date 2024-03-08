@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-
 namespace Templates\None;
 
 use Phoundation\Web\Page;
 
 
 /**
- * None template class
+ * class TemplatePage
  *
  * 
  *
@@ -33,7 +32,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function execute(string $target, ?array $data, bool $main_content_only = false): ?string
     {
-        return $this->buildBody($target, $data, $main_content_only);
+        return $this->renderBody($target, $data, $main_content_only);
     }
 
 
@@ -44,21 +43,10 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @return void
      *
      */
-    public function buildHttpHeaders(string $output): void
+    public function renderHttpHeaders(string $output): void
     {
         Page::setContentType('text/html');
         Page::setDoctype('html');
-    }
-
-
-    /**
-     * Build the HTML header for the page
-     *
-     * @return string|null
-     */
-    public function buildHtmlHeader(): ?string
-    {
-        return Page::buildHtmlHead();
     }
 
 
@@ -81,20 +69,6 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     public function buildPageFooter(): ?string
     {
         return '';
-    }
-
-
-    /**
-     * Build the HTML body
-     *
-     * @param string $target
-     * @param array|null $data
-     * @param bool $main_content_only
-     * @return string|null
-     */
-    public function buildBody(string $target, ?array $data, bool $main_content_only = false): ?string
-    {
-        return parent::buildBody($target, $data, $main_content_only);
     }
 
 
