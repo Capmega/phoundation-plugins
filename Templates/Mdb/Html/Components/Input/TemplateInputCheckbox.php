@@ -25,7 +25,7 @@ class TemplateInputCheckbox extends TemplateInput
     public function __construct(InputCheckbox $element)
     {
         parent::__construct($element);
-        $element->getClasses()->delete('form-control')->add(true, 'form-check-input');
+        $element->getClasses()->removeKeys('form-control')->add(true, 'form-check-input');
     }
 
 
