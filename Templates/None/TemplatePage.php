@@ -24,15 +24,16 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Execute, builds and returns the page output according to the template.
      *
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
-     * Once the output has been generated it should be returned.
+     * Once the output has been generated, it should be returned.
      *
      * @param string $target
+     * @param array|null $data
      * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target, bool $main_content_only = false): ?string
+    public function execute(string $target, ?array $data, bool $main_content_only = false): ?string
     {
-        return parent::execute($target, $main_content_only);
+        return $this->buildBody($target, $data, $main_content_only);
     }
 
 
@@ -87,12 +88,13 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Build the HTML body
      *
      * @param string $target
+     * @param array|null $data
      * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target, bool $main_content_only = false): ?string
+    public function buildBody(string $target, ?array $data, bool $main_content_only = false): ?string
     {
-        return parent::buildBody($target, $main_content_only);
+        return parent::buildBody($target, $data, $main_content_only);
     }
 
 

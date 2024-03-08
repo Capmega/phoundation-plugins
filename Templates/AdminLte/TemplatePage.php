@@ -35,17 +35,18 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Once the output has been generated, it should be returned.
      *
      * @param string $target
+     * @param array|null $data
      * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target, bool $main_content_only): ?string
+    public function execute(string $target, ?array $data, bool $main_content_only): ?string
     {
         if (!Page::getLevels()) {
             Page::setPanelsObject($this->getAvailablePanelsObject());
             Plugins::start();
         }
 
-        $body = $this->buildBody($target, $main_content_only);
+        $body = $this->buildBody($target, $data, $main_content_only);
 
         if ($main_content_only) {
             return $body;
@@ -139,7 +140,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             'adminlte/plugins/bootstrap/js/bootstrap.bundle',
             'adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars',
             'adminlte/js/adminlte'
-        ], null, true);
+        ], prefix: true);
 
         // Set basic page details
         Page::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Page::getHeaderTitle() . ')');
@@ -152,12 +153,13 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Build the HTML body
      *
      * @param string $target
+     * @param array|null $data
      * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target, bool $main_content_only): ?string
+    public function buildBody(string $target, ?array $data, bool $main_content_only): ?string
     {
-        $body = parent::buildBody($target, $main_content_only);
+        $body = parent::buildBody($target, $data, $main_content_only);
 
         if ($main_content_only) {
             return $body;

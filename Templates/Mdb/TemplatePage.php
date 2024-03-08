@@ -37,10 +37,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Once the output has been generated, it should be returned.
      *
      * @param string $target
+     * @param array|null $data
      * @param bool $main_content_only
      * @return string|null
      */
-    public function execute(string $target, bool $main_content_only): ?string
+    public function execute(string $target, ?array $data, bool $main_content_only): ?string
     {
         if (Page::isExecutedDirectly()) {
             // Generate panels used by the plugins, then start all plugins
@@ -48,7 +49,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             Plugins::start();
         }
 
-        $body = $this->buildBody($target, $main_content_only);
+        $body = $this->buildBody($target, $data, $main_content_only);
 
         if ($main_content_only) {
             return $body;
@@ -131,7 +132,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         Page::loadCss(Config::getArray('templates.adminlte.css', []));
 
         // Load basic MDB amd jQuery javascript libraries
-        Page::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd');
+        Page::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd', prefix: true);
 
         // Set basic page details
         Page::setPageTitle(tr('Phoundation platform'));
@@ -151,11 +152,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * @param bool $main_content_only
      * @return string|null
      */
-    public function buildBody(string $target, bool $main_content_only): ?string
+    public function buildBody(string $target, ?array $data, bool $main_content_only): ?string
     {
         DataEntryFormRows::setForceRows(true);
 
-        $body = parent::buildBody($target, $main_content_only);
+        $body = parent::buildBody($target, $data, $main_content_only);
 
         if ($main_content_only or !Page::getBuildBodyWrapper()) {
             return $body;
