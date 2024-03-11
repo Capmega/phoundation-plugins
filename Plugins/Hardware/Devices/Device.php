@@ -24,7 +24,6 @@ use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Os\Processes\Commands\ScanImage;
 use Phoundation\Servers\Traits\DataEntryServer;
 use Phoundation\Web\Html\Enums\EnumInputType;
-use Phoundation\Web\Html\Enums\EnumInputTypeExtended;
 use Plugins\Hardware\Devices\Interfaces\DeviceInterface;
 use Plugins\Hardware\Devices\Interfaces\ProfilesInterface;
 use Stringable;
@@ -365,7 +364,7 @@ class Device extends DataEntry implements DeviceInterface
             ->add(DefinitionFactory::getServer($this))
             ->add(DefinitionFactory::getName($this)
                 ->setOptional(false)
-                ->setInputType(EnumInputTypeExtended::name)
+                ->setInputType(EnumInputType::name)
                 ->setSize(12)
                 ->setMaxlength(64)
                 ->setHelpText(tr('The name for this role'))
