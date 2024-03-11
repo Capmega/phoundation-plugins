@@ -38,9 +38,9 @@ class TemplateInputCheckbox extends TemplateInput
     {
         $object = $this->getComponent();
 
-        return '<div class="custom-control custom-checkbox">
+        return '<div class="form-check' . ($object->getInline() ? ' form-check-inline' : '') . '">
                     ' . parent::render() . '
-                    ' . ($object->getLabel() ? '<label for="' . $object->getName() . '" class="custom-control-label">' . $object->getLabel() . '</label>' : '') . '
+                    ' . ($object->getLabel() ? '<label for="' . $object->getName() . '" class="form-check-label">' . $object->getLabel() . '</label>' : '') . '
                 </div>';
     }
 }
