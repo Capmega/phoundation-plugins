@@ -3,11 +3,10 @@
 
 declare(strict_types=1);
 
-use Phoundation\Cli\CliCommand;
 use Phoundation\Cli\CliDocumentation;
+use Phoundation\Cli\Commands\Command;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Filesystem\Directory;
-use Phoundation\Filesystem\Path;
 use Phoundation\Filesystem\Restrictions;
 
 
@@ -39,7 +38,7 @@ $argv = ArgvValidator::new()
     ->validate();
 
 if ($argv['human_readable']) {
-    CliCommand::echo(number_format(FileBsics::newExisting($argv['path'], Restrictions::new('/'))->getCount()));
+    Command::echo(number_format(FileBsics::newExisting($argv['path'], Restrictions::new('/'))->getCount()));
 } else {
-    CliCommand::echo(FileBsics::newExisting($argv['path'], Restrictions::new('/'))->getCount());
+    Command::echo(FileBsics::newExisting($argv['path'], Restrictions::new('/'))->getCount());
 }

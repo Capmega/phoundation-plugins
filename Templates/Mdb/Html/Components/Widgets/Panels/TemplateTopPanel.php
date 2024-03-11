@@ -278,7 +278,7 @@ class TemplateTopPanel extends TemplateRenderer
         }
 
         if ($contents) {
-            $this->component->getElementsObject()->delete($delete);
+            $this->component->getElementsObject()->removeKeys($delete);
 
             $this->render .= '<div class="d-flex">
                                 ' . $contents . ' 

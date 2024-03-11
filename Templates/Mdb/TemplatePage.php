@@ -15,6 +15,8 @@ use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
 use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
+use Phoundation\Web\Interfaces\WebRequestInterface;
+use Phoundation\Web\Interfaces\WebResponseInterface;
 use Phoundation\Web\Page;
 
 
@@ -36,12 +38,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
      * Once the output has been generated, it should be returned.
      *
-     * @param string $target
-     * @param array|null $data
-     * @param bool $main_content_only
+     * @param WebRequestInterface $request
+     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function execute(string $target, ?array $data, bool $main_content_only): ?string
+    public function execute(WebRequestInterface $request, WebResponseInterface $response): ?string
     {
         if (Page::isExecutedDirectly()) {
             // Generate panels used by the plugins, then start all plugins
@@ -49,9 +50,9 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
             Plugins::start();
         }
 
-        $body = $this->renderBody($target, $data, $main_content_only);
+        $body = $this->renderBody($request, $response);
 
-        if ($main_content_only) {
+        if ($request->getMainContentsOnly()) {
             return $body;
         }
 
@@ -129,7 +130,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         ], true);
 
         // Load configured CSS files
-        Page::loadCss(Config::getArray('templates.adminlte.css', []));
+        Page::loadCss(Config::getArray('templates.mdb.css', []));
 
         // Load basic MDB amd jQuery javascript libraries
         Page::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd', prefix: true);
@@ -148,17 +149,17 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     /**
      * Build the HTML body
      *
-     * @param string $target
-     * @param bool $main_content_only
+     * @param WebRequestInterface $request
+     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function renderBody(string $target, ?array $data, bool $main_content_only): ?string
+    public function renderBody(WebRequestInterface $request, WebResponseInterface $response): ?string
     {
         DataEntryFormRows::setForceRows(true);
 
-        $body = parent::renderBody($target, $data, $main_content_only);
+        $body = parent::renderBody($request, $response);
 
-        if ($main_content_only or !Page::getBuildBodyWrapper()) {
+        if ($request->getMainContentsOnly() or !Page::getBuildBodyWrapper()) {
             return $body;
         }
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\None;
 
+use Phoundation\Web\Interfaces\WebRequestInterface;
+use Phoundation\Web\Interfaces\WebResponseInterface;
 use Phoundation\Web\Page;
 
 
@@ -25,14 +27,13 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
      * Once the output has been generated, it should be returned.
      *
-     * @param string $target
-     * @param array|null $data
-     * @param bool $main_content_only
+     * @param WebRequestInterface $request
+     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function execute(string $target, ?array $data, bool $main_content_only = false): ?string
+    public function execute(WebRequestInterface $request, WebResponseInterface $response): ?string
     {
-        return $this->renderBody($target, $data, $main_content_only);
+        return $this->renderBody($request, $response);
     }
 
 

@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
-use Phoundation\Cli\CliCommand;
+use Phoundation\Cli\Commands\Command;
 use Phoundation\Data\Validator\ArgvValidator;
 
 
@@ -25,4 +25,4 @@ $argv = ArgvValidator::new()
     ->select('text')->hasMaxCharacters(1048576)
     ->validate();
 
-CliCommand::echo(urlencode($argv['text']));
+Command::echo(urlencode($argv['text']));

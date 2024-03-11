@@ -3,8 +3,8 @@
 
 declare(strict_types=1);
 
-use Phoundation\Cli\CliCommand;
 use Phoundation\Cli\CliDocumentation;
+use Phoundation\Cli\Commands\Command;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Utils\Strings;
 
@@ -26,4 +26,4 @@ $argv = ArgvValidator::new()
     ->select('text')->hasMaxCharacters(1048576)
     ->validate();
 
-CliCommand::echo(Strings::isBase58($argv['text']) ? 1 : 0);
+Command::echo(Strings::isBase58($argv['text']) ? 1 : 0);
