@@ -9,20 +9,20 @@ use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\DefinitionFactory;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
-use Phoundation\Data\DataEntry\Traits\DataEntryClass;
-use Phoundation\Data\DataEntry\Traits\DataEntryComments;
-use Phoundation\Data\DataEntry\Traits\DataEntryDescription;
-use Phoundation\Data\DataEntry\Traits\DataEntryDevice;
-use Phoundation\Data\DataEntry\Traits\DataEntryManufacturer;
-use Phoundation\Data\DataEntry\Traits\DataEntryModel;
-use Phoundation\Data\DataEntry\Traits\DataEntryName;
-use Phoundation\Data\DataEntry\Traits\DataEntryProduct;
-use Phoundation\Data\DataEntry\Traits\DataEntryType;
-use Phoundation\Data\DataEntry\Traits\DataEntryUrl;
-use Phoundation\Data\DataEntry\Traits\DataEntryVendor;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryClass;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryComments;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryDescription;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryDevice;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryManufacturer;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryModel;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryName;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryProduct;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryType;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryUrl;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryVendor;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Os\Processes\Commands\ScanImage;
-use Phoundation\Servers\Traits\DataEntryServer;
+use Phoundation\Servers\Traits\TraitDataEntryServer;
 use Phoundation\Web\Html\Enums\EnumInputType;
 use Plugins\Hardware\Devices\Interfaces\DeviceInterface;
 use Plugins\Hardware\Devices\Interfaces\ProfilesInterface;
@@ -41,18 +41,18 @@ use Stringable;
  */
 class Device extends DataEntry implements DeviceInterface
 {
-    use DataEntryClass;
-    use DataEntryComments;
-    use DataEntryDevice;
-    use DataEntryDescription;
-    use DataEntryManufacturer;
-    use DataEntryModel;
-    use DataEntryName;
-    use DataEntryProduct;
-    use DataEntryServer;
-    use DataEntryType;
-    use DataEntryUrl;
-    use DataEntryVendor;
+    use TraitDataEntryClass;
+    use TraitDataEntryComments;
+    use TraitDataEntryDevice;
+    use TraitDataEntryDescription;
+    use TraitDataEntryManufacturer;
+    use TraitDataEntryModel;
+    use TraitDataEntryName;
+    use TraitDataEntryProduct;
+    use TraitDataEntryServer;
+    use TraitDataEntryType;
+    use TraitDataEntryUrl;
+    use TraitDataEntryVendor;
 
 
     /**

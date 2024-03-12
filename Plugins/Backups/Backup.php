@@ -6,8 +6,8 @@ namespace Plugins\Backups;
 
 use Phoundation\Core\Hooks\Hook;
 use Phoundation\Core\Log\Log;
-use Phoundation\Data\Traits\DataGzip;
-use Phoundation\Data\Traits\DataTimeout;
+use Phoundation\Data\Traits\TraitDataGzip;
+use Phoundation\Data\Traits\TraitDataTimeout;
 use Phoundation\Databases\Connectors\Connector;
 use Phoundation\Databases\Connectors\Interfaces\ConnectorInterface;
 use Phoundation\Databases\Export;
@@ -16,9 +16,9 @@ use Phoundation\Filesystem\Directory;
 use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
-use Phoundation\Data\Traits\DataTarget;
+use Phoundation\Data\Traits\TraitDataTarget;
 use Phoundation\Exception\OutOfBoundsException;
-use Phoundation\Filesystem\Traits\DataRestrictions;
+use Phoundation\Filesystem\Traits\TraitDataRestrictions;
 use Phoundation\Utils\Config;
 
 
@@ -35,12 +35,12 @@ use Phoundation\Utils\Config;
 
 class Backup extends DataEntry
 {
-    use DataRestrictions;
-    use DataTarget {
+    use TraitDataRestrictions;
+    use TraitDataTarget {
         setTarget as protected __setTarget;
     }
-    use DataGzip;
-    use DataTimeout;
+    use TraitDataGzip;
+    use TraitDataTimeout;
 
 
     /**

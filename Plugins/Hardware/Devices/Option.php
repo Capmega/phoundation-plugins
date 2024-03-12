@@ -8,11 +8,11 @@ use Phoundation\Data\DataEntry\DataEntry;
 use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\DefinitionFactory;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
-use Phoundation\Data\DataEntry\Traits\DataEntryComments;
-use Phoundation\Data\DataEntry\Traits\DataEntryDescription;
-use Phoundation\Data\DataEntry\Traits\DataEntryDeviceObject;
-use Phoundation\Data\DataEntry\Traits\DataEntryProfileObject;
-use Phoundation\Data\DataEntry\Traits\DataEntryUnits;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryComments;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryDescription;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryDeviceObject;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryProfileObject;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryUnits;
 use Phoundation\Data\Validator\Exception\ValidationFailedException;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Utils\Arrays;
@@ -31,11 +31,11 @@ use Phoundation\Web\Html\Enums\EnumInputType;
  */
 class Option extends DataEntry
 {
-    use DataEntryComments;
-    use DataEntryDescription;
-    use DataEntryUnits;
-    use DataEntryDeviceObject;
-    use DataEntryProfileObject;
+    use TraitDataEntryComments;
+    use TraitDataEntryDescription;
+    use TraitDataEntryUnits;
+    use TraitDataEntryDeviceObject;
+    use TraitDataEntryProfileObject;
 
 
     /**

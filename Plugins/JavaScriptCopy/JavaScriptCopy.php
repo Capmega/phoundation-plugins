@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Plugins\JavaScriptCopy;
 
-use Phoundation\Data\Traits\DataBrowserEvent;
-use Phoundation\Data\Traits\DataSelector;
-use Phoundation\Data\Traits\DataTarget;
+use Phoundation\Data\Traits\TraitDataBrowserEvent;
+use Phoundation\Data\Traits\TraitDataSelector;
+use Phoundation\Data\Traits\TraitDataTarget;
 use Phoundation\Web\Http\Html\Components\Script;
 use Phoundation\Web\Http\Html\Enums\BrowserEvent;
 use Phoundation\Web\Http\Html\Traits\Rendered;
@@ -25,9 +25,9 @@ use Phoundation\Web\Http\Html\Traits\Rendered;
 class JavaScriptCopy extends Script
 {
     use Rendered;
-    use DataSelector;
-    use DataTarget;
-    use DataBrowserEvent;
+    use TraitDataSelector;
+    use TraitDataTarget;
+    use TraitDataBrowserEvent;
 
 
     /**

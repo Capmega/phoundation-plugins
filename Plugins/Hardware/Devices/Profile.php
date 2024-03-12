@@ -9,10 +9,10 @@ use Phoundation\Data\DataEntry\Definitions\Definition;
 use Phoundation\Data\DataEntry\Definitions\DefinitionFactory;
 use Phoundation\Data\DataEntry\Definitions\Interfaces\DefinitionsInterface;
 use Phoundation\Data\DataEntry\Exception\DataEntryAlreadyExistsException;
-use Phoundation\Data\DataEntry\Traits\DataEntryComments;
-use Phoundation\Data\DataEntry\Traits\DataEntryDescription;
-use Phoundation\Data\DataEntry\Traits\DataEntryDeviceObject;
-use Phoundation\Data\DataEntry\Traits\DataEntryName;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryComments;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryDescription;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryDeviceObject;
+use Phoundation\Data\DataEntry\Traits\TraitDataEntryName;
 use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Utils;
@@ -33,10 +33,10 @@ use Plugins\Hardware\Devices\Interfaces\ProfileInterface;
  */
 class Profile extends DataEntry implements ProfileInterface
 {
-    use DataEntryComments;
-    use DataEntryDescription;
-    use DataEntryDeviceObject;
-    use DataEntryName;
+    use TraitDataEntryComments;
+    use TraitDataEntryDescription;
+    use TraitDataEntryDeviceObject;
+    use TraitDataEntryName;
 
 
     /**

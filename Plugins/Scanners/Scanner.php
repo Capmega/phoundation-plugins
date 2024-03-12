@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Plugins\Scanners;
 
 use Phoundation\Data\DataEntry\Interfaces\DataEntryInterface;
-use Phoundation\Data\Traits\DataBatch;
+use Phoundation\Data\Traits\TraitDataBatch;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Os\Processes\Commands\ScanImage;
 use Phoundation\Utils\Arrays;
@@ -26,7 +26,7 @@ use Plugins\Hardware\Exception\InvalidDeviceClassException;
  */
 class Scanner extends Device
 {
-    use DataBatch;
+    use TraitDataBatch;
 
 
     /**
