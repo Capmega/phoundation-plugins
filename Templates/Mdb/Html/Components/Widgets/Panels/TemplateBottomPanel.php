@@ -9,7 +9,6 @@ use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
 
 
 /**
@@ -44,7 +43,7 @@ class TemplateBottomPanel extends TemplateRenderer
 
         return '  <footer class="bg-body-tertiary text-center fixed-bottom">
                       <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
-                          ' . tr(':project using :phoundation (:template)', [':project' => $project, ':phoundation' => $phoudation, ':template' => $template]) . ' ' . Core::FRAMEWORKCODEVERSION . '
+                          ' . tr(':project using :phoundation (:template)', [':project' => $project, ':phoundation' => $phoudation, ':template' => $template]) . ' ' . Core::FRAMEWORK_CODE_VERSION . '
                           <span class="float-end">' . tr('Copyright © :project', [':project' => Config::getString('project.copyright', '2024')]) . ' <a href="' . Config::getString('project.owner.url', 'https://phoundation.org') . '" target="_blank">' . Config::getString('project.owner.name', 'Phoundation') . '</a> ' . tr('All rights reserved.') . ' <br></span>
                       </div>
                   </footer>';

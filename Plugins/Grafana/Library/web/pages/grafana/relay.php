@@ -7,7 +7,7 @@ use Phoundation\Data\Validator\GetValidator;
 use Phoundation\Network\Relay\Relay;
 use Phoundation\Utils\Arrays;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -49,5 +49,5 @@ try {
 } catch (ValidationFailedException $e) {
     // Don't allow phoundation to catch this, as it will show validation error information that should be kept private
     // Just show the 400 page directly
-    Page::execute('system/400');
+    Request::execute('system/400');
 }

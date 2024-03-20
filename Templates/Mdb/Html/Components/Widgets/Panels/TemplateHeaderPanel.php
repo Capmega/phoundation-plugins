@@ -7,7 +7,7 @@ namespace Templates\Mdb\Html\Components\Widgets\Panels;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Template\TemplateRenderer;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -40,9 +40,9 @@ class TemplateHeaderPanel extends TemplateRenderer
             return '<section class="content-header"></section>';
         }
 
-        $title       = Page::getHeaderTitle();
-        $sub_title   = Page::getHeaderSubTitle();
-        $breadcrumbs = Page::getBreadCrumbs()?->render();
+        $title       = Response::getHeaderTitle();
+        $sub_title   = Response::getHeaderSubTitle();
+        $breadcrumbs = Response::getBreadCrumbs()?->render();
 
         if (!$title) {
             throw new OutOfBoundsException(tr('Cannot render HeaderPanel, no title specified'));

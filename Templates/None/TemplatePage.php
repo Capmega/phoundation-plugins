@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Templates\None;
 
-use Phoundation\Web\Interfaces\WebRequestInterface;
-use Phoundation\Web\Interfaces\WebResponseInterface;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Interfaces\WebRequestInterface;
+use Phoundation\Web\Requests\Interfaces\ResponseInterface;
+use Phoundation\Web\Requests\Response;
 
 
 /**
  * class TemplatePage
  *
- * 
+ *
  *
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
@@ -27,13 +27,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
      * Once the output has been generated, it should be returned.
      *
-     * @param WebRequestInterface $request
-     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function execute(WebRequestInterface $request, WebResponseInterface $response): ?string
+    public function execute(): ?string
     {
-        return $this->renderBody($request, $response);
+        return $this->renderBody();
     }
 
 
@@ -46,8 +44,8 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function renderHttpHeaders(string $output): void
     {
-        Page::setContentType('text/html');
-        Page::setDoctype('html');
+        Response::setContentType('text/html');
+        Response::setDoctype('html');
     }
 
 

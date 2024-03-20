@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
-use Phoundation\Cli\Commands\Command;
+use Phoundation\Cli\CliCommand;
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Filesystem\Directory;
@@ -70,7 +70,7 @@ try {
 
 
 // Have user confirm that they're sure
-Command::requestConfirmation(tr('This will irreparably destroy all information on device ":device", please type YES in all uppercase to continue:', [
+CliCommand::requestConfirmation(tr('This will irreparably destroy all information on device ":device", please type YES in all uppercase to continue:', [
     ':device' => $argv['device']
 ]));
 

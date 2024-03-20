@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Templates\Mdb;
 
-use Phoundation\Core\Log\Log;
 use Phoundation\Core\Plugins\Plugins;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Components\Forms\DataEntryFormRows;
@@ -15,9 +14,10 @@ use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
 use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Interfaces\WebRequestInterface;
-use Phoundation\Web\Interfaces\WebResponseInterface;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Interfaces\WebRequestInterface;
+use Phoundation\Web\Requests\Interfaces\ResponseInterface;
+use Phoundation\Web\Requests\Request;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -38,19 +38,17 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
      * Once the output has been generated, it should be returned.
      *
-     * @param WebRequestInterface $request
-     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function execute(WebRequestInterface $request, WebResponseInterface $response): ?string
+    public function execute(): ?string
     {
-        if (Page::isExecutedDirectly()) {
+        if (Request::isExecutedDirectly()) {
             // Generate panels used by the plugins, then start all plugins
-            Page::setPanelsObject($this->getAvailablePanelsObject());
+            Response::setPanelsObject($this->getAvailablePanelsObject());
             Plugins::start();
         }
 
-        $body = $this->renderBody($request, $response);
+        $body = $this->renderBody();
 
         if ($request->getMainContentsOnly()) {
             return $body;
@@ -58,15 +56,15 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
         // Build HTML and minify the output
         $output = $this->renderHtmlHeadTag();
-        Page::htmlHeadersSent(true);
+        Response::htmlHeadersSent(true);
 
-        if (Page::getBuildBodyWrapper()) {
+        if (Response::getBuildBodyWrapper()) {
             $output .=  '<body class="mdb-skin-custom" data-mdb-spy="scroll" data-mdb-target="#scrollspy" data-mdb-offset="250">' .
-                            Page::getFlashMessages()->render() .
-                            Page::getPanelsObject()->get('top', false)?->render() .
-                            Page::getPanelsObject()->get('left')?->render() .
+                            Response::getFlashMessages()->render() .
+                            Response::getPanelsObject()->get('top', false)?->render() .
+                            Response::getPanelsObject()->get('left')?->render() .
                             $body .
-                            Page::getPanelsObject()->get('bottom', false)?->render();
+                            Response::getPanelsObject()->get('bottom', false)?->render();
         } else {
             // Page requested that no body parts be built
             $output .= $body;
@@ -104,8 +102,8 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function renderHttpHeaders(string $output): void
     {
-        Page::setContentType('text/html');
-        Page::setDoctype('html');
+        Response::setContentType('text/html');
+        Response::setDoctype('html');
     }
 
 
@@ -117,11 +115,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     public function renderHtmlHeadTag(): ?string
     {
         // Set head meta data
-        Page::setFavIcon();
-        Page::setViewport('width=device-width, initial-scale=1');
+        Response::setFavIcon();
+        Response::setViewport('width=device-width, initial-scale=1');
 
         // Load basic MDB and fonts CSS
-        Page::loadCss([
+        Response::loadCss([
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
             'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap',
             'mdb/css/mdb',
@@ -130,36 +128,34 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         ], true);
 
         // Load configured CSS files
-        Page::loadCss(Config::getArray('templates.mdb.css', []));
+        Response::loadCss(Config::getArray('templates.mdb.css', []));
 
         // Load basic MDB amd jQuery javascript libraries
-        Page::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd', prefix: true);
+        Response::loadJavascript('mdb/js/jquery,mdb/js/mdb.umd', prefix: true);
 
         // Set basic page details
-        Page::setPageTitle(tr('Phoundation platform'));
-        Page::setFavIcon('img/favicons/project.png');
+        Response::setPageTitle(tr('Phoundation platform'));
+        Response::setFavIcon('img/favicons/project.png');
 
         // Set basic page details
-        Page::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Page::getHeaderTitle() . ')');
+        Response::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Response::getHeaderTitle() . ')');
 
-        return Page::renderHtmlHeadTag();
+        return Response::renderHtmlHeadTag();
     }
 
 
     /**
      * Build the HTML body
      *
-     * @param WebRequestInterface $request
-     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function renderBody(WebRequestInterface $request, WebResponseInterface $response): ?string
+    public function renderBody(): ?string
     {
         DataEntryFormRows::setForceRows(true);
 
-        $body = parent::renderBody($request, $response);
+        $body = parent::renderBody();
 
-        if ($request->getMainContentsOnly() or !Page::getBuildBodyWrapper()) {
+        if ($request->getMainContentsOnly() or !Response::getBuildBodyWrapper()) {
             return $body;
         }
 
@@ -168,7 +164,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         $horizontal_margin  = 1;
         $vertical_margin    = 1;
 
-        return '    ' . Page::getPanelsObject()->get('header', false)?->render() . '
+        return '    ' . Response::getPanelsObject()->get('header', false)?->render() . '
                     <main class="pt-' . $horizontal_padding . ' mdb-docs-layout">
                         <div class="container mt-' . $vertical_padding . ' mt-' . $horizontal_padding . ' px-lg-' . $horizontal_margin . '">
                             <div class="tab-content">

@@ -30,7 +30,7 @@ class None extends Template
     public function __construct()
     {
         $this->name        = 'None';
-        $this->page_class  = TemplatePage::class;
+        $this->page_class  = TemplateRequest::class;
         $this->menus_class = Menu::class;
 
         parent::__construct();

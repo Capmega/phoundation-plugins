@@ -8,7 +8,6 @@ use Phoundation\Core\Core;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
 
 
 /**
@@ -43,7 +42,7 @@ class TemplateBottomPanel extends TemplateRenderer
 
         return '  <footer class="main-footer">
                     <div class="float-right d-none d-sm-block">
-                      <b>' . tr(':project using :phoundation (:adminlte)', [':project' => $project, ':phoundation' => $phoudation, ':adminlte' => $adminlte]) . '</b> ' . Core::FRAMEWORKCODEVERSION . '
+                      <b>' . tr(':project using :phoundation (:adminlte)', [':project' => $project, ':phoundation' => $phoudation, ':adminlte' => $adminlte]) . '</b> ' . Core::FRAMEWORK_CODE_VERSION . '
                     </div>
                     <strong>Copyright © ' . Config::getString('project.copyright', '2024') . ' <a href="' . Config::getString('project.owner.url', 'https://phoundation.org') . '" target="_blank">' . Config::getString('project.owner.name', 'Phoundation') . '</a>.</strong> All rights reserved. <br>
                   </footer>';

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Plugins\Bookmarks\Library;
 
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -35,6 +35,6 @@ class Plugin extends \Phoundation\Core\Plugins\Plugin
      */
     public static function start(): void
     {
-        Page::getMenus()->getPrimaryMenu()?->appendMenu(Menu::new());
+        Request::getMenus()->getPrimaryMenu()?->appendMenu(Menu::new());
     }
 }
