@@ -9,7 +9,7 @@ use Phoundation\Content\Images\Image;
 use Phoundation\Content\Images\Interfaces\ImageInterface;
 use Phoundation\Filesystem\Directory;
 use Phoundation\Filesystem\Restrictions;
-use Phoundation\Web\Http\File;
+use Phoundation\Web\Requests\FileResponse;
 
 
 /**
@@ -35,7 +35,7 @@ class Robohash
         $restrictions = Restrictions::new(DIRECTORY_DATA, true);
         $directory         = DIRECTORY_DATA . 'content/cdn/en/img/profiles/' . $user->getLogId();
 
-        $picture      = File::new($restrictions)->download('https://robohash.org/' . $user->getDisplayName(), function ($file) use ($restrictions, $user, $directory) {
+        $picture      = FileResponse::new($restrictions)->download('https://robohash.org/' . $user->getDisplayName(), function ($file) use ($restrictions, $user, $directory) {
             $directory    = Directory::new($directory, $restrictions)->ensure();
             $picture = Image::new($directory . 'profile.png');
 

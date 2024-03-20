@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Pages;
 
-use Phoundation\Core\Core;
-use Phoundation\Core\Sessions\Session;
-use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Template\TemplateRenderer;
-use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Response;
 
 throw new \Phoundation\Exception\UnderConstructionException();
 
@@ -28,7 +24,7 @@ class TemplateSetupPage extends TemplateRenderer
     public function render(): ?string
     {
         // This page will build its own body
-        Page::setBuildBody(false);
+        Response::setBuildBody(false);
 
         $this->render = '   ';
 

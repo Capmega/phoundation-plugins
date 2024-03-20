@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 use Phoundation\Cli\Cli;
 use Phoundation\Cli\CliDocumentation;
-use Phoundation\Cli\Commands\Command;
+use Phoundation\Cli\CliCommand;
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Data\Validator\Exception\ValidationFailedException;
@@ -82,8 +82,8 @@ try {
 
 // Read password from stdin stream?
 if (empty($argv['key_file'])) {
-    if (Command::hasStdInStream()) {
-        $argv['password'] = Command::readStdInStream();
+    if (CliCommand::hasStdInStream()) {
+        $argv['password'] = CliCommand::readStdInStream();
         $argv['password_validate'] = $argv['password'];
 
         if (!FORCE) {
@@ -101,7 +101,7 @@ if (empty($argv['key_file'])) {
 
 
 // Have user confirm that they're sure
-Command::requestConfirmation(tr('This will irreparably destroy all information on device ":device", please type YES in all uppercase to continue:', [
+CliCommand::requestConfirmation(tr('This will irreparably destroy all information on device ":device", please type YES in all uppercase to continue:', [
     ':device' => $argv['device']
 ]));
 

@@ -325,7 +325,7 @@ class Device extends DataEntry implements DeviceInterface
         $found   = ScanImage::new()->listOptions($this->getDevice());
 
         foreach ($found as $option) {
-            $options->add(Option::fromSource($option)
+            $options->add(Option::newFromSource($option)
                 ->setDevicesId($this->getId())
                 ->setProfilesId($profile->getId())
                 ->save());

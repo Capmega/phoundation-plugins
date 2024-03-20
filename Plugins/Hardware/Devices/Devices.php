@@ -80,7 +80,7 @@ class Devices extends DataList implements DevicesInterface
                     ':device' => $device['device']
                 ]));
 
-                $device = Device::fromSource($device)->save();
+                $device = Device::newFromSource($device)->save();
 
                 if ($update_options) {
                     try {

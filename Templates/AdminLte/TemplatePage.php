@@ -13,9 +13,10 @@ use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
 use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Interfaces\WebRequestInterface;
-use Phoundation\Web\Interfaces\WebResponseInterface;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Interfaces\WebRequestInterface;
+use Phoundation\Web\Requests\Interfaces\ResponseInterface;
+use Phoundation\Web\Requests\Request;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -36,18 +37,16 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      * Either use the default execution steps from parent::execute($target), or write your own execution steps here.
      * Once the output has been generated, it should be returned.
      *
-     * @param WebRequestInterface $request
-     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function execute(WebRequestInterface $request, WebResponseInterface $response): ?string
+    public function execute(): ?string
     {
-        if (!Page::getLevels()) {
-            Page::setPanelsObject($this->getAvailablePanelsObject());
+        if (!Request::getStackLevel()) {
+            Response::setPanelsObject($this->getAvailablePanelsObject());
             Plugins::start();
         }
 
-        $body = $this->renderBody($request, $response);
+        $body = $this->renderBody();
 
         if ($request->getMainContentsOnly()) {
             return $body;
@@ -55,16 +54,16 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
         // Build HTML and minify the output
         $output = $this->renderHtmlHeadTag();
-        Page::htmlHeadersSent(true);
+        Response::htmlHeadersSent(true);
 
-        if (Page::getBuildBodyWrapper()) {
+        if (Response::getBuildBodyWrapper()) {
             $output .= ' <body class="sidebar-mini' . (Config::get('web.panels.sidebar.collapsed', false) ? ' sidebar-collapse' : '') . '" style="height: auto;">
                             <div class="wrapper">' .
-                                Page::getFlashMessages()->render() .
-                                Page::getPanelsObject()->get('top', false)?->render() .
-                                Page::getPanelsObject()->get('left')?->render() .
+                                Response::getFlashMessages()->render() .
+                                Response::getPanelsObject()->get('top', false)?->render() .
+                                Response::getPanelsObject()->get('left')?->render() .
                                 $body .
-                                Page::getPanelsObject()->get('bottom', false)?->render() . '
+                                Response::getPanelsObject()->get('bottom', false)?->render() . '
                             </div>';
         } else {
             // Page requested that no body parts be built
@@ -103,8 +102,8 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function renderHttpHeaders(string $output): void
     {
-        Page::setContentType('text/html');
-        Page::setDoctype('html');
+        Response::setContentType('text/html');
+        Response::setDoctype('html');
     }
 
 
@@ -116,11 +115,11 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     public function renderHtmlHeadTag(): ?string
     {
         // Set head meta data
-        Page::setFavIcon();
-        Page::setViewport('width=device-width, initial-scale=1');
+        Response::setFavIcon();
+        Response::setViewport('width=device-width, initial-scale=1');
 
         // Load basic AdminLte and fonts CSS
-        Page::loadCss([
+        Response::loadCss([
             'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback',
             'adminlte/plugins/fontawesome-free-6.4.0-web/css/all',
             'adminlte/plugins/fontawesome-free-6.4.0-web/css/regular',
@@ -132,10 +131,10 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         ], true);
 
         // Load configured CSS files
-        Page::loadCss(Config::getArray('templates.adminlte.css', []));
+        Response::loadCss(Config::getArray('templates.adminlte.css', []));
 
         // Load basic AdminLte amd jQuery javascript libraries
-        Page::loadJavascript([
+        Response::loadJavascript([
             'adminlte/plugins/jquery/jquery',
             'adminlte/plugins/jquery-ui/jquery-ui',
             'adminlte/plugins/bootstrap/js/bootstrap.bundle',
@@ -144,30 +143,28 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         ], prefix: true);
 
         // Set basic page details
-        Page::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Page::getHeaderTitle() . ')');
+        Response::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Response::getHeaderTitle() . ')');
 
-        return Page::renderHtmlHeadTag();
+        return Response::renderHtmlHeaders();
     }
 
 
     /**
      * Build the HTML body
      *
-     * @param WebRequestInterface $request
-     * @param WebResponseInterface $response
      * @return string|null
      */
-    public function renderBody(WebRequestInterface $request, WebResponseInterface $response): ?string
+    public function renderBody(): ?string
     {
-        $body = parent::renderBody($request, $response);
+        $body = parent::renderBody();
 
         if ($request->getMainContentsOnly()) {
             return $body;
         }
 
-        if (Page::getBuildBodyWrapper()) {
-            $body = '   <div class="' . Page::getClass('content-wrapper', 'content-wrapper') .  '" style="min-height: 1518.06px;">
-                           ' . Page::getPanelsObject()->get('header', false)?->render() . '
+        if (Response::getBuildBodyWrapper()) {
+            $body = '   <div class="' . Response::setClass('content-wrapper', 'content-wrapper') .  '" style="min-height: 1518.06px;">
+                           ' . Response::getPanelsObject()->get('header', false)?->render() . '
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="row">

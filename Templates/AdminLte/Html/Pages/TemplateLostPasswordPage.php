@@ -9,7 +9,7 @@ use Phoundation\Core\Sessions\Session;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -27,7 +27,7 @@ class TemplateLostPasswordPage extends TemplateRenderer
     public function render(): ?string
     {
         // This page will build its own body
-        Page::setBuildBody(false);
+        Response::setBuildBody(false);
 
         $this->render = '   <body class="hold-transition login-page" style="background: url(' . UrlBuilder::getImg('img/backgrounds/' . Core::getProjectSeoName() . '/lost-password.jpg') . '); background-position: center; background-repeat: no-repeat; background-size: cover;">
                                 <div class="login-box">

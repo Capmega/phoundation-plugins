@@ -8,7 +8,7 @@ use Phoundation\Core\Sessions\Session;
 use Phoundation\Utils\Config;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Page;
+use Phoundation\Web\Requests\Response;
 
 
 /**
@@ -26,7 +26,7 @@ class TemplateSignUpPage extends TemplateRenderer
     public function render(): ?string
     {
         // This page will build its own body
-        Page::setBuildBody(false);
+        Response::setBuildBody(false);
 
         $terms = tr('terms');
 

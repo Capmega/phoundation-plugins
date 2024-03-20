@@ -4,7 +4,7 @@
 declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
-use Phoundation\Cli\Commands\Command;
+use Phoundation\Cli\CliCommand;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Filesystem\Directory;
 use Phoundation\Filesystem\File;
@@ -51,4 +51,4 @@ $argv = ArgvValidator::new()
 
 
 // Echo the device path
-Command::echo(File::new($argv['file'])->getMountDevice());
+CliCommand::echo(File::new($argv['file'])->getMountDevice());

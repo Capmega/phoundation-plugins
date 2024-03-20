@@ -29,7 +29,7 @@ class Mdb extends Template
     public function __construct()
     {
         $this->name        = 'Mdb';
-        $this->page_class  = TemplatePage::class;
+        $this->page_class  = TemplateRequest::class;
         $this->menus_class = TemplateMenu::class;
 
         parent::__construct();
