@@ -13,8 +13,6 @@ use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
 use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Requests\Interfaces\WebRequestInterface;
-use Phoundation\Web\Requests\Interfaces\ResponseInterface;
 use Phoundation\Web\Requests\Request;
 use Phoundation\Web\Requests\Response;
 
@@ -42,28 +40,28 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     public function execute(): ?string
     {
         if (!Request::getStackLevel()) {
-            Response::setPanelsObject($this->getAvailablePanelsObject());
+            Request::setPanelsObject($this->getAvailablePanelsObject());
             Plugins::start();
         }
 
         $body = $this->renderBody();
 
-        if ($request->getMainContentsOnly()) {
+        if (Request::getMainContentsOnly()) {
             return $body;
         }
 
         // Build HTML and minify the output
         $output = $this->renderHtmlHeadTag();
-        Response::htmlHeadersSent(true);
+        Response::getHtmlHeadersSent(true);
 
         if (Response::getBuildBodyWrapper()) {
             $output .= ' <body class="sidebar-mini' . (Config::get('web.panels.sidebar.collapsed', false) ? ' sidebar-collapse' : '') . '" style="height: auto;">
                             <div class="wrapper">' .
-                                Response::getFlashMessages()->render() .
-                                Response::getPanelsObject()->get('top', false)?->render() .
-                                Response::getPanelsObject()->get('left')?->render() .
+                                Request::getFlashMessages()->render() .
+                                Request::getPanelsObject()->get('top', false)?->render() .
+                                Request::getPanelsObject()->get('left')?->render() .
                                 $body .
-                                Response::getPanelsObject()->get('bottom', false)?->render() . '
+                                Request::getPanelsObject()->get('bottom', false)?->render() . '
                             </div>';
         } else {
             // Page requested that no body parts be built
@@ -158,13 +156,13 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     {
         $body = parent::renderBody();
 
-        if ($request->getMainContentsOnly()) {
+        if (Request::getMainContentsOnly()) {
             return $body;
         }
 
         if (Response::getBuildBodyWrapper()) {
             $body = '   <div class="' . Response::setClass('content-wrapper', 'content-wrapper') .  '" style="min-height: 1518.06px;">
-                           ' . Response::getPanelsObject()->get('header', false)?->render() . '
+                           ' . Request::getPanelsObject()->get('header', false)?->render() . '
                             <section class="content">
                                 <div class="container-fluid">
                                     <div class="row">

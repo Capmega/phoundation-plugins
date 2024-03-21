@@ -14,8 +14,6 @@ use Phoundation\Web\Html\Components\Widgets\Panels\Panels;
 use Phoundation\Web\Html\Components\Widgets\Panels\SidePanel;
 use Phoundation\Web\Html\Components\Widgets\Panels\TopPanel;
 use Phoundation\Web\Html\Html;
-use Phoundation\Web\Requests\Interfaces\WebRequestInterface;
-use Phoundation\Web\Requests\Interfaces\ResponseInterface;
 use Phoundation\Web\Requests\Request;
 use Phoundation\Web\Requests\Response;
 
@@ -44,27 +42,27 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
     {
         if (Request::isExecutedDirectly()) {
             // Generate panels used by the plugins, then start all plugins
-            Response::setPanelsObject($this->getAvailablePanelsObject());
+            Request::setPanelsObject($this->getAvailablePanelsObject());
             Plugins::start();
         }
 
         $body = $this->renderBody();
 
-        if ($request->getMainContentsOnly()) {
+        if (Request::getMainContentsOnly()) {
             return $body;
         }
 
         // Build HTML and minify the output
         $output = $this->renderHtmlHeadTag();
-        Response::htmlHeadersSent(true);
+        Response::getHtmlHeadersSent(true);
 
         if (Response::getBuildBodyWrapper()) {
             $output .=  '<body class="mdb-skin-custom" data-mdb-spy="scroll" data-mdb-target="#scrollspy" data-mdb-offset="250">' .
-                            Response::getFlashMessages()->render() .
-                            Response::getPanelsObject()->get('top', false)?->render() .
-                            Response::getPanelsObject()->get('left')?->render() .
+                            Request::getFlashMessages()->render() .
+                            Request::getPanelsObject()->get('top', false)?->render() .
+                            Request::getPanelsObject()->get('left')?->render() .
                             $body .
-                            Response::getPanelsObject()->get('bottom', false)?->render();
+                            Request::getPanelsObject()->get('bottom', false)?->render();
         } else {
             // Page requested that no body parts be built
             $output .= $body;
@@ -140,7 +138,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         // Set basic page details
         Response::setPageTitle(Config::get('project.name', tr('Phoundation project')) . ' (' . Response::getHeaderTitle() . ')');
 
-        return Response::renderHtmlHeadTag();
+        return Response::renderHtmlHeaders();
     }
 
 
@@ -155,7 +153,7 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
 
         $body = parent::renderBody();
 
-        if ($request->getMainContentsOnly() or !Response::getBuildBodyWrapper()) {
+        if (Request::getMainContentsOnly() or !Response::getBuildBodyWrapper()) {
             return $body;
         }
 
@@ -164,13 +162,13 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
         $horizontal_margin  = 1;
         $vertical_margin    = 1;
 
-        return '    ' . Response::getPanelsObject()->get('header', false)?->render() . '
-                    <main class="pt-' . $horizontal_padding . ' mdb-docs-layout">
-                        <div class="container mt-' . $vertical_padding . ' mt-' . $horizontal_padding . ' px-lg-' . $horizontal_margin . '">
-                            <div class="tab-content">
-                                ' . $body . '
-                            </div>
+        return  Request::getPanelsObject()->get('header', false)?->render() . '
+                <main class="pt-' . $horizontal_padding . ' mdb-docs-layout">
+                    <div class="container mt-' . $vertical_padding . ' mt-' . $horizontal_padding . ' px-lg-' . $horizontal_margin . '">
+                        <div class="tab-content">
+                            ' . $body . '
                         </div>
-                    </main>';
+                    </div>
+                </main>';
     }
 }
