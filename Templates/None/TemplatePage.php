@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Templates\None;
 
-use Phoundation\Web\Requests\Interfaces\WebRequestInterface;
-use Phoundation\Web\Requests\Interfaces\ResponseInterface;
 use Phoundation\Web\Requests\Response;
 
 
