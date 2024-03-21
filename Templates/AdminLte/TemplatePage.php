@@ -39,10 +39,8 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function execute(): ?string
     {
-        if (!Request::getStackLevel()) {
-            Request::setPanelsObject($this->getAvailablePanelsObject());
-            Plugins::start();
-        }
+        Request::setPanelsObject($this->getAvailablePanelsObject());
+        Plugins::start();
 
         $body = $this->renderBody();
 

@@ -40,11 +40,9 @@ class TemplatePage extends \Phoundation\Web\Html\Template\TemplatePage
      */
     public function execute(): ?string
     {
-        if (Request::isExecutedDirectly()) {
-            // Generate panels used by the plugins, then start all plugins
-            Request::setPanelsObject($this->getAvailablePanelsObject());
-            Plugins::start();
-        }
+        // Generate panels used by the plugins, then start all plugins
+        Request::setPanelsObject($this->getAvailablePanelsObject());
+        Plugins::start();
 
         $body = $this->renderBody();
 
