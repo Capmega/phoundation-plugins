@@ -35,6 +35,6 @@ class Plugin extends \Phoundation\Core\Plugins\Plugin
      */
     public static function start(): void
     {
-        Request::getMenusObject()->getPrimaryMenu()?->append(Menu::new());
+        Request::getMenusObject()->getPrimaryMenu()?->appendSource(Menu::new());
     }
 }
