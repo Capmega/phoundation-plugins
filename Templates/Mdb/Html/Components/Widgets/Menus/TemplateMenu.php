@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components\Widgets\Menus;
 
-use Phoundation\Web\Html\Components\Widgets\Menus\Menu;
+use Phoundation\Web\Html\Components\Widgets\Menus\Interfaces\MenuInterface;
 use Phoundation\Web\Html\Html;
 use Phoundation\Web\Html\Template\TemplateRenderer;
-use Phoundation\Web\Http\UrlBuilder;
 
 
 /**
@@ -25,7 +24,7 @@ class TemplateMenu extends TemplateRenderer
     /**
      * Menu class constructor
      */
-    public function __construct(Menu $element)
+    public function __construct(MenuInterface $element)
     {
         parent::__construct($element);
     }
