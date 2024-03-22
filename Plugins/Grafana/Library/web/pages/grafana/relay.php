@@ -1,15 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-use Phoundation\Data\Validator\Exception\ValidationFailedException;
-use Phoundation\Data\Validator\GetValidator;
-use Phoundation\Network\Relay\Relay;
-use Phoundation\Utils\Arrays;
-use Phoundation\Web\Http\UrlBuilder;
-use Phoundation\Web\Requests\Response;
-
-
 /**
  * Relays grafana requests to grafana
  *
@@ -18,6 +8,16 @@ use Phoundation\Web\Requests\Response;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Plugins\Grafana
  */
+
+declare(strict_types=1);
+
+use Phoundation\Data\Validator\Exception\ValidationFailedException;
+use Phoundation\Data\Validator\GetValidator;
+use Phoundation\Network\Relay\Relay;
+use Phoundation\Utils\Arrays;
+use Phoundation\Web\Http\UrlBuilder;
+use Phoundation\Web\Requests\Request;
+
 try {
     // Validate relay data and start building relay URL
     $validator = GetValidator::new()
@@ -48,6 +48,6 @@ try {
 
 } catch (ValidationFailedException $e) {
     // Don't allow phoundation to catch this, as it will show validation error information that should be kept private
-    // Just show the 400 page directly
+    // Show the 400-page directly
     Request::execute('system/400');
 }

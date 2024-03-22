@@ -1,10 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Plugins\Bookmarks\Library;
-
-
 /**
  * Menu class
  *
@@ -15,7 +10,12 @@ namespace Plugins\Bookmarks\Library;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Plugins\Bookmarks
  */
-class Menu extends \Phoundation\Web\Html\Components\Menu
+
+declare(strict_types=1);
+
+namespace Plugins\Bookmarks\Library;
+
+class Menu extends \Phoundation\Web\Html\Components\Widgets\Menus\Menu
 {
     /**
      * Menu class constructor

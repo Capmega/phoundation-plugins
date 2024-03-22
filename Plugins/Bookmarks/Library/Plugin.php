@@ -1,12 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Plugins\Bookmarks\Library;
-
-use Phoundation\Web\Requests\Response;
-
-
 /**
  * Class Plugin
  *
@@ -17,6 +10,13 @@ use Phoundation\Web\Requests\Response;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Plugins\Bookmarks
  */
+
+declare(strict_types=1);
+
+namespace Plugins\Bookmarks\Library;
+
+use Phoundation\Web\Requests\Request;
+
 class Plugin extends \Phoundation\Core\Plugins\Plugin
 {
     /**
@@ -35,6 +35,6 @@ class Plugin extends \Phoundation\Core\Plugins\Plugin
      */
     public static function start(): void
     {
-        Request::getMenus()->getPrimaryMenu()?->appendMenu(Menu::new());
+        Request::getMenusObject()->getPrimaryMenu()?->append(Menu::new());
     }
 }

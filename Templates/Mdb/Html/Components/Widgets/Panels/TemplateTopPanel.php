@@ -236,8 +236,8 @@ class TemplateTopPanel extends TemplateRenderer
                 case 'menu':
                     $delete[] = $element_id;
 
-                    if ($this->component->getMenus()->getCount()) {
-                        foreach ($this->component->getMenus() as $menu) {
+                    if ($this->component->getMenusObject()->getCount()) {
+                        foreach ($this->component->getMenusObject() as $menu) {
                             $contents .= $menu->render();
                         }
                     }
