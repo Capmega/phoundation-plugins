@@ -60,7 +60,7 @@ class Updates extends \Phoundation\Core\Libraries\Updates
                     `meta_id` bigint NULL DEFAULT NULL,
                     `meta_state` varchar(16) CHARACTER SET latin1 DEFAULT NULL,
                     `status` varchar(16) CHARACTER SET latin1 DEFAULT NULL,
-                    `users_id` int NOT NULL DEFAULT 50,
+                    `users_id` bigint NOT NULL DEFAULT 50,
                     `priority` int NOT NULL DEFAULT 50,
                     `top_level` tinyint NOT NULL DEFAULT 50,
                     `name` varchar(128) DEFAULT NULL,
@@ -79,7 +79,6 @@ class Updates extends \Phoundation\Core\Libraries\Updates
                     UNIQUE KEY `users_id_seo_name` (`users_id`, `seo_name`),
                     KEY `users_id_priority` (`users_id`, `priority`),
                     KEY `users_id_top_level` (`users_id`, `top_level`),
-                    KEY `seo_name` (`seo_name`),
                     KEY `name` (`name`),
                 ')->setForeignKeys('
                     CONSTRAINT `fk_bookmarks_created_by` FOREIGN KEY (`created_by`) REFERENCES `accounts_users` (`id`) ON DELETE RESTRICT,
