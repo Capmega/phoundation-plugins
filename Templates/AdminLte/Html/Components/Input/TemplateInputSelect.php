@@ -22,9 +22,9 @@ class TemplateInputSelect extends TemplateInput
     /**
      * Select class constructor
      */
-    public function __construct(InputSelect $element)
+    public function __construct(InputSelect $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

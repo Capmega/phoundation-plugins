@@ -26,10 +26,10 @@ class TemplateInput extends TemplateRenderer
     /**
      * Input class constructor
      */
-    public function __construct(InputInterface $element)
+    public function __construct(InputInterface $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 
 
@@ -63,20 +63,6 @@ class TemplateInput extends TemplateRenderer
                 ->render();
         }
 
-        $return = parent::render();
-        $icon   = $this->component->getIcon();
-
-        if ($icon) {
-            // Add an icon
-            $return = $icon->render() . ' ' . $return;
-        }
-
-        if ($this->component->getClearButton()) {
-            // Add a clear button
-            $return .= '<span class="trailing pe-auto clear d-none" tabindex="0">✕</span>';
-        }
-
-
-        return $return;
+        return parent::render();
     }
 }

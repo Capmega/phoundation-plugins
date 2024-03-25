@@ -25,9 +25,9 @@ class TemplateHeaderPanel extends TemplateRenderer
     /**
      * HeaderPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\HeaderPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\HeaderPanel $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

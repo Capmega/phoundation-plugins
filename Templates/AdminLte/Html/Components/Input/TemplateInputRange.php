@@ -22,9 +22,9 @@ class TemplateInputRange extends TemplateInput
     /**
      * InputRange class constructor
      */
-    public function __construct(InputRange $element)
+    public function __construct(InputRange $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

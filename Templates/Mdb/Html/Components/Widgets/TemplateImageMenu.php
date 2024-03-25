@@ -24,9 +24,9 @@ class TemplateImageMenu extends TemplateRenderer
     /**
      * ImageMenu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\ImageMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ImageMenu $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

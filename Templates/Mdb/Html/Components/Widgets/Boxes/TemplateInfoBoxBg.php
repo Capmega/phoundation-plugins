@@ -23,9 +23,9 @@ class TemplateInfoBoxBg extends TemplateRenderer
     /**
      * InfoBoxBg class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\InfoBoxBg $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\InfoBoxBg $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

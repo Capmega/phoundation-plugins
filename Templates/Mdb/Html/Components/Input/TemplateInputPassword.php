@@ -22,9 +22,9 @@ class TemplateInputPassword extends TemplateInput
     /**
      * InputPassword class constructor
      */
-    public function __construct(InputPassword $element)
+    public function __construct(InputPassword $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

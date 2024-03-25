@@ -23,8 +23,8 @@ abstract class TemplateWidget extends TemplateRenderer
     /**
      * Widget class constructor
      */
-    public function __construct(Widget $element)
+    public function __construct(Widget $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 }

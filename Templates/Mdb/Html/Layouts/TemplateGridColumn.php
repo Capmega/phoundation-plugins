@@ -24,9 +24,9 @@ class TemplateGridColumn extends TemplateRenderer
     /**
      * GridColumn class constructor
      */
-    public function __construct(GridColumn $element)
+    public function __construct(GridColumn $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

@@ -25,9 +25,9 @@ class TemplateBreadCrumbs extends TemplateRenderer
     /**
      * BreadCrumbs class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\BreadCrumbs $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\BreadCrumbs $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

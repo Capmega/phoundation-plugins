@@ -22,9 +22,9 @@ class TemplateInputFile extends TemplateInput
     /**
      * InputFile class constructor
      */
-    public function __construct(InputFile $element)
+    public function __construct(InputFile $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

@@ -22,9 +22,9 @@ class TemplateInputTel extends TemplateInput
     /**
      * InputTel class constructor
      */
-    public function __construct(InputTel $element)
+    public function __construct(InputTel $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

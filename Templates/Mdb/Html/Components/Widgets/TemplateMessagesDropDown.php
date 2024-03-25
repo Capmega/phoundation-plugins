@@ -25,9 +25,9 @@ class TemplateMessagesDropDown extends TemplateRenderer
     /**
      * MessagesDropDown class constructor
      */
-    public function __construct(MessagesDropDown $element)
+    public function __construct(MessagesDropDown $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

@@ -25,9 +25,9 @@ class TemplateLanguagesDropDown extends TemplateRenderer
     /**
      * LanguagesDropDown class constructor
      */
-    public function __construct(LanguagesDropDown $element)
+    public function __construct(LanguagesDropDown $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

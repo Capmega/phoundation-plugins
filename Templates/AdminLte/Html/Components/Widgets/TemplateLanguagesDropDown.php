@@ -26,9 +26,9 @@ class TemplateLanguagesDropDown extends TemplateRenderer
     /**
      * LanguagesDropDown class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\LanguagesDropDown $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\LanguagesDropDown $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

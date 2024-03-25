@@ -23,9 +23,9 @@ class TemplateSmallBox extends TemplateRenderer
     /**
      * SmallBox class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\SmallBox $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\SmallBox $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 
@@ -36,7 +36,7 @@ class TemplateSmallBox extends TemplateRenderer
      */
     public function render(): ?string
     {
-        $this->render = '   <div class="small-box bg-' . Html::safe($this->component->getMode()->value) . ($this->shadow ? ' ' . Html::safe($this->shadow) : '') . '">
+        $this->render = '   <div class="small-box bg-' . Html::safe($this->component->getMode()->value) . ($this->component->getShadow() ? ' ' . Html::safe($this->component->getShadow()) : '') . '">
                               <div class="inner">
                                 <h3>' . Html::safe($this->component->getValue()) . '</h3>       
                                 <p>' . Html::safe($this->component->getTitle()) . '</p>

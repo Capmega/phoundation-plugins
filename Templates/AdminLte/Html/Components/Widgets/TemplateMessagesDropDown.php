@@ -24,9 +24,9 @@ class TemplateMessagesDropDown extends TemplateRenderer
     /**
      * MessagesDropDown class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\MessagesDropDown $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\MessagesDropDown $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

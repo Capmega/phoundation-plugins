@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Templates\Mdb\Html\Components\Input;
 
+use Phoundation\Utils\Arrays;
+use Phoundation\Web\Html\Components\Input\InputHidden;
 use Phoundation\Web\Html\Components\Input\InputText;
+use Phoundation\Web\Html\Components\Input\Interfaces\InputSelectInterface;
 
 
 /**
@@ -22,9 +25,34 @@ class TemplateInputText extends TemplateInput
     /**
      * InputText class constructor
      */
-    public function __construct(InputText $element)
+    public function __construct(InputText $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
+    }
+
+
+    /**
+     * Renders this input element
+     *
+     * @return string|null
+     */
+    public function render(): ?string
+    {
+        $return = parent::render();
+        $icon   = $this->component->getIcon();
+
+        if ($icon) {
+            // Add an icon
+            $return = $icon->render() . ' ' . $return;
+        }
+
+        if ($this->component->getClearButton()) {
+            // Add a clear button
+            $return .= '<span class="trailing pe-auto clear d-none" tabindex="0">✕</span>';
+        }
+
+
+        return $return;
     }
 }

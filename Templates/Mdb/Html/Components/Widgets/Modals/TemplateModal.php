@@ -22,9 +22,9 @@ class TemplateModal extends TemplateRenderer
     /**
      * Modal class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Modals\Modal $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Modals\Modal $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

@@ -28,9 +28,9 @@ class TemplateSidePanel extends TemplateRenderer
     /**
      * SidePanel class constructor
      */
-    public function __construct(SidePanel $element)
+    public function __construct(SidePanel $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

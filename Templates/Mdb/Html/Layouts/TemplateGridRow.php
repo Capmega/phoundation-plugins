@@ -23,9 +23,9 @@ class TemplateGridRow extends TemplateRenderer
     /**
      * GridRow class constructor
      */
-    public function __construct(GridRow $element)
+    public function __construct(GridRow $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

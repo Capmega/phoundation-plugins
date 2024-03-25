@@ -25,9 +25,9 @@ class TemplateBottomPanel extends TemplateRenderer
     /**
      * BottomPanel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\BottomPanel $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

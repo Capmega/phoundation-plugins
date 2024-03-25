@@ -22,8 +22,8 @@ class TemplatePanel extends TemplateRenderer
     /**
      * Panel class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\Panel $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Panels\Panel $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 }

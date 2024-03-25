@@ -23,9 +23,9 @@ class TemplateIcons extends TemplateRenderer
     /**
      * Icons class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Icons\Icons $element)
+    public function __construct(\Phoundation\Web\Html\Components\Icons\Icons $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

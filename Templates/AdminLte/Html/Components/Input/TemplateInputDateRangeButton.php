@@ -22,10 +22,10 @@ class TemplateInputDateRangeButton extends TemplateInput
     /**
      * InputText class constructor
      */
-    public function __construct(InputDateRangeButton $element)
+    public function __construct(InputDateRangeButton $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 
 

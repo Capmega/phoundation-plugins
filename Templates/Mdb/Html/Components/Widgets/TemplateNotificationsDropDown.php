@@ -27,9 +27,9 @@ class TemplateNotificationsDropDown extends TemplateRenderer
     /**
      * NotificationsDropDown class constructor
      */
-    public function __construct(NotificationsDropDown $element)
+    public function __construct(NotificationsDropDown $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

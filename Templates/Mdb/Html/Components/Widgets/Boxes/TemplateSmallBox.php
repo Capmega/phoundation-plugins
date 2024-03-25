@@ -23,9 +23,9 @@ class TemplateSmallBox extends TemplateRenderer
     /**
      * SmallBox class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\SmallBox $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\SmallBox $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

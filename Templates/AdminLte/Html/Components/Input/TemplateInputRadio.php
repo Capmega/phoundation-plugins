@@ -22,9 +22,9 @@ class TemplateInputRadio extends TemplateInput
     /**
      * InputRadio class constructor
      */
-    public function __construct(InputRadio $element)
+    public function __construct(InputRadio $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Templates\AdminLte\Html\Components\Tables;
 
+use Phoundation\Web\Html\Components\Tables\HtmlTable;
 use Phoundation\Web\Html\Layouts\GridRow;
 use Phoundation\Web\Html\Template\TemplateRenderer;
 
@@ -23,10 +24,10 @@ class TemplateHtmlDataTable extends TemplateRenderer
     /**
      * Table class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Tables\HtmlTable $element)
+    public function __construct(HtmlTable $component)
     {
-        $element->addClass('table');
-        parent::__construct($element);
+        $component->addClass('table');
+        parent::__construct($component);
     }
 
 

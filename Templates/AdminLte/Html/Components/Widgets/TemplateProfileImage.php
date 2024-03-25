@@ -22,8 +22,8 @@ class TemplateProfileImage extends TemplateRenderer
     /**
      * ProfileImage class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\ProfileImage $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\ProfileImage $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 }

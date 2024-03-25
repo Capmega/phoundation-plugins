@@ -29,9 +29,9 @@ class TemplateSignInModal extends TemplateRenderer
     /**
      * SignInModal class constructor
      */
-    public function __construct(SignInModal $element)
+    public function __construct(SignInModal $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

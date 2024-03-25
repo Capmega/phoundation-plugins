@@ -23,9 +23,9 @@ class TemplateGrid extends TemplateRenderer
     /**
      * Grid class constructor
      */
-    public function __construct(Grid $element)
+    public function __construct(Grid $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

@@ -22,9 +22,9 @@ class TemplateInputDateTimeLocal extends TemplateInput
     /**
      * InputDateTimeLocal class constructor
      */
-    public function __construct(InputDateTimeLocal $element)
+    public function __construct(InputDateTimeLocal $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

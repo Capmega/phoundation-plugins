@@ -22,11 +22,39 @@ class TemplateInputSelect extends TemplateInput
     /**
      * Select class constructor
      */
-    public function __construct(InputSelect $element)
+    public function __construct(InputSelect $component)
     {
-        $element->addClass('col-sm-' . $element->getDefinition()->getSize());
-        $element->addClass('form-control');
-        $element->getAttributes()->add('', 'data-mdb-select-init');
-        parent::__construct($element);
+        $component->addClass('col-sm-' . $component->getDefinition()->getSize());
+        $component->addClass('form-control');
+        $component->getAttributes()->add('', 'data-mdb-select-init');
+        parent::__construct($component);
+    }
+
+
+    /**
+     * @inheritDoc
+     */
+    public function render(): ?string
+    {
+        if ($this->component->getClearButton()) {
+            $this->component->getAttributes()->add("true", 'data-mdb-clear-button');
+            $this->component->getAttributes()->removeKeys('clear_button');
+
+        }
+
+        if ($this->component->getSearch()) {
+            $this->component->getAttributes()->add("true", 'data-mdb-filter');
+            $this->component->getAttributes()->removeKeys('search');
+        }
+
+        if ($this->component->getCustomContent()) {
+            $this->component->getAttributes()->removeKeys('custom_content');
+
+            $render = '<div class="select-custom-content">
+                         ' . render($this->component->getCustomContent()) . '
+                       </div>';
+        }
+
+        return parent::render() . isset_get($render);
     }
 }

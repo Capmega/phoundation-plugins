@@ -24,9 +24,9 @@ class TemplateContainer extends TemplateRenderer
     /**
      * Container class constructor
      */
-    public function __construct(Container $element)
+    public function __construct(Container $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

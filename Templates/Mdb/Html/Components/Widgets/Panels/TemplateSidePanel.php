@@ -30,9 +30,9 @@ class TemplateSidePanel extends TemplateRenderer
     /**
      * SidePanel class constructor
      */
-    public function __construct(SidePanel $element)
+    public function __construct(SidePanel $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 
@@ -48,7 +48,7 @@ class TemplateSidePanel extends TemplateRenderer
                                 <img src="' . UrlBuilder::getImg('img/logos/' . Core::getProjectSeoName() . '/large.webp') . '" alt="' . tr(':project logo', [':project' => Strings::capitalize(Config::get('project.name'))]) . '" draggable="false">
                               </a>
 
-                              <a data-mdb-ripple-init class="d-flex py-4 mb-3" style="border-bottom: 2px solid #f5f5f5" href="#!" data-mdb-ripple-color="primary">
+                              <a data-mdb-ripple-init class="d-flex py-4 mb-3 justify-content-center" style="border-bottom: 2px solid #f5f5f5" href="' . UrlBuilder::getWww('profile') . '" data-mdb-ripple-color="primary">
                                 ' . Session::getUser()->getPicture()
                                         ->getHtmlElement()
                                         ->setSrc(UrlBuilder::getImg('img/profiles/default.png'))

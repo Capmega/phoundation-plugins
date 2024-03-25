@@ -34,9 +34,9 @@ class TemplateTopPanel extends TemplateRenderer
     /**
      * TemplateTopPanel class constructor
      */
-    public function __construct(TopPanel $element)
+    public function __construct(TopPanel $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

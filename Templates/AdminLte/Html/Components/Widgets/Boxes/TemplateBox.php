@@ -22,8 +22,8 @@ abstract class TemplateBox extends TemplateRenderer
     /**
      * Box class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\Box $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Boxes\Box $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 }

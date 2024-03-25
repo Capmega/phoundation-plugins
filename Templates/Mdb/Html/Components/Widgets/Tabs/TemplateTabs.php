@@ -25,9 +25,9 @@ class TemplateTabs extends TemplateRenderer
     /**
      * Card class constructor
      */
-    public function __construct(Tabs $element)
+    public function __construct(Tabs $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

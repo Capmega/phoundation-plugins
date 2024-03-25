@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Templates\Mdb\Html\Components\Input;
 
 use Phoundation\Web\Html\Components\Input\InputTime;
+use Phoundation\Web\Html\Enums\EnumInputType;
 
 
 /**
@@ -17,14 +18,21 @@ use Phoundation\Web\Html\Components\Input\InputTime;
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @package Templates\Mdb
  */
-class TemplateInputTime extends TemplateInput
+class TemplateInputTime extends TemplateInputText
 {
     /**
      * InputTime class constructor
      */
-    public function __construct(InputTime $element)
+    public function __construct(InputTime $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        $component->setInputType(EnumInputType::text);
+        $component->getOuterDiv()
+            ->addClasses('form-outline timepicker')
+            ->getAttributes()
+                ->add('', 'data-mdb-timepicker-init')
+                ->add('', 'data-mdb-input-init');
+
+        parent::__construct($component);
     }
 }

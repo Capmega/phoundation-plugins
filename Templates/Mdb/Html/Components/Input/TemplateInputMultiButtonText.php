@@ -23,9 +23,9 @@ class TemplateInputMultiButtonText extends TemplateInput
     /**
      * InputMultiButtonText class constructor
      */
-    public function __construct(InputMultiButtonText $element)
+    public function __construct(InputMultiButtonText $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

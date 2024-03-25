@@ -23,9 +23,9 @@ class TemplateFullScreen extends TemplateIcon
     /**
      * Icons class constructor
      */
-    public function __construct(FullScreen $element)
+    public function __construct(FullScreen $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

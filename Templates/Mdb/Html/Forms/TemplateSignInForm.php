@@ -24,9 +24,9 @@ class TemplateSignInForm extends TemplateRenderer
     /**
      * SignInForm class constructor
      */
-    public function __construct(SignInForm $element)
+    public function __construct(SignInForm $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

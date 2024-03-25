@@ -24,9 +24,9 @@ class TemplateTopMenu extends TemplateRenderer
     /**
      * TopMenu class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\TopMenu $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Menus\TopMenu $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

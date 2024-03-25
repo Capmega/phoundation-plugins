@@ -22,8 +22,8 @@ class TemplateChat extends TemplateRenderer
     /**
      * Chat class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Cards\Chat $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Cards\Chat $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 }

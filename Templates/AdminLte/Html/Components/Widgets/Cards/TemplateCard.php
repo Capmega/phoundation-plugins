@@ -24,9 +24,9 @@ class TemplateCard extends TemplateRenderer
     /**
      * Card class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Cards\Card $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Cards\Card $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

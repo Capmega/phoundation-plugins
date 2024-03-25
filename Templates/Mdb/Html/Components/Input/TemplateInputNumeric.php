@@ -22,9 +22,9 @@ class TemplateInputNumeric extends TemplateInput
     /**
      * InputNumeric class constructor
      */
-    public function __construct(InputNumeric $element)
+    public function __construct(InputNumeric $component)
     {
-        $element->addClass('form-control');
-        parent::__construct($element);
+        $component->addClass('form-control');
+        parent::__construct($component);
     }
 }

@@ -27,9 +27,9 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
     /**
      * FilterForm class constructor
      */
-    public function __construct(DataEntryFormColumnInterface $element)
+    public function __construct(DataEntryFormColumnInterface $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

@@ -24,9 +24,9 @@ class TemplateMenu extends TemplateRenderer
     /**
      * Menu class constructor
      */
-    public function __construct(MenuInterface $element)
+    public function __construct(MenuInterface $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

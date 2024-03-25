@@ -28,12 +28,21 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
     /**
      * FilterForm class constructor
      */
-    public function __construct(DataEntryFormColumnInterface $element)
+    public function __construct(DataEntryFormColumnInterface $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 
+    /**
+     * Render the DataEntry Form Column
+     *
+     * @note $this->component is a DataEntryFormColumn object here, the component to render is inside there and can be
+     *       accessed with $this->component->getColumnComponent() where (again) $this->component is actually the column,
+     *       not the component itself.
+     *
+     * @return string|null
+     */
     public function render(): ?string
     {
         $definition = $this->component->getDefinition();
@@ -45,10 +54,6 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
 
         if (!$component) {
             throw new OutOfBoundsException(tr('Cannot render form component, no component specified'));
-        }
-
-        if (is_object($component)) {
-            $component = $component->render();
         }
 
         if ($definition->getHidden()) {
@@ -63,12 +68,12 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
                 break;
 
             case 'select':
-                $this->render .= '<div class="' . static::getBottomMarginString() . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">'.
-                                    $component .
-                                   ($definition->getLabel() ? ' <label class="form-label select-label" for="' . Html::safe($definition->getColumn()) . '">
-                                                                  ' . Html::safe($definition->getLabel()) . '
-                                                                </label>' : '') . '
-                                </div>';
+                $this->render .= '<div class="' . static::getBottomMarginString() . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">
+                                     '.$component->render() .
+                                      ($definition->getLabel() ? ' <label class="form-label select-label" for="' . Html::safe($definition->getColumn()) . '">
+                                                                     ' . Html::safe($definition->getLabel()) . '
+                                                                   </label>' : '') . '
+                                  </div>';
                 return parent::render();
 
             default:
@@ -76,10 +81,19 @@ class TemplateDataEntryFormColumn extends TemplateRenderer
                 $mdb_init = '';
         }
 
+        $render = $component->render();
+
+        if ($component->hasOuterDiv()) {
+            // Get attributes and properties for the outer div
+            $outer      = $component->getOuterDiv();
+            $class      = $outer->getClass();
+            $attributes = $outer->getAttributesString();
+        }
+
         $this->render .= match ($definition->getInputType()?->value) {
             default    => '  <div class="' . static::getBottomMarginString() . Html::safe($definition->getSize() ? 'col-sm-' . $definition->getSize() : 'col') . ($definition->getVisible() ? '' : ' invisible') . ($definition->getDisplay() ? '' : ' nodisplay') . '">
-                                 <div' . $mdb_init . ' class="form-outline">
-                                     ' . $component . '
+                                 <div' . $mdb_init . ' class="form-outline' . (isset($class) ? ' ' . $class : '') . '"' . (isset($attributes) ? ' ' . $attributes : '') . '>
+                                     ' . $render . '
                                      <label class="form-label' . $label . '" for="' . Html::safe($definition->getColumn()) . '">
                                        ' . Html::safe($definition->getLabel()) . '
                                      </label>

@@ -24,9 +24,9 @@ class TemplateTabs extends TemplateRenderer
     /**
      * Card class constructor
      */
-    public function __construct(\Phoundation\Web\Html\Components\Widgets\Tabs\Tabs $element)
+    public function __construct(\Phoundation\Web\Html\Components\Widgets\Tabs\Tabs $component)
     {
-        parent::__construct($element);
+        parent::__construct($component);
     }
 
 

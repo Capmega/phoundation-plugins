@@ -23,9 +23,9 @@ class TemplateHtmlTable extends TemplateRenderer
     /**
      * Table class constructor
      */
-    public function __construct(HtmlTable $element)
+    public function __construct(HtmlTable $component)
     {
-        $element->addClass('table');
-        parent::__construct($element);
+        $component->addClass('table');
+        parent::__construct($component);
     }
 }
