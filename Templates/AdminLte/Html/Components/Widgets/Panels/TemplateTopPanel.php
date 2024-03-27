@@ -137,7 +137,7 @@ class TemplateTopPanel extends TemplateRenderer
 
                 case 'sign-out':
                     $this->render .= '<li class="nav-item">
-                                        <a class="nav-link" href="' . Html::safe(UrlBuilder::getWww('sign-out.html')) . '" role="button">
+                                        <a class="nav-link" href="' . Html::safe(UrlBuilder::getWww('sign-out')) . '" role="button">
                                           <i class="fas fa-sign-out-alt"></i>
                                         </a>
                                       </li>';
