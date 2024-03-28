@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Bookmarks\Library;
+namespace Plugins\Phoundation\Bookmarks\Library;
 
 
 /**

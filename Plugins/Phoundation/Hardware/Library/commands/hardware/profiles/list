@@ -7,8 +7,8 @@ use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Utils;
-use Plugins\Hardware\Devices\Devices;
-use Plugins\Hardware\Devices\Profiles;
+use Plugins\Phoundation\Hardware\Devices\Devices;
+use Plugins\Phoundation\Hardware\Devices\Profiles;
 
 
 /**

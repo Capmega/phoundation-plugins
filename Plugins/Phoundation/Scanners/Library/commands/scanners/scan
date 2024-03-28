@@ -8,9 +8,9 @@ use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Filesystem\Directory;
 use Phoundation\Filesystem\Restrictions;
-use Plugins\Hardware\Devices\Device;
-use Plugins\Hardware\Devices\Devices;
-use Plugins\Scanners\Scanner;
+use Plugins\Phoundation\Hardware\Devices\Device;
+use Plugins\Phoundation\Hardware\Devices\Devices;
+use Plugins\Phoundation\Scanners\Scanner;
 
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Avatars;
+namespace Plugins\Phoundation\Avatars;
 
 use Phoundation\Accounts\Interfaces\UserInterface;
 use Phoundation\Accounts\Users\Interfaces\UserInterface;
@@ -10,7 +10,7 @@ use Phoundation\Content\Images\Image;
 use Phoundation\Content\Images\Interfaces\ImageInterface;
 use Phoundation\Utils\Config;
 use Phoundation\Exception\OutOfBoundsException;
-use Plugins\Avatars\Robohash\Robohash;
+use Plugins\Phoundation\Avatars\Robohash\Robohash;
 
 
 /**

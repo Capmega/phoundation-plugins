@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Plugins\FingerPrint;
+namespace Plugins\Phoundation\FingerPrint;
 
 use Phoundation\Data\DataEntry\DataList;
-use Plugins\FingerPrint\Interfaces\FingerPrintsInterface;
+use Plugins\Phoundation\FingerPrint\Interfaces\FingerPrintsInterface;
 
 
 /**

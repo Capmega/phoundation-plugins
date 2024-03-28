@@ -6,9 +6,9 @@ declare(strict_types=1);
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\DataEntry\Exception\DataEntryNotExistsException;
 use Phoundation\Data\Validator\ArgvValidator;
-use Phoundation\Exception\NotExistsException;use Plugins\Hardware\Devices\Device;
-use Plugins\Hardware\Devices\Devices;
-use Plugins\Hardware\Devices\Profile;
+use Phoundation\Exception\NotExistsException;use Plugins\Phoundation\Hardware\Devices\Device;
+use Plugins\Phoundation\Hardware\Devices\Devices;
+use Plugins\Phoundation\Hardware\Devices\Profile;
 
 
 /**

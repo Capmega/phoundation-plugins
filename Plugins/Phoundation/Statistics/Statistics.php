@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Statistics;
+namespace Plugins\Phoundation\Statistics;
 
 use Phoundation\Core\Exception\ConfigPathDoesNotExistsException;
 use Phoundation\Core\Log\Log;
@@ -14,7 +14,7 @@ use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Notifications\Notification;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Config;
-use Plugins\Statistics\Exception\StatisticsException;
+use Plugins\Phoundation\Statistics\Exception\StatisticsException;
 use Throwable;
 
 
@@ -27,7 +27,7 @@ use Throwable;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2023 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Plugins\Statistics
+ * @package Plugins\Phoundation\Statistics
  */
 class Statistics
 {

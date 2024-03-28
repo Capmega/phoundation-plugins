@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Hardware;
+namespace Plugins\Phoundation\Hardware;
 
 class Scan
 {

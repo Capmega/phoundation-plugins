@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Backups;
+namespace Plugins\Phoundation\Backups;
 
 use Phoundation\Core\Hooks\Hook;
 use Phoundation\Core\Log\Log;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Hardware\Devices;
+namespace Plugins\Phoundation\Hardware\Devices;
 
 use Phoundation\Core\Log\Log;
 use Phoundation\Data\DataEntry\DataEntry;
@@ -24,8 +24,8 @@ use Phoundation\Data\Validator\Interfaces\ValidatorInterface;
 use Phoundation\Os\Processes\Commands\ScanImage;
 use Phoundation\Servers\Traits\TraitDataEntryServer;
 use Phoundation\Web\Html\Enums\EnumInputType;
-use Plugins\Hardware\Devices\Interfaces\DeviceInterface;
-use Plugins\Hardware\Devices\Interfaces\ProfilesInterface;
+use Plugins\Phoundation\Hardware\Devices\Interfaces\DeviceInterface;
+use Plugins\Phoundation\Hardware\Devices\Interfaces\ProfilesInterface;
 use Stringable;
 
 
@@ -37,7 +37,7 @@ use Stringable;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Plugins\Hardware
+ * @package Plugins\Phoundation\Hardware
  */
 class Device extends DataEntry implements DeviceInterface
 {

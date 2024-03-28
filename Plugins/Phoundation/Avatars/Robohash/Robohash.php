@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Avatars\Robohash;
+namespace Plugins\Phoundation\Avatars\Robohash;
 
 use Phoundation\Accounts\Users\Interfaces\UserInterface;
 use Phoundation\Content\Images\Image;

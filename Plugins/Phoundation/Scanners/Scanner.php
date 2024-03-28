@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Scanners;
+namespace Plugins\Phoundation\Scanners;
 
 use Phoundation\Data\DataEntry\Interfaces\DataEntryInterface;
 use Phoundation\Data\Traits\TraitDataBatch;
 use Phoundation\Exception\OutOfBoundsException;
 use Phoundation\Os\Processes\Commands\ScanImage;
 use Phoundation\Utils\Arrays;
-use Plugins\Hardware\Devices\Device;
-use Plugins\Hardware\Devices\Interfaces\ProfileInterface;
-use Plugins\Hardware\Exception\InvalidDeviceClassException;
+use Plugins\Phoundation\Hardware\Devices\Device;
+use Plugins\Phoundation\Hardware\Devices\Interfaces\ProfileInterface;
+use Plugins\Phoundation\Hardware\Exception\InvalidDeviceClassException;
 
 
 /**
@@ -22,7 +22,7 @@ use Plugins\Hardware\Exception\InvalidDeviceClassException;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2024 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Plugins\Scanner
+ * @package Plugins\Phoundation\Scanner
  */
 class Scanner extends Device
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\FingerPrint\Library;
+namespace Plugins\Phoundation\FingerPrint\Library;
 
 
 /**

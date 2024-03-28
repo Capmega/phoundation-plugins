@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Statistics\Library;
+namespace Plugins\Phoundation\Statistics\Library;
 
 
 /**
@@ -14,7 +14,7 @@ namespace Plugins\Statistics\Library;
  * @author Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
  * @license http://opensource.org/licenses/GPL-2.0 GNU Public License, Version 2
  * @copyright Copyright (c) 2023 Sven Olaf Oostenbrink <so.oostenbrink@gmail.com>
- * @package Plugins\Statistics
+ * @package Plugins\Phoundation\Statistics
  */
 class Updates extends \Phoundation\Core\Libraries\Updates
 {

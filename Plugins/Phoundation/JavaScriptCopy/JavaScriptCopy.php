@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\JavaScriptCopy;
+namespace Plugins\Phoundation\JavaScriptCopy;
 
 use Phoundation\Data\Traits\TraitDataBrowserEvent;
 use Phoundation\Data\Traits\TraitDataSelector;

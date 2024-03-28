@@ -8,9 +8,9 @@ use Phoundation\Core\Log\Log;
 use Phoundation\Data\Validator\ArgvValidator;
 use Phoundation\Utils\Arrays;
 use Phoundation\Utils\Utils;
-use Plugins\Hardware\Devices\Device;
-use Plugins\Hardware\Devices\Devices;
-use Plugins\Hardware\Devices\Profile;
+use Plugins\Phoundation\Hardware\Devices\Device;
+use Plugins\Phoundation\Hardware\Devices\Devices;
+use Plugins\Phoundation\Hardware\Devices\Profile;
 
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Plugins\Hardware\Library;
+namespace Plugins\Phoundation\Hardware\Library;
 
 use Phoundation\Core\Libraries;
 use Phoundation\Core\Locale\Language\Import;

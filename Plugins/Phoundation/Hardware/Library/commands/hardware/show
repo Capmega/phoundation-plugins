@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 use Phoundation\Cli\CliDocumentation;
 use Phoundation\Data\Validator\ArgvValidator;
-use Plugins\Hardware\Devices\Device;
-use Plugins\Hardware\Devices\Devices;
+use Plugins\Phoundation\Hardware\Devices\Device;
+use Plugins\Phoundation\Hardware\Devices\Devices;
 
 
 /**
@@ -50,4 +50,3 @@ Device::get($argv['device'])
     ->displayCliForm()
     ->getProfiles()
         ->displayCliTable();
-
